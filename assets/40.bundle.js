@@ -1,0 +1,109 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[40],{
+
+/***/ "./assets/src/routes/components/dataDisplay/Collapse/Accordion.js":
+/*!************************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Collapse/Accordion.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Panel = antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"].Panel;\nconst text = `\n  A dog is a type of domesticated animal.\n  Known for its loyalty and faithfulness,\n  it can be found as a welcome guest in many households across the world.\n`;\n\nconst Accordion = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Accordion\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"], {\n    accordion: true\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 1\",\n    key: \"1\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 2\",\n    key: \"2\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 3\",\n    key: \"3\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Accordion);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/Accordion.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Collapse/Basic.js":
+/*!********************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Collapse/Basic.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n/* harmony import */ var _basic_less__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./basic.less */ \"./assets/src/routes/components/dataDisplay/Collapse/basic.less\");\n/* harmony import */ var _basic_less__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_basic_less__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\nconst Panel = antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"].Panel;\nconst text = `\n  A dog is a type of domesticated animal.\n  Known for its loyalty and faithfulness,\n  it can be found as a welcome guest in many households across the world.\n`;\n\nconst Basic = () => {\n  function callback(key) {\n    console.log(key);\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Basic\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"], {\n    defaultActiveKey: ['1'],\n    onChange: callback\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 1\",\n    key: \"1\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 2\",\n    key: \"2\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 3\",\n    key: \"3\",\n    disabled: true\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Basic);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/Basic.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Collapse/Borderless.js":
+/*!*************************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Collapse/Borderless.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Panel = antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"].Panel;\nconst text = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", {\n  style: {\n    paddingLeft: 24\n  }\n}, \"A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.\");\n\nconst Borderless = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Borderless\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"], {\n    bordered: false,\n    defaultActiveKey: ['1']\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 1\",\n    key: \"1\"\n  }, text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 2\",\n    key: \"2\"\n  }, text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 3\",\n    key: \"3\"\n  }, text)));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Borderless);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/Borderless.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Collapse/CustomPanel.js":
+/*!**************************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Collapse/CustomPanel.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Panel = antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"].Panel;\nconst text = `\n  A dog is a type of domesticated animal.\n  Known for its loyalty and faithfulness,\n  it can be found as a welcome guest in many households across the world.\n`;\nconst customPanelStyle = {\n  borderRadius: 4,\n  border: 0,\n  overflow: 'hidden'\n};\n\nconst CustomPanel = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Custom Panel\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"], {\n    className: \"gx-collapse-custom\",\n    bordered: false,\n    defaultActiveKey: ['1']\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 1\",\n    key: \"1\",\n    style: customPanelStyle\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 2\",\n    key: \"2\",\n    style: customPanelStyle\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 3\",\n    key: \"3\",\n    style: customPanelStyle\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (CustomPanel);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/CustomPanel.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Collapse/NestedPanel.js":
+/*!**************************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Collapse/NestedPanel.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Panel = antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"].Panel;\nconst text = `\n  A dog is a type of domesticated animal.\n  Known for its loyalty and faithfulness,\n  it can be found as a welcome guest in many households across the world.\n`;\n\nconst NestedPanel = () => {\n  function callback(key) {\n    console.log(key);\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Nested Panel\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"], {\n    onChange: callback\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 1\",\n    key: \"1\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"], {\n    defaultActiveKey: \"1\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel nest panel\",\n    key: \"1\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 2\",\n    key: \"2\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header 3\",\n    key: \"3\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (NestedPanel);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/NestedPanel.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Collapse/NoArrow.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Collapse/NoArrow.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Panel = antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"].Panel;\nconst text = `\n  A dog is a type of domesticated animal.\n  Known for its loyalty and faithfulness,\n  it can be found as a welcome guest in many households across the world.\n`;\n\nconst NoArrow = () => {\n  function callback(key) {\n    console.log(key);\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"NoArrow\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Collapse\"], {\n    defaultActiveKey: ['1'],\n    onChange: callback\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    header: \"This is panel header with arrow icon\",\n    key: \"1\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Panel, {\n    showArrow: false,\n    header: \"This is panel header with no arrow icon\",\n    key: \"2\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, text))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (NoArrow);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/NoArrow.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Collapse/basic.less":
+/*!**********************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Collapse/basic.less ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("\nvar content = __webpack_require__(/*! !../../../../../../node_modules/css-loader!../../../../../../node_modules/less-loader/dist/cjs.js??ref--7-2!./basic.less */ \"./node_modules/css-loader/index.js!./node_modules/less-loader/dist/cjs.js?!./assets/src/routes/components/dataDisplay/Collapse/basic.less\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/basic.less?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Collapse/index.js":
+/*!********************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Collapse/index.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n/* harmony import */ var _Basic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Basic */ \"./assets/src/routes/components/dataDisplay/Collapse/Basic.js\");\n/* harmony import */ var _Accordion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Accordion */ \"./assets/src/routes/components/dataDisplay/Collapse/Accordion.js\");\n/* harmony import */ var _NestedPanel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NestedPanel */ \"./assets/src/routes/components/dataDisplay/Collapse/NestedPanel.js\");\n/* harmony import */ var _Borderless__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Borderless */ \"./assets/src/routes/components/dataDisplay/Collapse/Borderless.js\");\n/* harmony import */ var _CustomPanel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CustomPanel */ \"./assets/src/routes/components/dataDisplay/Collapse/CustomPanel.js\");\n/* harmony import */ var _NoArrow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./NoArrow */ \"./assets/src/routes/components/dataDisplay/Collapse/NoArrow.js\");\n\n\n\n\n\n\n\n\n\nconst Collapse = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Row\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Basic__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Accordion__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NestedPanel__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Borderless__WEBPACK_IMPORTED_MODULE_5__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CustomPanel__WEBPACK_IMPORTED_MODULE_6__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NoArrow__WEBPACK_IMPORTED_MODULE_7__[\"default\"], null)));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Collapse);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/less-loader/dist/cjs.js?!./assets/src/routes/components/dataDisplay/Collapse/basic.less":
+/*!*************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/less-loader/dist/cjs.js??ref--7-2!./assets/src/routes/components/dataDisplay/Collapse/basic.less ***!
+  \*************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"p {\\n  margin: 0;\\n}\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Collapse/basic.less?./node_modules/css-loader!./node_modules/less-loader/dist/cjs.js??ref--7-2");
+
+/***/ })
+
+}]);

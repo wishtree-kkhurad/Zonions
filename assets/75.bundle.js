@@ -1,0 +1,63 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[75],{
+
+/***/ "./assets/src/components/ContainerHeader/index.js":
+/*!********************************************************!*\
+  !*** ./assets/src/components/ContainerHeader/index.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst ContainerHeader = ({\n  title,\n  match\n}) => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"gx-page-heading\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"h2\", {\n    className: \"gx-page-title\"\n  }, title));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (ContainerHeader);\n\n//# sourceURL=webpack:///./assets/src/components/ContainerHeader/index.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/extensions/charts/recharts/scatter/Components/SimpleScatterChart.js":
+/*!***********************************************************************************************!*\
+  !*** ./assets/src/routes/extensions/charts/recharts/scatter/Components/SimpleScatterChart.js ***!
+  \***********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! recharts */ \"./node_modules/recharts/es6/index.js\");\n/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./data */ \"./assets/src/routes/extensions/charts/recharts/scatter/Components/data.js\");\n\n\n\n\nconst SimpleScatterChart = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"ResponsiveContainer\"], {\n  width: \"100%\",\n  height: 400\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"ScatterChart\"], {\n  margin: {\n    top: 10,\n    right: 0,\n    left: -15,\n    bottom: 0\n  }\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"XAxis\"], {\n  dataKey: 'x',\n  name: \"stature\",\n  unit: \"cm\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"YAxis\"], {\n  dataKey: 'y',\n  name: \"weight\",\n  unit: \"kg\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"Scatter\"], {\n  name: \"A school\",\n  data: _data__WEBPACK_IMPORTED_MODULE_2__[\"default\"],\n  fill: \"#003366\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"CartesianGrid\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"Tooltip\"], {\n  cursor: {\n    strokeDasharray: '3 3'\n  }\n})));\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (SimpleScatterChart);\n\n//# sourceURL=webpack:///./assets/src/routes/extensions/charts/recharts/scatter/Components/SimpleScatterChart.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/extensions/charts/recharts/scatter/Components/ThreeDimScatterChart.js":
+/*!*************************************************************************************************!*\
+  !*** ./assets/src/routes/extensions/charts/recharts/scatter/Components/ThreeDimScatterChart.js ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! recharts */ \"./node_modules/recharts/es6/index.js\");\n/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./data */ \"./assets/src/routes/extensions/charts/recharts/scatter/Components/data.js\");\n\n\n\n\nconst ThreeDimScatterChart = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"ResponsiveContainer\"], {\n  width: \"100%\",\n  height: 400\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"ScatterChart\"], {\n  margin: {\n    top: 10,\n    right: 0,\n    left: -15,\n    bottom: 0\n  }\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"XAxis\"], {\n  dataKey: 'x',\n  name: \"stature\",\n  unit: \"cm\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"YAxis\"], {\n  dataKey: 'y',\n  name: \"weight\",\n  unit: \"kg\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"ZAxis\"], {\n  dataKey: 'z',\n  range: [60, 400],\n  name: \"score\",\n  unit: \"km\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"CartesianGrid\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"Tooltip\"], {\n  cursor: {\n    strokeDasharray: '3 3'\n  }\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"Legend\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"Scatter\"], {\n  name: \"A school\",\n  data: _data__WEBPACK_IMPORTED_MODULE_2__[\"data01\"],\n  fill: \"#003366\",\n  shape: \"star\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__[\"Scatter\"], {\n  name: \"B school\",\n  data: _data__WEBPACK_IMPORTED_MODULE_2__[\"data02\"],\n  fill: \"#FE9E15\",\n  shape: \"triangle\"\n})));\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (ThreeDimScatterChart);\n\n//# sourceURL=webpack:///./assets/src/routes/extensions/charts/recharts/scatter/Components/ThreeDimScatterChart.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/extensions/charts/recharts/scatter/Components/data.js":
+/*!*********************************************************************************!*\
+  !*** ./assets/src/routes/extensions/charts/recharts/scatter/Components/data.js ***!
+  \*********************************************************************************/
+/*! exports provided: data01, data02, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"data01\", function() { return data01; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"data02\", function() { return data02; });\nconst data = [{\n  x: 100,\n  y: 200,\n  z: 200\n}, {\n  x: 120,\n  y: 100,\n  z: 260\n}, {\n  x: 170,\n  y: 300,\n  z: 400\n}, {\n  x: 140,\n  y: 250,\n  z: 280\n}, {\n  x: 150,\n  y: 400,\n  z: 500\n}, {\n  x: 110,\n  y: 280,\n  z: 200\n}];\nconst data01 = [{\n  x: 100,\n  y: 200,\n  z: 200\n}, {\n  x: 120,\n  y: 100,\n  z: 260\n}, {\n  x: 170,\n  y: 300,\n  z: 400\n}, {\n  x: 140,\n  y: 250,\n  z: 280\n}, {\n  x: 150,\n  y: 400,\n  z: 500\n}, {\n  x: 110,\n  y: 280,\n  z: 200\n}];\nconst data02 = [{\n  x: 200,\n  y: 260,\n  z: 240\n}, {\n  x: 240,\n  y: 290,\n  z: 220\n}, {\n  x: 190,\n  y: 290,\n  z: 250\n}, {\n  x: 198,\n  y: 250,\n  z: 210\n}, {\n  x: 180,\n  y: 280,\n  z: 260\n}, {\n  x: 210,\n  y: 220,\n  z: 230\n}];\n/* harmony default export */ __webpack_exports__[\"default\"] = (data);\n\n//# sourceURL=webpack:///./assets/src/routes/extensions/charts/recharts/scatter/Components/data.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/extensions/charts/recharts/scatter/index.js":
+/*!***********************************************************************!*\
+  !*** ./assets/src/routes/extensions/charts/recharts/scatter/index.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n/* harmony import */ var _Components_SimpleScatterChart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/SimpleScatterChart */ \"./assets/src/routes/extensions/charts/recharts/scatter/Components/SimpleScatterChart.js\");\n/* harmony import */ var _Components_ThreeDimScatterChart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/ThreeDimScatterChart */ \"./assets/src/routes/extensions/charts/recharts/scatter/Components/ThreeDimScatterChart.js\");\n/* harmony import */ var _components_ContainerHeader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../components/ContainerHeader */ \"./assets/src/components/ContainerHeader/index.js\");\n/* harmony import */ var _util_IntlMessages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../util/IntlMessages */ \"./assets/src/util/IntlMessages.js\");\n\n\n\n\n\n\n\nconst Scatter = ({\n  match\n}) => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"gx-main-content\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ContainerHeader__WEBPACK_IMPORTED_MODULE_4__[\"default\"], {\n    title: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_IntlMessages__WEBPACK_IMPORTED_MODULE_5__[\"default\"], {\n      id: \"sidebar.chart.scatter\"\n    }),\n    match: match\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Row\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    lg: 12,\n    md: 12,\n    sm: 24,\n    xs: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Simple Scatter Chart\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Components_SimpleScatterChart__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    lg: 12,\n    md: 12,\n    sm: 24,\n    xs: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Three Dim Scatter Chart\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Components_ThreeDimScatterChart__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null)))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Scatter);\n\n//# sourceURL=webpack:///./assets/src/routes/extensions/charts/recharts/scatter/index.js?");
+
+/***/ })
+
+}]);

@@ -1,0 +1,73 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[67],{
+
+/***/ "./assets/src/routes/components/navigation/Affix/Basic.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Affix/Basic.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\n\nconst Basic = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Basic\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Affix\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Button\"], {\n    type: \"primary\"\n  }, \"Affix top\")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"br\", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Affix\"], {\n    offsetBottom: 0\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Button\"], {\n    type: \"primary\"\n  }, \"Affix bottom\")));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Basic);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Affix/Basic.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Affix/Callback.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Affix/Callback.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\n\nconst Callback = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Affix top\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Affix\"], {\n    offsetTop: 120,\n    onChange: affixed => console.log(affixed)\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Button\"], null, \"120px to affix top\")));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Callback);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Affix/Callback.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Affix/ContainerToScroll.js":
+/*!****************************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Affix/ContainerToScroll.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n/* harmony import */ var _containerToScroll_less__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./containerToScroll.less */ \"./assets/src/routes/components/navigation/Affix/containerToScroll.less\");\n/* harmony import */ var _containerToScroll_less__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_containerToScroll_less__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\n\nclass ContainerToScroll extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {\n  render() {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n      className: \"gx-card\",\n      title: \"Fixed at the top of container\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n      className: \"scrollable-container\",\n      ref: node => {\n        this.container = node;\n      }\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n      className: \"background\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Affix\"], {\n      target: () => this.container\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Button\"], {\n      type: \"primary\"\n    }, \"Fixed at the top of container\")))));\n  }\n\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (ContainerToScroll);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Affix/ContainerToScroll.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Affix/containerToScroll.less":
+/*!******************************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Affix/containerToScroll.less ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("\nvar content = __webpack_require__(/*! !../../../../../../node_modules/css-loader!../../../../../../node_modules/less-loader/dist/cjs.js??ref--7-2!./containerToScroll.less */ \"./node_modules/css-loader/index.js!./node_modules/less-loader/dist/cjs.js?!./assets/src/routes/components/navigation/Affix/containerToScroll.less\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Affix/containerToScroll.less?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Affix/index.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Affix/index.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n/* harmony import */ var _Basic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Basic */ \"./assets/src/routes/components/navigation/Affix/Basic.js\");\n/* harmony import */ var _Callback__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Callback */ \"./assets/src/routes/components/navigation/Affix/Callback.js\");\n/* harmony import */ var _ContainerToScroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ContainerToScroll */ \"./assets/src/routes/components/navigation/Affix/ContainerToScroll.js\");\n\n\n\n\n\n\nconst Affix = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Row\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    lg: 12,\n    md: 12,\n    sm: 24,\n    xs: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Basic__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Callback__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    lg: 12,\n    md: 12,\n    sm: 24,\n    xs: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ContainerToScroll__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null)));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Affix);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Affix/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/less-loader/dist/cjs.js?!./assets/src/routes/components/navigation/Affix/containerToScroll.less":
+/*!*********************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/less-loader/dist/cjs.js??ref--7-2!./assets/src/routes/components/navigation/Affix/containerToScroll.less ***!
+  \*********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \".scrollable-container {\\n  height: 100px;\\n  overflow-y: scroll;\\n}\\n.background {\\n  padding-top: 60px;\\n  height: 300px;\\n  background-image: url('https://zos.alipayobjects.com/rmsportal/RmjwQiJorKyobvI.jpg');\\n}\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Affix/containerToScroll.less?./node_modules/css-loader!./node_modules/less-loader/dist/cjs.js??ref--7-2");
+
+/***/ })
+
+}]);

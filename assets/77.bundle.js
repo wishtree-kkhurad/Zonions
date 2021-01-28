@@ -1,0 +1,63 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[77],{
+
+/***/ "./assets/src/routes/components/dataDisplay/Avatar/AutosetSize.js":
+/*!************************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Avatar/AutosetSize.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst UserList = ['U', 'Lucy', 'Tom', 'Edward'];\nconst colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];\n\nclass AutosetSize extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {\n  constructor(props) {\n    super(props);\n\n    this.changeUser = () => {\n      const index = UserList.indexOf(this.state.user);\n      this.setState({\n        user: index < UserList.length - 1 ? UserList[index + 1] : UserList[0],\n        color: index < colorList.length - 1 ? colorList[index + 1] : colorList[0]\n      });\n    };\n\n    this.state = {\n      user: UserList[0],\n      color: colorList[0]\n    };\n  }\n\n  render() {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n      className: \"gx-card\",\n      title: \"Autoset Size\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n      style: {\n        backgroundColor: this.state.color,\n        verticalAlign: 'middle'\n      },\n      size: \"large\"\n    }, this.state.user), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Button\"], {\n      className: \"gx-mb-0\",\n      size: \"small\",\n      style: {\n        marginLeft: 16,\n        verticalAlign: 'middle'\n      },\n      onClick: this.changeUser\n    }, \"Change\"));\n  }\n\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (AutosetSize);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Avatar/AutosetSize.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Avatar/Basic.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Avatar/Basic.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\n\nconst Basic = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Basic\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"gx-mb-3\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    size: \"large\",\n    icon: \"user\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    icon: \"user\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    size: \"small\",\n    icon: \"user\"\n  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"gx-mb-0\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    shape: \"square\",\n    size: \"large\",\n    icon: \"user\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    shape: \"square\",\n    icon: \"user\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    shape: \"square\",\n    size: \"small\",\n    icon: \"user\"\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Basic);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Avatar/Basic.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Avatar/Type.js":
+/*!*****************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Avatar/Type.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\n\nconst Type = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Type\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    icon: \"user\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\"\n  }, \"U\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\"\n  }, \"USER\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    src: \"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    style: {\n      color: '#f56a00',\n      backgroundColor: '#fde3cf'\n    }\n  }, \"U\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    className: \"gx-mr-2\",\n    style: {\n      backgroundColor: '#87d068'\n    },\n    icon: \"user\"\n  }));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Type);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Avatar/Type.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Avatar/WithBadge.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Avatar/WithBadge.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\n\nconst WithBadge = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"WithBadge\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"span\", {\n    className: \"gx-mr-4\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Badge\"], {\n    count: 1\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    shape: \"square\",\n    icon: \"user\"\n  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"span\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Badge\"], {\n    dot: true\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Avatar\"], {\n    shape: \"square\",\n    icon: \"user\"\n  }))));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (WithBadge);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Avatar/WithBadge.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/dataDisplay/Avatar/index.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/routes/components/dataDisplay/Avatar/index.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n/* harmony import */ var _Basic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Basic */ \"./assets/src/routes/components/dataDisplay/Avatar/Basic.js\");\n/* harmony import */ var _Type__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Type */ \"./assets/src/routes/components/dataDisplay/Avatar/Type.js\");\n/* harmony import */ var _AutosetSize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AutosetSize */ \"./assets/src/routes/components/dataDisplay/Avatar/AutosetSize.js\");\n/* harmony import */ var _WithBadge__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./WithBadge */ \"./assets/src/routes/components/dataDisplay/Avatar/WithBadge.js\");\n\n\n\n\n\n\n\nconst Avatar = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Row\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    lg: 12,\n    md: 12,\n    sm: 24,\n    xs: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Basic__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Type__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    lg: 12,\n    md: 12,\n    sm: 24,\n    xs: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AutosetSize__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WithBadge__WEBPACK_IMPORTED_MODULE_5__[\"default\"], null)));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Avatar);\n\n//# sourceURL=webpack:///./assets/src/routes/components/dataDisplay/Avatar/index.js?");
+
+/***/ })
+
+}]);

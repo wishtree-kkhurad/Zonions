@@ -1,0 +1,145 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[22],{
+
+/***/ "./assets/src/routes/components/navigation/Steps/Basic.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/Basic.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\n\nconst Basic = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Basic\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], {\n    current: 1\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Finished\",\n    description: \"This is a description.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"In Progress\",\n    description: \"This is a description.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Waiting\",\n    description: \"This is a description.\"\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Basic);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/Basic.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/CustomizedDotStyle.js":
+/*!*****************************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/CustomizedDotStyle.js ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\n\nconst customDot = (dot, {\n  status,\n  index\n}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Popover\"], {\n  content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"span\", null, \"step \", index, \" status: \", status)\n}, dot);\n\nconst CustomizedDotStyle = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Customized DotS tyle\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], {\n    current: 1,\n    progressDot: customDot\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Finished\",\n    description: \"You can hover on the dot.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"In Progress\",\n    description: \"You can hover on the dot.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Waiting\",\n    description: \"You can hover on the dot.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Waiting\",\n    description: \"You can hover on the dot.\"\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (CustomizedDotStyle);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/CustomizedDotStyle.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/DotStyle.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/DotStyle.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\n\nconst DotStyle = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Dot Style\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], {\n    progressDot: true,\n    current: 1\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Finished\",\n    description: \"This is a description.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"In Progress\",\n    description: \"This is a description.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Waiting\",\n    description: \"This is a description.\"\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (DotStyle);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/DotStyle.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/ErrorStatus.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/ErrorStatus.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\n\nconst ErrorStatus = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"ErrorStatus\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], {\n    current: 1,\n    status: \"error\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Finished\",\n    description: \"This is a description\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"In Process\",\n    description: \"This is a description\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Waiting\",\n    description: \"This is a description\"\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (ErrorStatus);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/ErrorStatus.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/MiniVersion.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/MiniVersion.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\n\nconst MiniVersion = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Mini Version\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], {\n    size: \"small\",\n    current: 1\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Finished\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"In Progress\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Waiting\"\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (MiniVersion);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/MiniVersion.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/SwitchStep.js":
+/*!*********************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/SwitchStep.js ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.css */ \"./assets/src/routes/components/navigation/Steps/index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\nconst steps = [{\n  title: 'First',\n  content: 'First-content'\n}, {\n  title: 'Second',\n  content: 'Second-content'\n}, {\n  title: 'Last',\n  content: 'Last-content'\n}];\n\nclass SwitchStep extends react__WEBPACK_IMPORTED_MODULE_0__[\"Component\"] {\n  constructor(props) {\n    super(props);\n    this.state = {\n      current: 0\n    };\n  }\n\n  next() {\n    const current = this.state.current + 1;\n    this.setState({\n      current\n    });\n  }\n\n  prev() {\n    const current = this.state.current - 1;\n    this.setState({\n      current\n    });\n  }\n\n  render() {\n    const {\n      current\n    } = this.state;\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n      className: \"gx-card\",\n      title: \"Switch Step\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], {\n      current: current\n    }, steps.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n      key: item.title,\n      title: item.title\n    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n      className: \"steps-content\"\n    }, steps[this.state.current].content), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n      className: \"steps-action\"\n    }, this.state.current < steps.length - 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Button\"], {\n      type: \"primary\",\n      onClick: () => this.next()\n    }, \"Next\"), this.state.current === steps.length - 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Button\"], {\n      type: \"primary\",\n      onClick: () => antd__WEBPACK_IMPORTED_MODULE_1__[\"message\"].success('Processing complete!')\n    }, \"Done\"), this.state.current > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Button\"], {\n      style: {\n        marginLeft: 8\n      },\n      onClick: () => this.prev()\n    }, \"Previous\")));\n  }\n\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (SwitchStep);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/SwitchStep.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/Vertical.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/Vertical.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\n\nconst Vertical = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Vertical\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], {\n    direction: \"vertical\",\n    current: 1\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Finished\",\n    description: \"This is a description.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"In Progress\",\n    description: \"This is a description.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Waiting\",\n    description: \"This is a description.\"\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Vertical);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/Vertical.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/VerticalVersion.js":
+/*!**************************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/VerticalVersion.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\n\nconst VerticalVersion = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"Vertical Version\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], {\n    direction: \"vertical\",\n    size: \"small\",\n    current: 1\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Finished\",\n    description: \"This is a description.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"In Progress\",\n    description: \"This is a description.\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    title: \"Waiting\",\n    description: \"This is a description.\"\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (VerticalVersion);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/VerticalVersion.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/WithIcon.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/WithIcon.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n\n\nconst Step = antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"].Step;\n\nconst WithIcon = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Card\"], {\n    className: \"gx-card\",\n    title: \"With Icon\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Steps\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    status: \"finish\",\n    title: \"Login\",\n    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Icon\"], {\n      type: \"user\"\n    })\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    status: \"finish\",\n    title: \"Verification\",\n    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Icon\"], {\n      type: \"solution\"\n    })\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    status: \"process\",\n    title: \"Pay\",\n    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Icon\"], {\n      type: \"loading\"\n    })\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {\n    status: \"wait\",\n    title: \"Done\",\n    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Icon\"], {\n      type: \"smile-o\"\n    })\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (WithIcon);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/WithIcon.js?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/index.css":
+/*!*****************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/index.css ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("\nvar content = __webpack_require__(/*! !../../../../../../node_modules/css-loader!./index.css */ \"./node_modules/css-loader/index.js!./assets/src/routes/components/navigation/Steps/index.css\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/index.css?");
+
+/***/ }),
+
+/***/ "./assets/src/routes/components/navigation/Steps/index.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/routes/components/navigation/Steps/index.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/index.js\");\n/* harmony import */ var _Basic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Basic */ \"./assets/src/routes/components/navigation/Steps/Basic.js\");\n/* harmony import */ var _SwitchStep__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SwitchStep */ \"./assets/src/routes/components/navigation/Steps/SwitchStep.js\");\n/* harmony import */ var _MiniVersion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MiniVersion */ \"./assets/src/routes/components/navigation/Steps/MiniVersion.js\");\n/* harmony import */ var _WithIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./WithIcon */ \"./assets/src/routes/components/navigation/Steps/WithIcon.js\");\n/* harmony import */ var _Vertical__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Vertical */ \"./assets/src/routes/components/navigation/Steps/Vertical.js\");\n/* harmony import */ var _VerticalVersion__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./VerticalVersion */ \"./assets/src/routes/components/navigation/Steps/VerticalVersion.js\");\n/* harmony import */ var _ErrorStatus__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ErrorStatus */ \"./assets/src/routes/components/navigation/Steps/ErrorStatus.js\");\n/* harmony import */ var _DotStyle__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./DotStyle */ \"./assets/src/routes/components/navigation/Steps/DotStyle.js\");\n/* harmony import */ var _CustomizedDotStyle__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./CustomizedDotStyle */ \"./assets/src/routes/components/navigation/Steps/CustomizedDotStyle.js\");\n\n\n\n\n\n\n\n\n\n\n\n\nconst Steps = () => {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Row\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Basic__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MiniVersion__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_WithIcon__WEBPACK_IMPORTED_MODULE_5__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SwitchStep__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Vertical__WEBPACK_IMPORTED_MODULE_6__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VerticalVersion__WEBPACK_IMPORTED_MODULE_7__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorStatus__WEBPACK_IMPORTED_MODULE_8__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DotStyle__WEBPACK_IMPORTED_MODULE_9__[\"default\"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__[\"Col\"], {\n    span: 24\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CustomizedDotStyle__WEBPACK_IMPORTED_MODULE_10__[\"default\"], null)));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Steps);\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./assets/src/routes/components/navigation/Steps/index.css":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/css-loader!./assets/src/routes/components/navigation/Steps/index.css ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \".steps-content {\\r\\n  margin-top: 16px;\\r\\n  border: 1px dashed #e9e9e9;\\r\\n  border-radius: 6px;\\r\\n  background-color: #fafafa;\\r\\n  min-height: 200px;\\r\\n  text-align: center;\\r\\n  padding-top: 80px;\\r\\n}\\r\\n\\r\\n.steps-action {\\r\\n  margin-top: 24px;\\r\\n}\\r\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./assets/src/routes/components/navigation/Steps/index.css?./node_modules/css-loader");
+
+/***/ })
+
+}]);
