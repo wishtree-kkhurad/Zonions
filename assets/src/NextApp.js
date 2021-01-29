@@ -9,7 +9,6 @@ import "./firebase/firebase";
 import App from "./containers/App/index";
 import './styles/wieldy.less';
 
-
 export const store = configureStore();
 
 const NextApp = () =>

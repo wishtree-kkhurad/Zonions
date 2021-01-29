@@ -13,6 +13,7 @@ import {
   NAV_STYLE_NO_HEADER_MINI_SIDEBAR,
   THEME_TYPE_LITE
 } from "../../constants/ThemeSetting";
+
 import IntlMessages from "../../util/IntlMessages";
 import {connect} from "react-redux";
 

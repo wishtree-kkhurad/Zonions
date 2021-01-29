@@ -9,12 +9,15 @@ import InBuiltApps from "./inBuiltApps/index";
 import SocialApps from "./socialApps/index";
 import Main from "./main/index";
 import Documents from "./documents/index";
-import Home from "../components/Home";
+
+import Home from '../components/Home/index';
+import RestaurantDetails from '../components/RestaurantsDetails/index';
 
 const App = ({match}) => (
   <div className="gx-main-content-wrapper">
     <Switch>
       <Route path={`${match.url}home`} component={Home}/>
+      <Route path={`${match.url}restaurant/details/:id`} component={RestaurantDetails}/>
 
       <Route path={`${match.url}main`} component={Main}/>
       <Route path={`${match.url}components`} component={Components}/>

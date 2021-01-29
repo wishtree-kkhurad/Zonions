@@ -11,7 +11,6 @@ import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import {setInitUrl} from "../../appRedux/actions/Auth";
 import {onLayoutTypeChange, onNavStyleChange, setThemeType} from "../../appRedux/actions/Setting";
-import Home from "../../components/Home";
 
 import {
   LAYOUT_TYPE_BOXED,
@@ -95,7 +94,8 @@ class App extends Component {
       if (authUser === null) {
         return ( <Redirect to={'/signin'}/> );
       } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
-        return ( <Redirect to={'/main/dashboard/crypto'}/> );
+        // return ( <Redirect to={'/main/dashboard/crypto'}/> );
+        return ( <Redirect to={'/home'}/> );
       } else {
         return ( <Redirect to={initURL}/> );
       }
@@ -112,7 +112,6 @@ class App extends Component {
           messages={currentAppLocale.messages}>
 
           <Switch>
-            <Route exact path='/home' component={Home}/>
             <Route exact path='/signin' component={SignIn}/>
             <Route exact path='/signup' component={SignUp}/>
             <RestrictedRoute path={`${match.url}`} authUser={authUser}
