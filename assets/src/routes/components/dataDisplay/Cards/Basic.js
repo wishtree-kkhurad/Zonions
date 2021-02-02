@@ -10,7 +10,6 @@ class Basic extends React.Component {
   }
 
   getDetails = (restaurant) =>{
-
     this.props.history.push({pathname:`/restaurant/details/${restaurant.id}`, data: restaurant});
   }
 

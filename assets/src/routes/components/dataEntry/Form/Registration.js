@@ -112,7 +112,7 @@ class Registration extends Component {
     ));
 
     return (
-      <Card className="gx-card" title="Registration Form">
+      <Card className="gx-card" title="Add Restaurant">
         <Form onSubmit={this.handleSubmit}>
           <FormItem
             {...formItemLayout}

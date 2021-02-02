@@ -1,5 +1,8 @@
 import React from "react";
 import {Button, Card, Table} from "antd";
+// import { allRestaurants } from '../../../../components/Home/data';
+
+// const data = allRestaurants;
 
 const data = [{
   key: '1',
@@ -57,7 +60,8 @@ class ResetFilter extends React.Component {
     let {sortedInfo, filteredInfo} = this.state;
     sortedInfo = sortedInfo || {};
     filteredInfo = filteredInfo || {};
-    const columns = [{
+    const columns = [
+      {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
@@ -69,7 +73,8 @@ class ResetFilter extends React.Component {
       onFilter: (value, record) => record.name.includes(value),
       sorter: (a, b) => a.name.length - b.name.length,
       sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
-    }, {
+      }, 
+      {
       title: 'Age',
       dataIndex: 'age',
       key: 'age',

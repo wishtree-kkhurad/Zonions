@@ -12,12 +12,18 @@ import Documents from "./documents/index";
 
 import Home from '../components/Home/index';
 import RestaurantDetails from '../components/RestaurantsDetails/index';
+import AddRestaurant from '../components/AddRestaurant/index';
+import ManageRestaurants from '../components/ManageRestaurant/index';
 
 const App = ({match}) => (
   <div className="gx-main-content-wrapper">
     <Switch>
       <Route path={`${match.url}home`} component={Home}/>
       <Route path={`${match.url}restaurant/details/:id`} component={RestaurantDetails}/>
+      <Route path={`${match.url}restaurant/add`} component={AddRestaurant}/>
+      <Route path={`${match.url}restaurant/manage`} component={ManageRestaurants}/>
+
+
 
       <Route path={`${match.url}main`} component={Main}/>
       <Route path={`${match.url}components`} component={Components}/>
