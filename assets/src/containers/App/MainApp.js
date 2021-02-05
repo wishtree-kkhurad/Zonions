@@ -10,7 +10,7 @@ import BelowHeader from "../Topbar/BelowHeader/index";
 
 import Topbar from "../Topbar/index";
 import {footerText} from "../../util/config";
-import App from "../../routes/index";
+import RouteApp from "../../routes/index";
 import Customizer from "../../containers/Customizer";
 import {connect} from "react-redux";
 import {
@@ -100,11 +100,11 @@ export class MainApp extends Component {
 
     return (
       <Layout className="gx-app-layout">
-        {this.getSidebar(navStyle, width)}
+        {/* {this.getSidebar(navStyle, width)} */}
         <Layout>
           {this.getNavStyles(navStyle)}
           <Content className={`gx-layout-content ${ this.getContainerClass(navStyle)} `}>
-            <App match={match}/>
+            <RouteApp match={match}/>
             <Footer>
               <div className="gx-layout-footer-content">
                 {footerText}

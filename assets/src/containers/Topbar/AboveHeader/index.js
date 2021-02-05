@@ -70,11 +70,11 @@ class AboveHeader extends Component {
           <div className="gx-container">
             <div className="gx-header-horizontal-nav-flex">
               <HorizontalNav/>
-              <ul className="gx-header-notifications gx-ml-auto">
+              {/* <ul className="gx-header-notifications gx-ml-auto">
                 <li><span className="gx-pointer gx-d-block"><i className="icon icon-menu-lines"/></span></li>
                 <li><span className="gx-pointer gx-d-block"><i className="icon icon-setting"/></span></li>
                 <li><span className="gx-pointer gx-d-block"><i className="icon icon-apps-new"/></span></li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ class AboveHeader extends Component {
                 </Select>
               </div>
 
-              <ul className="gx-header-notifications gx-ml-auto">
+              {/* <ul className="gx-header-notifications gx-ml-auto">
                 <li className="gx-notify gx-notify-search gx-d-inline-block gx-d-lg-none">
                   <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={
                     <div className="gx-d-flex"><Dropdown overlay={menu}>
@@ -167,7 +167,7 @@ class AboveHeader extends Component {
                   </Popover>
                 </li>
                 <li className="gx-user-nav"><UserInfo/></li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </Header>

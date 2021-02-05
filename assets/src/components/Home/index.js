@@ -1,21 +1,54 @@
 import React from 'react';
-import Cards from '../../routes/components/dataDisplay/Cards/index';
+import ProductItem from '../../routes/customViews/eCommerce/ProductGrid/index';
+import { Redirect, Link, withRouter } from 'react-router-dom';
+import { Layout, Button } from "antd";
+import { footerText } from "../../util/config";
+import Auxiliary from "../../util/Auxiliary";
+
+
+const { Content, Footer, Header } = Layout;
 
 class Home extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    goToLogin = () => {
+        console.log('props in home', this.props);
+        this.props.history.push({ pathname: '/signin' });
+    }
+    goToSignup = () => {
+        this.props.history.push({ pathname: '/signup' });
+    }
     render() {
+
         return (
-            <div>
-                <div style={{ textAlign: 'center' }}>
-                    <h1 style={{fontWeight:'bolder'}}>Welcome To Zonions App</h1>
-                    <h3>You Wish, We Serve</h3>
-                </div>
+            <Layout className="gx-app-layout" style={{ margin: '2%' }}>
+                <Content className={`gx-layout-content`}>
+                    <Auxiliary>
+                        <Header>
+                            <h1 style={{ fontSize: '55px', textAlign: 'center' }}>Zonions</h1>
+                            <div>
+                                <Button type='primary'  onClick={() => this.goToLogin(this.props)}>Login</Button>
+                                <Button type='primary' onClick={() => this.goToSignup(this.props)}>SignUp</Button>
+                            </div>
+                            
+                        </Header>
+                    </Auxiliary>
 
-                <div style={{ display: 'inline-block', marginLeft:'2%'}}>
-                    <Cards />
-                </div>
-            </div>
-
+                    <div>
+                        <ProductItem />
+                    </div>
+                    <div>
+                        <Footer>
+                            <div className="gx-layout-footer-content">
+                                {footerText}
+                            </div>
+                        </Footer>
+                    </div>
+                </Content>
+            </Layout>
         );
     }
 }
-export default Home;
+export default withRouter(Home);

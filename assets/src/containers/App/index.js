@@ -7,6 +7,8 @@ import {IntlProvider} from "react-intl";
 
 import AppLocale from "../../lngProvider";
 import MainApp from "./MainApp";
+import Home from '../../components/Home/index';
+import RestaurantDetails from '../../components/RestaurantsDetails/index'
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import {setInitUrl} from "../../appRedux/actions/Auth";
@@ -39,36 +41,40 @@ const RestrictedRoute = ({component: Component, authUser, ...rest}) =>
 
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
 
-  setLayoutType = (layoutType) => {
-    if (layoutType === LAYOUT_TYPE_FULL) {
-      document.body.classList.remove('boxed-layout');
-      document.body.classList.remove('framed-layout');
-      document.body.classList.add('full-layout');
-    } else if (layoutType === LAYOUT_TYPE_BOXED) {
-      document.body.classList.remove('full-layout');
-      document.body.classList.remove('framed-layout');
-      document.body.classList.add('boxed-layout');
-    } else if (layoutType === LAYOUT_TYPE_FRAMED) {
-      document.body.classList.remove('boxed-layout');
-      document.body.classList.remove('full-layout');
-      document.body.classList.add('framed-layout');
-    }
-  };
+  // setLayoutType = (layoutType) => {
+  //   if (layoutType === LAYOUT_TYPE_FULL) {
+  //     document.body.classList.remove('boxed-layout');
+  //     document.body.classList.remove('framed-layout');
+  //     document.body.classList.add('full-layout');
+  //   } else if (layoutType === LAYOUT_TYPE_BOXED) {
+  //     document.body.classList.remove('full-layout');
+  //     document.body.classList.remove('framed-layout');
+  //     document.body.classList.add('boxed-layout');
+  //   } else if (layoutType === LAYOUT_TYPE_FRAMED) {
+  //     document.body.classList.remove('boxed-layout');
+  //     document.body.classList.remove('full-layout');
+  //     document.body.classList.add('framed-layout');
+  //   }
+  // };
 
-  setNavStyle = (navStyle) => {
-    if (navStyle === NAV_STYLE_DEFAULT_HORIZONTAL ||
-      navStyle === NAV_STYLE_DARK_HORIZONTAL ||
-      navStyle === NAV_STYLE_INSIDE_HEADER_HORIZONTAL ||
-      navStyle === NAV_STYLE_ABOVE_HEADER ||
-      navStyle === NAV_STYLE_BELOW_HEADER) {
-      document.body.classList.add('full-scroll');
-      document.body.classList.add('horizontal-layout');
-    } else {
-      document.body.classList.remove('full-scroll');
-      document.body.classList.remove('horizontal-layout');
-    }
-  };
+  // setNavStyle = (navStyle) => {
+  //   if (navStyle === NAV_STYLE_DEFAULT_HORIZONTAL ||
+  //     navStyle === NAV_STYLE_DARK_HORIZONTAL ||
+  //     navStyle === NAV_STYLE_INSIDE_HEADER_HORIZONTAL ||
+  //     navStyle === NAV_STYLE_ABOVE_HEADER ||
+  //     navStyle === NAV_STYLE_BELOW_HEADER) {
+  //     document.body.classList.add('full-scroll');
+  //     document.body.classList.add('horizontal-layout');
+  //   } else {
+  //     document.body.classList.remove('full-scroll');
+  //     document.body.classList.remove('horizontal-layout');
+  //   }
+  // };
 
   componentWillMount() {
     if (this.props.initURL === '') {
@@ -89,20 +95,20 @@ class App extends Component {
 
   render() {
     const {match, location, layoutType, navStyle, locale, authUser, initURL} = this.props;
-
+    console.log('***main app ', this.props)
     if (location.pathname === '/') {
       if (authUser === null) {
         return ( <Redirect to={'/signin'}/> );
-      } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
+      } else if (initURL === '' || initURL === '/' || initURL === '/signin'){
         // return ( <Redirect to={'/main/dashboard/crypto'}/> );
-        return ( <Redirect to={'/home'}/> );
+        return ( <Redirect to={'/restaurant/manage'}/> );
       } else {
         return ( <Redirect to={initURL}/> );
       }
     }
-    this.setLayoutType(layoutType);
+    // this.setLayoutType(layoutType);
 
-    this.setNavStyle(navStyle);
+    // this.setNavStyle(navStyle);
 
     const currentAppLocale = AppLocale[locale.locale];
     return (
@@ -112,8 +118,15 @@ class App extends Component {
           messages={currentAppLocale.messages}>
 
           <Switch>
+            <Route path= '/home' component={Home}/>
+            <Route path={`${match.url}restaurant/details/:id`} component={RestaurantDetails}/>
+
             <Route exact path='/signin' component={SignIn}/>
             <Route exact path='/signup' component={SignUp}/>
+
+            {/* <Route exact path={`${this.props.location.pathname}`} component={SignIn}/>
+            <Route exact path={`${match.url}/signup`} component={SignUp}/> */}
+            
             <RestrictedRoute path={`${match.url}`} authUser={authUser}
                              component={MainApp}/>
           </Switch>

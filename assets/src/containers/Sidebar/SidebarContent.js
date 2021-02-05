@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Menu} from "antd";
 import {Link} from "react-router-dom";
-
+import {Divider} from 'antd';
 import CustomScrollbars from "../../util/CustomScrollbars";
 import SidebarLogo from "./SidebarLogo";
 
@@ -42,20 +42,30 @@ class SidebarContent extends Component {
     const defaultOpenKeys = selectedKeys.split('/')[1];
     return (
       <Auxiliary>
-        <SidebarLogo/>
-        <div className="gx-sidebar-content">
-          <div className={`gx-sidebar-notifications ${this.getNoHeaderClass(navStyle)}`}>
-            <UserProfile/>
-            <AppsNavigation/>
-          </div>
-          <CustomScrollbars className="gx-layout-sider-scrollbar">
-            <Menu
+        {/* <SidebarLogo/> */}
+        {/* <div className="gx-sidebar-content"> */}
+          {/* <div className={`gx-sidebar-notifications ${this.getNoHeaderClass(navStyle)}`}> */}
+            {/* <UserProfile/> */}
+            
+            {/* <AppsNavigation/> */}
+          {/* </div> */}
+          {/* <CustomScrollbars className="gx-layout-sider-scrollbar"> */}
+            {/* <Menu
               defaultOpenKeys={[defaultOpenKeys]}
               selectedKeys={[selectedKeys]}
               theme={themeType === THEME_TYPE_LITE ? 'lite' : 'dark'}
               mode="inline">
+              
+              <MenuItemGroup >
+                <Link to="/home">Home</Link>
+                <Divider type="vertical"/>
+                <Link to="/signup">Signup</Link>
+                <Divider type="vertical"/>
+                <Link to="/signin">Signin</Link>
+              </MenuItemGroup> */}
 
-              <MenuItemGroup key="main" className="gx-menu-group" title={<IntlMessages id="sidebar.main"/>}>
+
+              {/* <MenuItemGroup key="main" className="gx-menu-group" title={<IntlMessages id="sidebar.main"/>}>
                 <SubMenu key="dashboard" className={this.getNavStyleSubMenuClass(navStyle)}
                          title={<span> <i className="icon icon-dasbhoard"/>
                          <IntlMessages id="sidebar.dashboard"/></span>}>
@@ -79,7 +89,7 @@ class SidebarContent extends Component {
                   </Menu.Item>
                 </SubMenu>
 
-                {/* <Menu.Item key="main/widgets">
+                <Menu.Item key="main/widgets">
                   <Link to="/main/widgets"><i className="icon icon-widgets"/>
                     <IntlMessages id="sidebar.widgets"/></Link>
                 </Menu.Item>
@@ -87,14 +97,14 @@ class SidebarContent extends Component {
                 <Menu.Item key="main/metrics">
                   <Link to="/main/metrics"><i className="icon icon-apps"/>
                     <IntlMessages id="sidebar.metrics"/></Link>
-                </Menu.Item> */}
+                </Menu.Item> 
 
-                {/* <Menu.Item key="main/layouts">
+                <Menu.Item key="main/layouts">
                   <Link to="/main/layouts"><i className="icon icon-card"/>
                     <IntlMessages id="sidebar.layouts"/></Link>
-                </Menu.Item> */}
+                </Menu.Item>
 
-              </MenuItemGroup>
+              </MenuItemGroup> */}
 
               {/* <MenuItemGroup key="in-built-apps" className="gx-menu-group"
                              title={<IntlMessages id="sidebar.inBuiltApp"/>}>
@@ -939,9 +949,9 @@ class SidebarContent extends Component {
 
               </MenuItemGroup> */}
 
-            </Menu>
-          </CustomScrollbars>
-        </div>
+            {/* </Menu> */}
+          {/* </CustomScrollbars> */}
+        {/* </div> */}
       </Auxiliary>
     );
   }

@@ -36,8 +36,8 @@ class Chat extends Component {
     const {conversationData} = conversation;
     return <div className="gx-chat-main">
       <div className="gx-chat-main-header">
-        <span className="gx-d-block gx-d-lg-none gx-chat-btn"><i className="gx-icon-btn icon icon-chat"
-                                                                 onClick={this.onToggleDrawer.bind(this)}/></span>
+        {/* <span className="gx-d-block gx-d-lg-none gx-chat-btn"><i className="gx-icon-btn icon icon-chat"
+                                                                 onClick={this.onToggleDrawer.bind(this)}/></span> */}
         <div className="gx-chat-main-header-info">
 
           <div className="gx-chat-avatar gx-mr-2">

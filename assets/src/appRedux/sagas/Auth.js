@@ -66,6 +66,7 @@ function* createUserWithEmailPassword({payload}) {
     if (signUpUser.message) {
       yield put(showAuthMessage(signUpUser.message));
     } else {
+      console.log('else of signup from sagas')
       localStorage.setItem('user_id', signUpUser.user.uid);
       yield put(userSignUpSuccess(signUpUser.user.uid));
     }
@@ -144,6 +145,7 @@ function* signInUserWithEmailPassword({payload}) {
     if (signInUser.message) {
       yield put(showAuthMessage(signInUser.message));
     } else {
+      console.log('from else of sign in sagas')
       localStorage.setItem('user_id', signInUser.user.uid);
       yield put(userSignInSuccess(signInUser.user.uid));
     }

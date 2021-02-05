@@ -11,21 +11,11 @@ import ColRowSpan from "./ColRowSpan";
 const BasicTable = () => {
   return (
     <Row>
-      <Col span={24}>
-        <Simple/>
-      </Col>
+      
       <Col span={24}>
         <Selection/>
       </Col>
-      <Col span={24}>
-        <Size/>
-      </Col>
-      <Col span={24}>
-        <Title/>
-      </Col>
-      <Col span={24}>
-        <ColRowSpan/>
-      </Col>
+      
     </Row>
   );
 };
