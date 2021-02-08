@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Checkbox, Form, Icon, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 import {
@@ -43,7 +43,8 @@ class SignUp extends React.Component {
         const { userName, email, password, usersData } = this.state
         usersData.push({ userName: userName, email: email, password: password })
         localStorage.setItem("users", JSON.stringify(usersData));
-
+        this.props.history.push('/signin');
+        
         this.setState({
           userName: '',
           email: '',
@@ -56,12 +57,13 @@ class SignUp extends React.Component {
 
   changeHandler = (e) => {
     e.preventDefault();
-    console.log('sign up', e.target.value)
+  
     this.setState({
       [e.target.name]: e.target.value
-
     })
-
+    this.props.form.setFieldsValue({
+      [e.target.name]: this.state
+    });
   }
 
   componentDidUpdate() {
@@ -91,9 +93,6 @@ class SignUp extends React.Component {
                 <p><IntlMessages id="app.userAuth.bySigning" /></p>
                 <p><IntlMessages id="app.userAuth.getAccount" /></p>
               </div>
-              {/* <div className="gx-app-logo">
-                <img alt="example" src={require("../assets/images/logo.png")}/>
-              </div> */}
             </div>
 
             <div className="gx-app-login-content">
@@ -101,8 +100,9 @@ class SignUp extends React.Component {
                 <FormItem>
                   {getFieldDecorator('userName', {
                     rules: [{ required: true, message: 'Please input your username!' }],
+                    onChange: this.changeHandler
                   })(
-                    <Input type='text' placeholder="Username" value={this.state.userName} name='userName' onChange={this.changeHandler} />
+                    <Input type='text' placeholder="Username" name='userName' />
                   )}
                 </FormItem>
 
@@ -111,15 +111,17 @@ class SignUp extends React.Component {
                     rules: [{
                       required: true, type: 'email', message: 'The input is not valid E-mail!',
                     }],
+                    onChange:this.changeHandler
                   })(
-                    <Input placeholder="Email" value={this.state.email} name="email" onChange={this.changeHandler} />
+                    <Input placeholder="Email" name="email" />
                   )}
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator('password', {
                     rules: [{ required: true, message: 'Please input your Password!' }],
+                    onChange:this.changeHandler
                   })(
-                    <Input type="password" placeholder="Password" value={this.state.password} name='password' onChange={this.changeHandler} />
+                    <Input type="password" placeholder="Password" name='password' />
                   )}
                 </FormItem>
                 <FormItem>
@@ -186,7 +188,7 @@ class SignUp extends React.Component {
 
 }
 
-const WrappedSignUpForm = Form.create()(SignUp);
+const WrappedSignUpForm = Form.create()(withRouter(SignUp));
 
 const mapStateToProps = ({ auth }) => {
   const { loader, alertMessage, showMessage, authUser } = auth;

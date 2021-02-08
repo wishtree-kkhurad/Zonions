@@ -112,6 +112,7 @@
   },
   "scripts": {
     "start": "npm-run-all --parallel open:client lift",
+    "startDocker": "npm-run-all --parallel open:client dockerLift",
     "start:debug": "npm-run-all --parallel open:client debug",
     "open:client": "webpack-dev-server --mode development --open",
     "build": "npm run build:dev",
@@ -119,6 +120,7 @@
     "build:prod": "webpack --mode production",
     "clean": "rimraf .tmp && mkdirp .tmp/public",
     "lift": "sails lift",
+    "dockerLift": "PORT=1337 NODE_ENV=docker sails lift",
     "debug": "node --inspect app.js",
     "less": "lessc --js src/styles/wieldy.less public/css/style.css"
   },

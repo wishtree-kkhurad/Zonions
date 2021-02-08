@@ -31,5 +31,23 @@ const bcrypt = require('bcrypt-nodejs');
 			return cb();
 		  });
 		});
-	}
+	},
+
+	//create user
+	async createUser(values, callback) {
+		try {
+		  const createdRecord = await User.create(values).fetch();
+		  return callback(null, createdRecord);
+		} catch (error) {
+		  return callback(error);
+		}
+	  },
+	async getUserList(callback) {
+		try {
+		  const data = await User.find({ isActive: true });
+		  return callback(null, data);
+		} catch (error) {
+		  return callback(error);
+		}
+	},
 };

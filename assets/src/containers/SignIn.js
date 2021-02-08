@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Checkbox, Form, Icon, Input, message } from "antd";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import {
   hideMessage,
@@ -32,17 +32,31 @@ class SignIn extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // this.props.showAuthLoader();
-        // this.props.userSignIn(values);
-        let users = JSON.parse(localStorage.getItem('users'));
-        users.map((user) => {
-          console.log('email:', user.email, 'password', user.password)
-          console.log('from state variables', this.state.email, '****', this.state.password)
-          if (user.email === this.state.email && user.password === this.state.password) {
-            console.log('inside handle submit of sign in')
-            this.props.history.push({pathname:'/restaurant/manage', from:'SignIn'})
-          }
-        })
+        console.log('inside  handle submit of signin')
+        this.props.showAuthLoader();
+        this.props.userSignIn(values);
+
+        this.props.history.push('/restaurant/manage');
+
+        // let users = JSON.parse(localStorage.getItem('users'));
+        // users.map((user) => {
+        //   console.log('email:', user.email, 'password', user.password)
+        //   console.log('from state variables', this.state.email, '****', this.state.password)
+
+        //   if (user.email === this.state.email) {
+        //     if(user.password === this.state.password)
+        //     {
+        //       console.log('inside handle submit of sign in props value:' , this.props)
+        //       this.props.history.push('/restaurant/manage')
+        //     }
+        //     else{
+        //       alert('password did not matche')
+        //     }
+        //   }
+        //   else{
+        //     alert('email did not match')
+        //   }
+        // })
       }
     });
   };
@@ -54,18 +68,23 @@ class SignIn extends React.Component {
       }, 100);
     }
     if (this.props.authUser !== null) {
-      // this.props.history.push('/');
+      this.props.history.push('/restaurant/manage');
     }
   }
+
   changeHandler = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
+    this.props.form.setFieldsValue({
+      [e.target.name]: this.state
+    });
 
   }
+
   render() {
     const { getFieldDecorator } = this.props.form;
-    
+
     const { showMessage, loader, alertMessage } = this.props;
 
     return (
@@ -81,29 +100,28 @@ class SignIn extends React.Component {
                 <p><IntlMessages id="app.userAuth.bySigning" /></p>
                 <p><IntlMessages id="app.userAuth.getAccount" /></p>
               </div>
-              {/* <div className="gx-app-logo">
-                <img alt="example" src={require("../assets/images/logo.png")}/>
-              </div> */}
+          
             </div>
             <div className="gx-app-login-content">
               <Form onSubmit={this.handleSubmit} className="gx-signin-form gx-form-row0">
 
                 <FormItem>
                   {getFieldDecorator('email', {
-                    // initialValue: "demo@example.com",
+                    //initialValue: "demo@example.com",
                     rules: [{
                       required: true, type: 'email', message: 'The input is not valid E-mail!',
-                    }],
+                    }],onChange: this.changeHandler
                   })(
-                    <Input type='email' name='email' value={this.state.email} onChange={this.changeHandler} placeholder="Email" />
+                    <Input type='email' name='email' placeholder="Email" />
                   )}
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator('password', {
-                    // initialValue: "demo#123",
+                    //initialValue: "demo#123",
                     rules: [{ required: true, message: 'Please input your Password!' }],
+                    onChange : this.changeHandler
                   })(
-                    <Input type="password" name='password' value={this.state.password} onChange={this.changeHandler} placeholder="Password" />
+                    <Input type="password" name='password' placeholder="Password" />
                   )}
                 </FormItem>
                 <FormItem>

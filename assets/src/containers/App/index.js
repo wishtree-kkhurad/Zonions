@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import URLSearchParams from 'url-search-params'
-import {Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {LocaleProvider} from "antd";
 import {IntlProvider} from "react-intl";
 
@@ -25,8 +25,9 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL
 } from "../../constants/ThemeSetting";
 
-const RestrictedRoute = ({component: Component, authUser, ...rest}) =>
-  <Route
+const RestrictedRoute = ({component: Component, authUser, ...rest}) =>{
+  return(
+<Route
     {...rest}
     render={props =>
       authUser
@@ -37,8 +38,8 @@ const RestrictedRoute = ({component: Component, authUser, ...rest}) =>
             state: {from: props.location}
           }}
         />}
-  />;
-
+  />)
+}
 
 class App extends Component {
   constructor(props) {
@@ -95,11 +96,11 @@ class App extends Component {
 
   render() {
     const {match, location, layoutType, navStyle, locale, authUser, initURL} = this.props;
-    console.log('***main app ', this.props)
+
     if (location.pathname === '/') {
       if (authUser === null) {
-        // return ( <Redirect to={'/home'}/> );
-        return ( <Redirect to={'/signin'}/> );
+        return ( <Redirect to={'/home'}/> );
+        // return ( <Redirect to={'/signin'}/> );
       } else if (initURL === '' || initURL === '/' || initURL === '/signin'){
         console.log('inside else if---init url')
         // return ( <Redirect to={'/main/dashboard/crypto'}/> );
@@ -112,26 +113,7 @@ class App extends Component {
     // this.setLayoutType(layoutType);
 
     // this.setNavStyle(navStyle);
-
-    // if (location.pathname === '/') {
-    //   if(authUser === null)
-    //     return ( <Redirect to={'/home'}/> );
-    //     // return ( <Redirect to={'/signin'}/> );
-    // // else if (initURL === '' || initURL === '/' || initURL === '/signin'){
-    // //     // return ( <Redirect to={'/main/dashboard/crypto'}/> );
-    // //     return ( <Redirect to={'/restaurant/manage'}/> );
-    // // } 
-    // else if (authUser !== null){
-    //   // return ( <Redirect to={'/main/dashboard/crypto'}/> );
-    //   return ( <Redirect to={'/restaurant/manage'}/> );
-    // } 
-    // else {
-    //   return ( <Redirect to={initURL}/> );
-    // }
   }
-  
-    
-
     const currentAppLocale = AppLocale[locale.locale];
     return (
       <LocaleProvider locale={currentAppLocale.antd}>
@@ -146,9 +128,6 @@ class App extends Component {
             <Route exact path='/signin' component={SignIn}/>
             <Route exact path='/signup' component={SignUp}/>
 
-            {/* <Route exact path={`${this.props.location.pathname}`} component={SignIn}/>
-            <Route exact path={`${match.url}/signup`} component={SignUp}/> */}
-            
             <RestrictedRoute path={`${match.url}`} authUser={authUser}
                              component={MainApp}/>
           </Switch>
