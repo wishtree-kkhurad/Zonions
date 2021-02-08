@@ -17,16 +17,24 @@
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   "extends": [
-    "../.eslintrc"
+    "../.eslintrc",
+    "plugin:react/recommended",
+    "airbnb"
   ],
 
   "env": {
     "browser": true,
-    "node": false
+    "es6": true,
+    "node":true
   },
 
   "parserOptions": {
-    "ecmaVersion": 8
+    // "ecmaVersion": 8
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2015,
+    "sourceType": "module"
     //^ If you are not using a transpiler like Babel, change this to `5`.
   },
 
@@ -43,13 +51,19 @@
     // Make sure backend globals aren't indadvertently tolerated in our client-side JS:
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     "sails": false,
-    "_": false
+    "_": false,
     // ...and any other backend globals (e.g. `"Organization": false`)
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
   },
-
+  "plugins": [
+    "react"
+  ],
   "rules": {
-    "no-undef": ["error"]
+    "no-undef": ["error"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // ^^Note: If you've enabled the "no-undef" rule in the top level .eslintrc file, then
     // the globalIds of Sails models should also be blacklisted above under "globals".

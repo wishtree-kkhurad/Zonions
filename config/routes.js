@@ -20,8 +20,18 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  '/explore': {
+    view:'pages/explore'
+  },
 
-
+  //Auth
+	'get /login': {
+		view: 'user/login'
+	},
+	'get /register': {
+		view: 'user/register'
+  },
+  
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
@@ -32,6 +42,10 @@ module.exports.routes = {
   * not match any of those, it is matched against static assets.             *
   *                                                                          *
   ***************************************************************************/
-
+ 'post /login': 'AuthController.login',
+  
+ 'post /register': 'AuthController.register',
+ 
+ 'post /logout': 'AuthController.logout',
 
 };

@@ -20,7 +20,12 @@ module.exports.session = {
   ***************************************************************************/
   secret: '91dd759af0fa909f258788d35948a944',
 
-
+  adapter:'connect-mongo',
+  url:'mongodb://localhost:27017/zonions',
+  collection: 'sessions',
+  auto_reconnect: false,
+  ssl: false,
+  stringify: true
   /***************************************************************************
   *                                                                          *
   * Customize when built-in session support will be skipped.                 *

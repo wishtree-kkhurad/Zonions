@@ -98,17 +98,39 @@ class App extends Component {
     console.log('***main app ', this.props)
     if (location.pathname === '/') {
       if (authUser === null) {
+        // return ( <Redirect to={'/home'}/> );
         return ( <Redirect to={'/signin'}/> );
       } else if (initURL === '' || initURL === '/' || initURL === '/signin'){
+        console.log('inside else if---init url')
         // return ( <Redirect to={'/main/dashboard/crypto'}/> );
         return ( <Redirect to={'/restaurant/manage'}/> );
-      } else {
+      } 
+      else {
         return ( <Redirect to={initURL}/> );
       }
-    }
+    
     // this.setLayoutType(layoutType);
 
     // this.setNavStyle(navStyle);
+
+    // if (location.pathname === '/') {
+    //   if(authUser === null)
+    //     return ( <Redirect to={'/home'}/> );
+    //     // return ( <Redirect to={'/signin'}/> );
+    // // else if (initURL === '' || initURL === '/' || initURL === '/signin'){
+    // //     // return ( <Redirect to={'/main/dashboard/crypto'}/> );
+    // //     return ( <Redirect to={'/restaurant/manage'}/> );
+    // // } 
+    // else if (authUser !== null){
+    //   // return ( <Redirect to={'/main/dashboard/crypto'}/> );
+    //   return ( <Redirect to={'/restaurant/manage'}/> );
+    // } 
+    // else {
+    //   return ( <Redirect to={initURL}/> );
+    // }
+  }
+  
+    
 
     const currentAppLocale = AppLocale[locale.locale];
     return (

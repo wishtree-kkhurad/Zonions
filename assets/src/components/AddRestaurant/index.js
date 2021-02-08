@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import { AutoComplete, Button, Card,Form, Input,Select,TimePicker } from "antd";
 import moment from "moment";
 import axios from 'axios';
@@ -23,6 +24,7 @@ class AddRestaurant extends React.Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 // axios.post('http://')  ---give call to post api here
+                this.props.history.push({pathname:'/restaurant/manage', from:'AddRestaurant'})
             }
         });
     }
@@ -139,5 +141,5 @@ class AddRestaurant extends React.Component {
     }
 
 }
-const AddRestaurantForm = Form.create()(AddRestaurant);
+const AddRestaurantForm = Form.create()(withRouter(AddRestaurant));
 export default AddRestaurantForm;

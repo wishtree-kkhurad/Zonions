@@ -40,7 +40,7 @@ class SignIn extends React.Component {
           console.log('from state variables', this.state.email, '****', this.state.password)
           if (user.email === this.state.email && user.password === this.state.password) {
             console.log('inside handle submit of sign in')
-            this.props.history.push('/restaurant/manage')
+            this.props.history.push({pathname:'/restaurant/manage', from:'SignIn'})
           }
         })
       }
@@ -65,6 +65,7 @@ class SignIn extends React.Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    
     const { showMessage, loader, alertMessage } = this.props;
 
     return (

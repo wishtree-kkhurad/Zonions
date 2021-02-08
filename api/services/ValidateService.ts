@@ -1,8 +1,12 @@
-import * as FileType from 'file-type';
-import * as readChunk from 'read-chunk';
-declare var sails: any;
-declare var Logger: any;
-declare var CustomValidator: any;
+// import * as FileType from 'file-type';
+const FileType = require('file-type');
+// import * as readChunk from 'read-chunk';
+const readChunk = require('read-chunk');
+
+// declare var sails: any;
+// declare var Logger: any;
+// declare var CustomValidator: any;
+var sails , Logger, CustomValidator;
 
 module.exports = {
 
