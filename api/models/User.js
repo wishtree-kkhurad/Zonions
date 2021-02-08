@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
+const Logger = require('../services/Logger');
 
 	module.exports = {
 	attributes: {
@@ -33,21 +34,36 @@ const bcrypt = require('bcrypt-nodejs');
 		});
 	},
 
-	//create user
-	async createUser(values, callback) {
+	async getAllUsers(callback) {
 		try {
-		  const createdRecord = await User.create(values).fetch();
-		  return callback(null, createdRecord);
-		} catch (error) {
-		  return callback(error);
-		}
-	  },
-	async getUserList(callback) {
-		try {
-		  const data = await User.find({ isActive: true });
+		  const data = await User.find({});
 		  return callback(null, data);
 		} catch (error) {
 		  return callback(error);
 		}
 	},
+
+	async getSingleUser(email, callback) {
+		try {
+		  const data = await User.find({ email: email });
+		  return callback(null, data);
+		} catch (error) {
+		  return callback(error);
+		}
+	},
+	
+	async deleteUser(email, callback) {
+		try {
+		  const data = await User.find({ email: email });
+		  if(data){
+			User.deleteOne(data);
+			return callback(null, 'deleted successfully!');
+		  }
+		  else{
+			return callback('error while deleting', null);
+		  }
+		} catch (error) {
+		  return callback(error);
+		}
+	}
 };

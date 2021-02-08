@@ -6,11 +6,12 @@
 */
 
 const passport = require('passport');
+const Logger = require('../services/Logger');
 module.exports = {
 
   //Login function
   login: function (req, res) {
-    sails.log('inside login function')
+    Logger.debug('AuthController.login');
     
     passport.authenticate('local', function (err, user, info) {
       if ((err) || (!user))
@@ -21,22 +22,21 @@ module.exports = {
       req.login(user, function (err) {
         if (err)
           res.send(err);
-        sails.log('User'+ user.id + 'has logged in')
-        // return res.redirect('/');
+        sails.log('User'+ user.id + 'has logged in');
       }); 
     })(req, res);
   },
 
   //Logout function
   logout: function (req, res) {
-    sails.log('inside logout api')
+    Logger.debug('AuthController.logout');
     req.logout();
-    sails.log('user logged out successfully')
-    // res.redirect('/');
+    res.send({ status: 200, response: logout, message: 'User logged out successfully.' });
   },
 
   //Register function
   register: function (req, res) {
+    Logger.debug('AuthController.register');
     //TODO: form validation here
     data = {
       username: req.body.username,
@@ -46,19 +46,17 @@ module.exports = {
     }
     User.create(data).fetch().exec(function (err, user) {
       if(err)
-      {
         return res.negoiate(err);
-      }
 
       //TODO: Maybe send confirmation email to the user before login
       req.login(user, function (err) {
-        sails.log('inside register function')
-        sails.log('user details', user);
+        Logger.debug('AuthController.register at req.login');
+        Logger.debug('AuthController.register at req.login user details: ', user);
 
-        if (err)
+        if (err){
           return res.negotiate(err);
-        sails.log('User ' + user.id + ' has logged in.');
-        // return res.redirect('/');
+        }
+        Logger.debug('AuthController.register at req.login User'+ user.id + ' has logged in.');
       })
     })
   }

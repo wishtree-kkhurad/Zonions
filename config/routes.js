@@ -19,18 +19,8 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': { view: 'pages/homepage' },
-  '/explore': {
-    view:'pages/explore'
-  },
-
-  //Auth
-	'get /login': {
-		view: 'user/login'
-	},
-	'get /register': {
-		view: 'user/register'
-  },
+  // '/': { view: 'pages/homepage' },
+  
   
   /***************************************************************************
   *                                                                          *
@@ -48,4 +38,16 @@ module.exports.routes = {
  
  'post /logout': 'AuthController.logout',
 
+ 'POST /api/login': {
+  controller: 'AuthController',
+  action: 'login',
+  },
+  'POST /api/logout': {
+    controller: 'AuthController',
+    action: 'logout',
+  },
+  'POST /api/registration': {
+    controller: 'AuthController',
+    action: 'registration',
+  }
 };
