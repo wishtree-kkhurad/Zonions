@@ -36,27 +36,29 @@ class SignIn extends React.Component {
         this.props.showAuthLoader();
         this.props.userSignIn(values);
 
-        this.props.history.push('/restaurant/manage');
+    //     let users = JSON.parse(localStorage.getItem('users'));
+    //     users.map((user) => {
+    //       console.log('email:', user.email, 'password', user.password)
+    //       console.log('from state variables', this.state.email, '****', this.state.password)
 
-        // let users = JSON.parse(localStorage.getItem('users'));
-        // users.map((user) => {
-        //   console.log('email:', user.email, 'password', user.password)
-        //   console.log('from state variables', this.state.email, '****', this.state.password)
-
-        //   if (user.email === this.state.email) {
-        //     if(user.password === this.state.password)
-        //     {
-        //       console.log('inside handle submit of sign in props value:' , this.props)
-        //       this.props.history.push('/restaurant/manage')
-        //     }
-        //     else{
-        //       alert('password did not matche')
-        //     }
-        //   }
-        //   else{
-        //     alert('email did not match')
-        //   }
-        // })
+    //       if (user.email === this.state.email) {
+    //         if(user.password === this.state.password)
+    //         {
+    //           console.log('inside handle submit of sign in props value:' , this.props);
+    //           let authUser = 'abc'+10*(Math.random());
+    //           console.log('authUser=', authUser)
+    //           localStorage.setItem('authUser',JSON.stringify(authUser))
+    //         }
+    //         else{
+    //           alert('password did not match')
+    //         }
+    //       }
+    //       else{
+    //         alert('email did not match')
+    //       }
+    //       if(localStorage.getItem('authUser') !== null)
+    //         this.props.history.push({pathname:'/restaurant/manage'})
+    //     })
       }
     });
   };
@@ -68,7 +70,7 @@ class SignIn extends React.Component {
       }, 100);
     }
     if (this.props.authUser !== null) {
-      this.props.history.push('/restaurant/manage');
+      this.props.history.push('/');
     }
   }
 
@@ -188,7 +190,7 @@ class SignIn extends React.Component {
   }
 }
 
-const WrappedNormalLoginForm = Form.create()(SignIn);
+const WrappedNormalLoginForm = Form.create()(withRouter(SignIn));
 
 const mapStateToProps = ({ auth }) => {
   const { loader, alertMessage, showMessage, authUser } = auth;

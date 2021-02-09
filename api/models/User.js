@@ -36,7 +36,7 @@ const Logger = require('../services/Logger');
 
 	async getAllUsers(callback) {
 		try {
-		  const data = await User.find({});
+		  const data = await User.find();
 		  return callback(null, data);
 		} catch (error) {
 		  return callback(error);

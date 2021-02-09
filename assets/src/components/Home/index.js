@@ -14,7 +14,6 @@ class Home extends React.Component {
     }
 
     goToLogin = () => {
-        console.log('props in home', this.props);
         this.props.history.push({ pathname: '/signin' });
     }
     goToSignup = () => {
@@ -29,8 +28,8 @@ class Home extends React.Component {
                         <Header>
                             <h1 style={{ fontSize: '55px', textAlign: 'center' }}>Zonions</h1>
                             <div>
-                                <Button type='primary'  onClick={() => this.goToLogin(this.props)}>Login</Button>
-                                <Button type='primary' onClick={() => this.goToSignup(this.props)}>SignUp</Button>
+                                <Button type='primary'  onClick={() => this.goToLogin()}>Login</Button>
+                                <Button type='primary' onClick={() => this.goToSignup()}>SignUp</Button>
                             </div>
                             
                         </Header>

@@ -13,7 +13,8 @@ import Auxiliary from "../../util/Auxiliary";
 import { NAV_STYLE_DRAWER, NAV_STYLE_FIXED, NAV_STYLE_MINI_SIDEBAR, TAB_SIZE } from "../../constants/ThemeSetting";
 import { connect } from "react-redux";
 import {withRouter} from 'react-router-dom';
-import UserProfile from '../Sidebar/UserProfile'
+import {userSignOut} from "../../appRedux/actions/Auth";
+
 const { Header } = Layout;
 
 class Topbar extends Component {
@@ -30,18 +31,26 @@ class Topbar extends Component {
     const goToHome = () => {
       this.props.history.push({pathname:'/home'});
     }
+    const goToManage = () => {
+      this.props.history.push({pathname:'/restaurant/manage'});
+    }
+    const logout = () =>{
+      // localStorage.removeItem('user_id');
+      // this.props.history.push({pathname:'/signin'});
+    }
+
     console.log('inside topbar', this.props);
-    const { locale, width, navCollapsed, navStyle } = this.props;
+    
     return (
       <Auxiliary>
         <Header>      
           <div>
               <Breadcrumb separator=">">
                 <Breadcrumb.Item className="gx-link" onClick={goToHome} >Home</Breadcrumb.Item>
-                <Breadcrumb.Item><span className="gx-link" onClick={()=> {}}>Manage Restaurant</span></Breadcrumb.Item>
+                <Breadcrumb.Item><span className="gx-link" onClick={goToManage}>Manage Restaurant</span></Breadcrumb.Item>
               </Breadcrumb>
           </div>
-          <Link to='/signin'><Icon type="logout" style={{fontSize:'20px'}} /></Link>
+          <Icon type="logout" style={{fontSize:'25px', color:'steelblue'}} onClick={()=>this.props.userSignOut()}/>
         </Header>
       </Auxiliary>
     );
@@ -53,4 +62,4 @@ const mapStateToProps = ({ settings }) => {
   return { locale, navStyle, navCollapsed, width }
 };
 
-export default connect(mapStateToProps, { toggleCollapsedSideNav, switchLanguage })(withRouter(Topbar));
+export default connect(mapStateToProps, { toggleCollapsedSideNav, switchLanguage, userSignOut })(withRouter(Topbar));

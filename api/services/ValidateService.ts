@@ -1,11 +1,6 @@
-// import * as FileType from 'file-type';
 const FileType = require('file-type');
-// import * as readChunk from 'read-chunk';
 const readChunk = require('read-chunk');
 
-// declare var sails: any;
-// declare var Logger: any;
-// declare var CustomValidator: any;
 var sails , Logger, CustomValidator;
 
 module.exports = {
@@ -17,6 +12,7 @@ module.exports = {
     const validationErrMsg = [];
 
     const rules = {
+
       isPasswordStrong(name, value, rule) {
         Logger.verbose('isPasswordStrong');
 
@@ -45,6 +41,7 @@ module.exports = {
           sails.config.globals.assert.ok(value !== undefined, rule.message);
         }
       },
+
       isTruthy(name, value, rule) { //Not null, NAN, blank etc
         rule.message = rule.message !== undefined ? rule.message : `Please enter ${name}`;
         Logger.warn(name);
@@ -55,15 +52,18 @@ module.exports = {
           sails.config.globals.assert.ok(value, rule.message);
         }
       },
+
       integer(name, value, rule) {
         rule.message = rule.message !== undefined ? rule.message : `${name} must be a number`;
         sails.config.globals.assert.equal(typeof (value), 'number', rule.message);
       },
+
       string(name, value, rule) {
         Logger.verbose('string');
         rule.message = rule.message !== undefined ? rule.message : `${name} must be a string`;
         sails.config.globals.assert.equal(typeof (value), 'string', rule.message);
       },
+
       stringLength(name, value, rule) {
         Logger.verbose('stringLength');
         rule.message = rule.message !== undefined ? rule.message : `${name} must be a string of ${rule.minLength} - ${rule.maxLength}`;
@@ -71,6 +71,7 @@ module.exports = {
           throw new Error(rule.message);
         }
       },
+
       range(name, value, rule) {
         rule.message = rule.message !== undefined ? rule.message : `Please enter ${name} between ${rule.min} to ${rule.max}`;
 
@@ -78,6 +79,7 @@ module.exports = {
           throw new Error(rule.message);
         }
       },
+
       email(name, value, rule) {
         rule.message = rule.message !== undefined ? rule.message : `Please enter valid ${name}`;
         const re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -86,6 +88,7 @@ module.exports = {
           throw new Error(rule.message);
         }
       },
+
       regex(name, value, rule) {
         Logger.verbose('regex');
         Logger.verbose(value);
@@ -95,6 +98,7 @@ module.exports = {
           throw new Error(rule.message);
         }
       },
+
       ISODate(name, value, rule) {
         Logger.verbose('ISODate');
         rule.message = rule.message !== undefined ? rule.message : `Please enter valid ${name}`;
@@ -102,6 +106,7 @@ module.exports = {
           throw new Error(rule.message);
         }
       },
+
       isDateFormat(name, value, rule) {
         Logger.verbose('ISODate');
         rule.message = rule.message !== undefined ? rule.message : `Please enter valid ${name}`;
@@ -121,11 +126,13 @@ module.exports = {
           }
         }
       },
+
       isEqual(name, value, rule) {
         Logger.verbose('isEqual');
         rule.message = rule.message !== undefined ? rule.message : `${name} should be equal to ${rule.name}`;
         if (value && value !== rule.value) { throw new Error(rule.message); }
       },
+
       contentInList(name, value, rule) {
         Logger.verbose('contentInList');
         rule.message = rule.message !== undefined ? rule.message : `Please select from ${name}`;
@@ -135,6 +142,7 @@ module.exports = {
           }
         }
       },
+
       isNonEmptyArray(name, value, rule) {
         Logger.verbose('isNonEmptyArray');
         rule.message = rule.message !== undefined ? rule.message : `${name} cannot be empty.`;
@@ -148,6 +156,7 @@ module.exports = {
           }
         }
       },
+
       isArray(name, value, rule) {
         Logger.verbose('isNonEmptyArray');
         rule.message = rule.message !== undefined ? rule.message : `${name} is not an Array.`;
@@ -157,6 +166,7 @@ module.exports = {
           }
         }
       },
+
       stdDate(name, value, rule) {
         Logger.verbose('stdDate');
         rule.message = rule.message !== undefined ? rule.message : `Please enter valid ${name}`;
@@ -164,6 +174,7 @@ module.exports = {
           throw new Error(rule.message);
         }
       },
+
       URL(name, value, rule) {
         rule.message = rule.message !== undefined ? rule.message : `Please enter valid url ${name}`;
         const re = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
@@ -173,6 +184,7 @@ module.exports = {
           throw new Error(rule.message);
         }
       },
+
       async checkFileType(name, value, rule) {
         rule.message = rule.message !== undefined ? rule.message : `Please enter valid ${name} file type`;
         (async () => {
@@ -213,6 +225,7 @@ module.exports = {
     Logger.verbose(JSON.stringify(validationErrMsg));
     return callback(null, validationErrMsg);
   },
+  
   getValidateMsg(arr, callback) {
     Logger.debug('ValidateService.getValidateMsg');
     try {

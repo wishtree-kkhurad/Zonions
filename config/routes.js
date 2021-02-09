@@ -32,22 +32,19 @@ module.exports.routes = {
   * not match any of those, it is matched against static assets.             *
   *                                                                          *
   ***************************************************************************/
- 'post /login': 'AuthController.login',
-  
- 'post /register': 'AuthController.register',
- 
- 'post /logout': 'AuthController.logout',
 
- 'POST /api/login': {
-  controller: 'AuthController',
-  action: 'login',
-  },
-  'POST /api/logout': {
-    controller: 'AuthController',
-    action: 'logout',
-  },
-  'POST /api/registration': {
-    controller: 'AuthController',
-    action: 'registration',
-  }
+  /* Auth APIs*/
+ 'post /api/login': 'AuthController.login',
+ 'post /api/register': 'AuthController.register',
+ 'post /api/logout': 'AuthController.logout',
+
+ /* User APIs */
+ 'get /api/users/all': 'UserController.getAllUsers',
+ 'get /api/users/:email': 'UserController.getSingleUser',
+
+
+ /* Restaurant APIs */
+ 'GET /restaurant/all': 'RestaurantController.getAllRestaurants',
+ 'POST /restaurant/create': 'RestaurantController.createRestaurants',
+
 };

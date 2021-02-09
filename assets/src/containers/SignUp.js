@@ -1,7 +1,7 @@
 import React from "react";
+import axios from 'axios';
 import { Button, Checkbox, Form, Icon, Input } from "antd";
 import { Link, withRouter } from "react-router-dom";
-
 import { connect } from "react-redux";
 import {
   hideMessage,
@@ -36,20 +36,17 @@ class SignUp extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+
       console.log("values", values);
+
       if (!err) {
-        // this.props.showAuthLoader();
-        // this.props.userSignUp(values);
-        const { userName, email, password, usersData } = this.state
-        usersData.push({ userName: userName, email: email, password: password })
-        localStorage.setItem("users", JSON.stringify(usersData));
-        this.props.history.push('/signin');
-        
-        this.setState({
-          userName: '',
-          email: '',
-          password: ''
-        })
+        this.props.showAuthLoader();
+        this.props.userSignUp(values);
+
+        // const { userName, email, password, usersData } = this.state
+        // usersData.push({ userName: userName, email: email, password: password })
+        // localStorage.setItem("users", JSON.stringify(usersData));
+        // this.props.history.push('/restaurant/manage');
       }
     });
 
@@ -73,7 +70,7 @@ class SignUp extends React.Component {
       }, 100);
     }
     if (this.props.authUser !== null) {
-      this.props.history.push('/');
+      this.props.history.push('/restaurant/manage');
     }
   }
 

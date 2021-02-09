@@ -18,10 +18,10 @@ module.exports = {
     });
     },
 
-    getSingleUser(callback) {
+    getSingleUser(email, callback) {
         Logger.debug('UserService.getSingleUser');
     
-        User.getSingleUser((err, user) => {
+        User.getSingleUser(email, (err, user) => {
           if (err) {
             Logger.error(`UserService.getSingleUser at User.getSingleUser ${err}`);
             callback(err);

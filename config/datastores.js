@@ -50,9 +50,12 @@ module.exports.datastores = {
     ***************************************************************************/
     // adapter: 'sails-mysql',
     // url: 'mysql://user:password@host:port/database',
-    adapter: 'sails-mongo',
-    url: 'mongodb://localhost:27017/zonions',
-    port: 27017
+
+     
+    // adapter: 'sails-mongo',
+    // url: 'mongodb://localhost:27017/zonions',
+
+    // url: 'mongodb://172.17.0.1:27019/zonions'
 
   },
 

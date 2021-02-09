@@ -99,15 +99,14 @@ class App extends Component {
 
     if (location.pathname === '/') {
       if (authUser === null) {
-        return ( <Redirect to={'/home'}/> );
+        return ( <Redirect to={'/home'} /> );
         // return ( <Redirect to={'/signin'}/> );
       } else if (initURL === '' || initURL === '/' || initURL === '/signin'){
         console.log('inside else if---init url')
-        // return ( <Redirect to={'/main/dashboard/crypto'}/> );
-        return ( <Redirect to={'/restaurant/manage'}/> );
+        return ( <Redirect to={'/restaurant/manage'} /> );
       } 
       else {
-        return ( <Redirect to={initURL}/> );
+        return ( <Redirect to={initURL} /> );
       }
     
     // this.setLayoutType(layoutType);
@@ -122,8 +121,8 @@ class App extends Component {
           messages={currentAppLocale.messages}>
 
           <Switch>
-            <Route path= '/home' component={Home}/>
-            <Route path={`${match.url}restaurant/details/:id`} component={RestaurantDetails}/>
+            <Route exact path= '/home' component={Home}/>
+            <Route exact path={`${match.url}restaurant/details/:id`} component={RestaurantDetails}/>
 
             <Route exact path='/signin' component={SignIn}/>
             <Route exact path='/signup' component={SignUp}/>
@@ -142,4 +141,4 @@ const mapStateToProps = ({settings, auth}) => {
   const {authUser, initURL} = auth;
   return {locale, navStyle, layoutType, authUser, initURL}
 };
-export default connect(mapStateToProps, {setInitUrl, setThemeType, onNavStyleChange, onLayoutTypeChange})(App);
+export default connect(mapStateToProps, {setInitUrl, setThemeType, onNavStyleChange, onLayoutTypeChange})(withRouter(App));

@@ -12,7 +12,8 @@ var UserService = require('../services/UserService')
 module.exports = {
     getSingleUser: function (req, res, next) {
         Logger.verbose('UserController.getSingleUser');
-        UserService.getSingleUser((err, userData) => {
+        const email = req.param.email;
+        UserService.getSingleUser(email, (err, userData) => {
             if (err) {
                 res.send({ status: 300, message: 'serverError' });
             } else {
@@ -23,6 +24,7 @@ module.exports = {
     },
     getAllUsers: function (req, res, next) {
         Logger.verbose('UserController.getAllUsers');
+        
         UserService.getAllUsers((err, userData) => {
             if (err) {
                 res.send({ status: 300, message: 'serverError' });

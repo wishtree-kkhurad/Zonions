@@ -22,12 +22,12 @@ const passport = require('passport'),
 		User.findOne({username: username}, function(err, user){
 			if(err)
 				return cb(err);
-
 			if(!user)
 				return cb(null, false, {message: 'Username not found'});
             
 			bcrypt.compare(password, user.password, function(err, res){
-				if(!res) return cb(null, false, { message: 'Invalid Password' });
+				if(!res) 
+					return cb(null, false, { message: 'Invalid Password' });
 				return cb(null, user, { message: 'Login Succesful'});
 			});
 		});
