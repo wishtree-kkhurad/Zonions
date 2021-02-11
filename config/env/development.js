@@ -38,7 +38,7 @@ module.exports = {
   datastores: {
 
     mongoServer: {
-      adapter: 'sails-mongo',
+      adapter: require('sails-mongo'),
       host: 'localhost',
       port: 27017,
       database: 'Zonions',

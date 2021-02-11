@@ -8,24 +8,19 @@ const RestaurantService = require('../services/RestaurantService');
 
 module.exports = {
 
+  // uploadFile: function (req, res) {
+  //   req.file('file').upload({
+  //     adapter: require('skipper-gridfs'),
+  //     uri: 'mongodb://localhost:27017/zonions'
+  //   }, function (err, filesUploaded) {
+  //     if (err) 
+  //       return res.serverError(err);
+  //     return res.json({"status":200, "file": filesUploaded});
+  //   });
+  // },
+
   createRestaurants: function (req, res, next) {
     Logger.verbose('RestaurantController.createRestaurant');
-
-    // let param = req.allParams();
-    // console.log('create: ', param)
-      
-    // Logger.verbose(param);
-
-    //   const restaurantData =  Restaurant.create({
-    //     restaurantName:param.restaurantName,
-    //     tagline:param.tagline,
-    //     address: param.address,
-    //     phone: param.phone,
-    //     openingTime: param.openingTime,
-    //     closingTime: param.closingTime,
-    //     imgUrl: param.imgUrl,
-    //     imgAlt: param.imgAlt
-    //   })
 
     const restaurantData = req.body;
     Logger.verbose(restaurantData);
@@ -71,11 +66,15 @@ module.exports = {
   getRestaurantById: function (req, res, next) {
     Logger.verbose('RestaurantController.getRestaurantById');
 
-    RestaurantService.getRestaurantById((err, restaurant) => {
+    RestaurantService.getRestaurantById(req.allParams().id, (err, restaurant) => {
       if (err) {
         res.send({ status: 300, message: 'serverError' });
       } else {
-        res.send({ status: 200, response: restaurant });
+        if(restaurant!==undefined)
+          res.send({ status: 200, response: restaurant });
+        else{
+          res.send({ status: 200, response: 'Restaurant does not exist' });
+        }
       }
     });
   },
@@ -85,10 +84,6 @@ module.exports = {
 
     let param = req.allParams();
     const id = param.id;
-
-    Logger.verbose(`update params: ${param}`);
-    Logger.verbose(`update for id: ${id}`);
-
 
     let attribute = {};
 
@@ -115,7 +110,7 @@ module.exports = {
       attribute.isActive = param.isActive;
     }
 
-    Logger.verbose(`attribute from Front end: ${attribute}`);
+    console.log('attribute for update from controller', attribute)
 
     RestaurantService.updateRestaurant(id, attribute, (err, restaurantData) => {
       if (err) {

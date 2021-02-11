@@ -24,12 +24,11 @@ const Customize = (props) => {
             hoverable
           // cover={<img alt="example" src={props.resto.imgUrl}/>}
           >
-            <h1>{props.resto.name}</h1>
+            <h1>{props.resto.restaurantName}</h1>
             <img alt='hotel-img' src={props.resto.imgUrl} />
             <hr /><hr /><hr />
             <Meta
-              title={props.resto.location}
-              description="www.instagram.com"
+              title={props.resto.address}
             />
             <hr />
           </Card>

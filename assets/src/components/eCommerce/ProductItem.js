@@ -12,7 +12,7 @@ class ProductItem extends React.Component {
   
   // const {thumb, name, price, mrp, offer, variant, rating, description} = product;
   render(){
-    const {name, location, imgUrl, price,id, mrp, offer, rating, description} = this.props.product;
+    const {restaurantName, address, imgUrl,id} = this.props.product;
 
     const getDetails = () => {
       console.log('from product item', this.props)
@@ -30,17 +30,11 @@ class ProductItem extends React.Component {
       </div>
 
       <div className="gx-product-body">
-        <h3 className="gx-product-title">{name}
-          <small className="gx-text-grey">{", " + location}</small>
+        <h3 className="gx-product-title">{restaurantName}
+          <small className="gx-text-grey">{", " + address}</small>
         </h3>
-        <div className="ant-row-flex">
-          <h4>{price} </h4>
-          <h5 className="gx-text-muted gx-px-2">
-            <del>{mrp}</del>
-          </h5>
-          <h5 className="gx-text-success">{offer} off</h5>
-        </div>
-        <div className="ant-row-flex gx-mb-1">
+        
+        {/* <div className="ant-row-flex gx-mb-1">
           <StarRatingComponent
             name=""
             value={rating}
@@ -48,7 +42,7 @@ class ProductItem extends React.Component {
             editing={false}/>
           <strong className="gx-d-inline-block gx-ml-2">{rating}</strong>
         </div>
-        <p>{description}</p>
+        <p>{description}</p> */}
       </div>
 
       <div className="gx-product-footer">

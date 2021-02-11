@@ -1,3 +1,4 @@
+const { loggers } = require('winston');
 const Restaurant = require('../models/Restaurant');
 const Logger = require('../services/Logger');
 
@@ -6,23 +7,26 @@ module.exports = {
    * `RestaurantController.create()`
    */
     createRestaurants(data, callback) {
-        Logger.debug('RestaurantService.create');
-
-        Restaurant.getRestaurantByName({ restaurantName: data.restaurantName }, (err, restaurant) => {
+        Logger.debug('RestaurantService.createRestaurants');
+        
+        console.log('data', data.restaurantName)
+        Restaurant.getRestaurantByName(data.restaurantName, (err, restaurant) => {
             if (err) {
-                Logger.error(`RestaurantService.create at RestaurantService.getRestaurantByName ${err}`);
+                Logger.error(`RestaurantService.createRestaurants at RestaurantService.getRestaurantByName ${err}`);
                 callback(err);
-            } else if (restaurant) {
-                callback('Restaurant Already Present');
-            } else {
-                Restaurant.createRestaurants(data, (err) => {
+            } else if (restaurant!==undefined) {
+                Logger.debug('RestaurantService.createRestaurants at RestaurantService.getRestaurantByName: Restaurant Already Present');
+
+                callback('Already Present');
+            } else if(restaurant === undefined) {
+                Restaurant.createRestaurants(data, (err, newRestaurant) => {
                     if (err) {
-                        Logger.error(`RestaurantService.create at Restaurant.createRestaurants ${err}`);
+                        Logger.error(`RestaurantService.createRestaurants at Restaurant.createRestaurants ${err}`);
                         callback(err);
                     } else {
-                        Logger.debug('RestaurantService.create: Restaurant created successfully');
-                        Logger.log(data);
-                        callback(data);
+                        Logger.info('RestaurantService.createRestaurants: Restaurant created successfully');
+                        Logger.log(newRestaurant);
+                        callback(newRestaurant);
                     }
                 })
             }
@@ -40,7 +44,7 @@ module.exports = {
                 callback(err);
             } else {
                 Logger.info('Restaurants List fetched successfully.');
-                callback(null, rest);
+                callback(null, restaurantData);
             }
         });
 
@@ -73,8 +77,16 @@ module.exports = {
                 Logger.error(`RestaurantService.getRestaurantById at Restaurant.getRestaurantById ${error}`);
                 callback(error);
             } else {
-                Logger.info('Restaurant fetched successfully.');
-                callback(null, restaurant);
+                if(restaurant!==undefined)
+                {
+                    Logger.info('Restaurant fetched successfully.');
+                    Logger.verbose(restaurant)
+                    callback(null, restaurant);
+                }
+                else{
+                    Logger.verbose(restaurant)
+                    callback(null, restaurant);
+                }
             }
         });
     },
@@ -92,7 +104,7 @@ module.exports = {
             }
             else {
                 Logger.info('Restaurant updated successfully.');
-                Logger.log('after update: ', restaurantData);
+                Logger.log(`after update: ${JSON.stringify(restaurantData)}`);
                 callback(null, restaurantData);
             }
         });
@@ -102,7 +114,7 @@ module.exports = {
      * `RestaurantController.delete()`
      */
     deleteRestaurant(id, callback) {
-        Logger.debug('UserService.deleteUser');
+        Logger.debug('RestaurantService.deleteUser');
 
         Restaurant.deleteRestaurant(id, (err, data) => {
             if (err) {

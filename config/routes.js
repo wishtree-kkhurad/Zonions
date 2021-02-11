@@ -44,7 +44,15 @@ module.exports.routes = {
 
 
  /* Restaurant APIs */
- 'GET /restaurant/all': 'RestaurantController.getAllRestaurants',
- 'POST /restaurant/create': 'RestaurantController.createRestaurants',
+ 'POST /restaurants': 'RestaurantController.createRestaurants',
+ 'GET /restaurants': 'RestaurantController.getAllRestaurants',
+ 'GET /restaurants/:id': 'RestaurantController.getRestaurantById',
+ 'PUT /restaurants/:id': 'RestaurantController.updateRestaurant',
+ 'DELETE /restaurants/:id': 'RestaurantController.deleteRestaurant',
+
+
+
+ /* File Upload */
+ 'post /file/upload': 'RestaurantController.uploadFile'
 
 };

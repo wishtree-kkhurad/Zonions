@@ -10,7 +10,7 @@ const RouteApp = ({match}) => (
     <Switch>
       <Route path={`${match.url}restaurant/add`} component={AddRestaurant}/>
       <Route path={`${match.url}restaurant/manage`} component={ManageRestaurants}/>
-      <Route path={`${match.url}restaurant/edit`} component={EditRestaurant}/>
+      <Route path={`${match.url}restaurant/edit/:id`} component={EditRestaurant}/>
 
     </Switch>
   </div>

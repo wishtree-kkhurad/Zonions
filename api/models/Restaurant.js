@@ -5,6 +5,8 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
+const Logger = require("../services/Logger");
+
 module.exports = {
 
   attributes: {
@@ -38,17 +40,15 @@ module.exports = {
       type: 'string',
       columnName: 'closing_time'
     },
-    imgUrl: {
+    imageData: {
       type: 'string',
-      isURL: true,
-      columnName: 'img_url'
+      required: false
     },
-    imgAlt: {
+    imageName: {
       type: 'string',
-      defaultsTo: 'alt_img',
+      defaultsTo: 'none',
       columnName: 'img_alt'
     },
-
     isActive: {
       type: 'boolean',
       defaultsTo: true,
@@ -58,6 +58,7 @@ module.exports = {
 
   async createRestaurants(values, callback) {
     try {
+      console.log('in model create restro', values);
       const createdRecord = await Restaurant.create(values).fetch();
       return callback(null, createdRecord);
     } catch (error) {
@@ -74,19 +75,31 @@ module.exports = {
     }
   },
 
-  async getRestaurantByName(restaurantName, callback) {
+  async getRestaurantByName(name, callback) {
+    Logger.debug('Restaurant.getRestaurantByName')
     try {
-      const data = await User.find({ restaurantName: restaurantName });
-      return callback(null, data);
+      const data = await Restaurant.find({ restaurantName: name});
+
+      let retrievedRestro = JSON.stringify(data[0])
+      Logger.verbose(`Restaurant.getRestaurantByName at try: ${retrievedRestro}`)
+
+      if(retrievedRestro === undefined)
+        return callback(null, undefined);
+      else
+      return callback(null, retrievedRestro)
     } catch (error) {
+      Logger.error(`Restaurant.getRestaurantByName at catch: ${error}`)
       return callback(error);
     }
   },
 
   async getRestaurantById(id, callback) {
     try {
-      const data = await User.find({ _id: id });
-      return callback(null, data);
+      const data = await Restaurant.find({ id: id });
+      if(data[0] !== undefined)
+        return callback(null, data[0]);
+      else
+        return callback(null, data[0]);
     } catch (error) {
       return callback(error);
     }
@@ -94,7 +107,9 @@ module.exports = {
 
   async updateRestaurant(id, restaurantData, callback) {
     try {
-      const updatedRecord = await Restaurant.updateOne({ id }).set(restaurantData);
+    
+      var updatedRecord = await Restaurant.update({ id:id }).set(restaurantData).fetch();
+      console.log('updated record', updatedRecord)
       return callback(null, updatedRecord);
     }
     catch (error) {
@@ -104,10 +119,11 @@ module.exports = {
 
   async deleteRestaurant(id, callback) {
     try {
-      const data = await Restaurant.find({ _id: id });
+      const data = await Restaurant.find({ id: id });
+      console.log('in delete', data)
       if (data) {
-        Restaurant.deleteOne(data);
-        return callback(null, 'deleted successfully!');
+        await Restaurant.destroy(data[0].id);
+        return callback(null, data);
       }
       else {
         return callback('error while deleting', null);
