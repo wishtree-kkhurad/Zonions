@@ -12,8 +12,8 @@ class ProductItem extends React.Component {
   
   // const {thumb, name, price, mrp, offer, variant, rating, description} = product;
   render(){
-    const {restaurantName, address, imgUrl,id} = this.props.product;
-
+    const {restaurantName, address, imageData,imageName,id} = this.props.product;
+    console.log('products data', this.props.product)
     const getDetails = () => {
       console.log('from product item', this.props)
       this.props.history.push({pathname: `/restaurant/details/${id}`, data:this.props.product, from:'ProductItem'})
@@ -24,7 +24,7 @@ class ProductItem extends React.Component {
       <div className="gx-product-image">
         <div className="gx-grid-thumb-equal">
           <span className="gx-link gx-grid-thumb-cover">
-            <img alt="Menu" src={imgUrl}/>
+            <img alt={imageName} src='../../../images/degault_img.png'/>
           </span>
         </div>
       </div>
@@ -33,16 +33,6 @@ class ProductItem extends React.Component {
         <h3 className="gx-product-title">{restaurantName}
           <small className="gx-text-grey">{", " + address}</small>
         </h3>
-        
-        {/* <div className="ant-row-flex gx-mb-1">
-          <StarRatingComponent
-            name=""
-            value={rating}
-            starCount={5}
-            editing={false}/>
-          <strong className="gx-d-inline-block gx-ml-2">{rating}</strong>
-        </div>
-        <p>{description}</p> */}
       </div>
 
       <div className="gx-product-footer">

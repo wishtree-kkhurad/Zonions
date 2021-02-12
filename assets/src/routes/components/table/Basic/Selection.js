@@ -1,9 +1,10 @@
 import React from "react";
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
-import { Card, Col, Row, Table, Form } from "antd";
-import { PlusCircleOutlined } from '@ant-design/icons'
-
+import { Card, Col, Row, Table, Form, message, Popconfirm } from "antd";
+import { NotificationManager } from 'react-notifications';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -26,12 +27,12 @@ class Selection extends React.Component {
   async componentDidMount() {
     const data = await axios.get('http://localhost:1337/restaurants');
 
-    console.log('data fetched', data.data.response)
-
     this.setState({
       restaurants: data.data.response
     })
   }
+
+
   render() {
     const data = this.state.restaurants.map((row, index) => ({
       id: row.id,
@@ -51,7 +52,7 @@ class Selection extends React.Component {
         dataIndex: 'restaurantName',
         key: 'restaurantName',
         render: (text) => {
-          return <span className="gx-link" >{text}</span>
+          return <span className="gx-link" onClick={()=> alert(`clicked on ${text}`)}>{text}</span>
         }
       },
       {
@@ -94,27 +95,43 @@ class Selection extends React.Component {
       }
     ];
 
-    // const onNameClick = (text) => {
-    //   data.map((restro) => {
-    //     if (restro.name === text) {
-    //       this.props.history.push(`/restaurant/details/${restro.id}`)
-    //     }
-    //   })
+    const onNameClick = (text) => {
+      data.map((restro) => {
+        if (restro.name === text) {
+          this.props.history.push(`/restaurant/details/${restro.id}`)
+        }
+      })
 
-    // }
+    }
 
     const onDelete = (text) => {
-      let userResponse = confirm(`are you sure to delete restaurant ${text.restaurantName}?`);
-      console.log('user response', userResponse);
-      if(userResponse===true)
-      {
-        axios.delete(`http://localhost:1337/restaurants/${text.id}`)
-        .then((res)=>{console.log('Restaurant deleted successfully!', res)})
-        .catch((err)=>{console.log('error while deleting restaurant: ', err)})
-      }
-      else{
-        alert('cancelled the action');
-      }
+      confirmAlert({
+        title: 'Confirm Action',
+        message: 'Are you sure to delete this restaurant?',
+        buttons: [
+          {
+            label: 'Cancel'
+          },
+          {
+            label: 'Yes, Delete it!',
+            onClick: () => {
+              axios.delete(`http://localhost:1337/restaurants/${text.id}`)
+              .then((res)=>{
+                NotificationManager.success('You have deleted a restaurant!', 'Successful!', 3000);
+      
+                axios.get(`http://localhost:1337/restaurants`)
+                  .then((res)=>{
+                    this.setState({
+                      restaurants: res.data.response
+                    })
+                  })
+                  .catch((err)=>{console.log('error while fetching new list of restaurants: ', err)})
+              })
+              .catch((err)=>{console.log('error while deleting restaurant: ', err)})
+            }
+          }
+        ]
+      })      
     }
 
     const onEdit = (text) => {
@@ -141,8 +158,6 @@ class Selection extends React.Component {
           columns={columns}
           dataSource={data}
         />
-
-
       </Card>
     );
   }

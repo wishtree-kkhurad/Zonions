@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { AutoComplete, Button, Card, Form, Input, Select, TimePicker } from "antd";
+import { NotificationManager } from 'react-notifications';
+
 import moment from "moment";
 const format = 'HH:mm';
 const FormItem = Form.Item;
@@ -49,9 +51,8 @@ class EditRestaurant extends React.Component {
 
         axios.put(editUrl, dataToupload)
             .then((res)=>{
-                console.log('after successfully update', res.data);
-                alert('restaurant updated successfylly!');
                 this.props.history.push({pathname:'/restaurant/manage', from:'EditRestaurant'});
+                NotificationManager.success('You have updated a restaurant!', 'Successful!', 3000);
             })
             .catch((err)=>{console.log('error while editing', err)});
         

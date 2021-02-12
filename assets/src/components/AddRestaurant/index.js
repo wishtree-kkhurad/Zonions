@@ -1,9 +1,10 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
-import { AutoComplete, Button, Card,Form, Input,Select,TimePicker } from "antd";
+import { withRouter } from 'react-router-dom';
+import { AutoComplete, Button, Card, Form, Input, Select, TimePicker, Alert} from "antd";
+import { NotificationManager } from 'react-notifications';
 import moment from "moment";
+
 import axios from 'axios';
-import { child } from 'winston';
 
 const format = 'HH:mm';
 const FormItem = Form.Item;
@@ -17,23 +18,25 @@ class AddRestaurant extends React.Component {
         this.state = {
             confirmDirty: false,
             autoCompleteResult: [],
-            imageData:''
+            imageData: ''
         }
     }
+
     handleSubmit = async (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
                 axios.post('http://localhost:1337/restaurants', values)
-                .then((res)=>{
-                    console.log('added restaurant successfully', res)
-                    this.props.history.push({pathname:'/restaurant/manage', from:'AddRestaurant'});
-                })
-                .catch((err)=>{
-                    console.log('error while adding restaurant', err);
-                })
-    
+                    .then((res) => {
+                        this.props.history.push({pathname:'/restaurant/manage', from:'AddRestaurant'});
+                        NotificationManager.success('You have added a new restaurant!', 'Successful!', 3000);
+                        // return(<Alert message="Success Text" type="success" showIcon/>) 
+                    })
+                    .catch((err) => {
+                        console.log('error while adding restaurant', err);
+                    })
+
             }
         });
     }
@@ -41,7 +44,7 @@ class AddRestaurant extends React.Component {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     }
-    
+
     // uploadImage = async (e) =>{
     //     console.log('inside uploadImage front end')
     //     e.preventDefault();
@@ -81,14 +84,14 @@ class AddRestaurant extends React.Component {
         };
         const tailFormItemLayout = {
             wrapperCol: {
-              xs: {
-                span: 24,
-                offset: 0,
-              },
-              sm: {
-                span: 16,
-                offset: 8,
-              },
+                xs: {
+                    span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    span: 16,
+                    offset: 8,
+                },
             },
         };
 
@@ -144,14 +147,14 @@ class AddRestaurant extends React.Component {
                         {getFieldDecorator('phone', {
                             rules: [{ required: true, message: 'Please input your phone number!' }],
                         })(
-                            <Input addonBefore={prefixSelector}  />
+                            <Input addonBefore={prefixSelector} />
                         )}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Opening Time">
                         {getFieldDecorator('openingTime', {
-                            rules: [{ required: false, message: "Please input your restaurant's opening time!"}],
+                            rules: [{ required: false, message: "Please input your restaurant's opening time!" }],
                         })(
                             <TimePicker format={format} />
                         )}
@@ -160,7 +163,7 @@ class AddRestaurant extends React.Component {
                         {...formItemLayout}
                         label="Closing Time">
                         {getFieldDecorator('closingTime', {
-                            rules: [{ required: false, message: "Please input your restaurant's closing time!"}],
+                            rules: [{ required: false, message: "Please input your restaurant's closing time!" }],
                         })(
                             <TimePicker format={format} />
                         )}
@@ -171,7 +174,7 @@ class AddRestaurant extends React.Component {
                     >
 
                         {getFieldDecorator('file', {
-                            rules: [{ required: false, message: "Please input your menu image!"}],
+                            rules: [{ required: false, message: "Please input your menu image!" }],
                         })(
                             <div className='row'>
                                 <div className='col-6'>

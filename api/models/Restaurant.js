@@ -18,7 +18,7 @@ module.exports = {
     tagline: {
       type: 'string',
       columnName: 'tag_line',
-      defaultsTo: '',
+      defaultsTo: 'N/A',
       columnName: 'tagline'
     },
     address: {
@@ -34,20 +34,25 @@ module.exports = {
     },
     openingTime: {
       type: 'string',
-      columnName: 'opening_time'
+      columnName: 'opening_time',
+      defaultsTo: 'N/A',
     },
     closingTime: {
       type: 'string',
-      columnName: 'closing_time'
+      columnName: 'closing_time',
+      defaultsTo: 'N/A',
     },
     imageData: {
       type: 'string',
-      required: false
+      required: false,
+      defaultsTo: 'N/A',
     },
     imageName: {
       type: 'string',
       defaultsTo: 'none',
-      columnName: 'img_alt'
+      columnName: 'img_alt',
+      defaultsTo: 'default image',
+
     },
     isActive: {
       type: 'boolean',

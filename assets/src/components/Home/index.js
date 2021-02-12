@@ -23,30 +23,25 @@ class Home extends React.Component {
     render() {
 
         return (
-            <Layout className="gx-app-layout" style={{ margin: '2%' }}>
+            <Layout className="gx-app-layout">
                 <Content className={`gx-layout-content`}>
-                    <Auxiliary>
-                        <Header>
-                            <h1 style={{ fontSize: '55px', textAlign: 'center' }}>Zonions</h1>
-                            <div>
-                                <Button type='primary'  onClick={() => this.goToLogin()}>Login</Button>
-                                <Button type='primary' onClick={() => this.goToSignup()}>SignUp</Button>
-                            </div>
-                            
-                        </Header>
-                    </Auxiliary>
-
+                   
+                    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+                        <h1 style={{ fontSize: '55px', textAlign: 'center' }}>Zonions</h1>
+                        <div>
+                            <Button type='primary' onClick={() => this.goToLogin()}>Login</Button>
+                            <Button type='primary' onClick={() => this.goToSignup()}>SignUp</Button>
+                        </div>
+                    </Header>
                     <div>
                         <ProductItem />
                     </div>
-                    <div>
-                        <Footer>
-                            <div className="gx-layout-footer-content">
-                                {footerText}
-                            </div>
-                        </Footer>
-                    </div>
                 </Content>
+                <Footer>
+                    <div className="gx-layout-footer-content">
+                        {footerText}
+                    </div>
+                </Footer>
             </Layout>
         );
     }

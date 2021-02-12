@@ -12,36 +12,30 @@ const Customize = (props) => {
 
     <Layout className="gx-app-layout">
       <Content className={`gx-layout-content`}>
-        <Auxiliary>
-          <Header>
+        
+          <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
             <h1 style={{ fontSize: '3rem', marginLeft: '42%' }}>Zonions</h1>
             <button type='button' className='btn btn-primary' onClick={() => history.back()}>Go Back</button>
 
           </Header>
-        </Auxiliary>
-        <div>
+     
           <Card
             hoverable
-          // cover={<img alt="example" src={props.resto.imgUrl}/>}
           >
+            <img alt={props.resto.imageName} src='../../../../../images/degault_img.png' />
             <h1>{props.resto.restaurantName}</h1>
-            <img alt='hotel-img' src={props.resto.imgUrl} />
-            <hr /><hr /><hr />
-            <Meta
-              title={props.resto.address}
-            />
-            <hr />
+            <h3>{props.resto.address}</h3>
+            <h3>{props.resto.openingTime}</h3>
+            <h3>{props.resto.closingTime}</h3>
+            
           </Card>
-        </div>
-        <div>
-          <Footer>
-            <div className="gx-layout-footer-content">
-              {footerText}
-            </div>
-          </Footer>
-        </div>
-
+      
       </Content>
+      <Footer>
+        <div className="gx-layout-footer-content">
+          {footerText}
+        </div>
+      </Footer>
     </Layout>
 
 

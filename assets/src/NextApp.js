@@ -8,7 +8,7 @@ import configureStore, {history} from "./appRedux/store";
 import "./firebase/firebase";
 import App from "./containers/App/index";
 import './styles/wieldy.less';
-
+import 'react-notifications/lib/notifications.css';
 export const store = configureStore();
 
 const NextApp = () =>
