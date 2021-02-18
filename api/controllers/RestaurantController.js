@@ -4,6 +4,7 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
+const Logger = require('../services/Logger');
 const RestaurantService = require('../services/RestaurantService');
 
 module.exports = {
@@ -63,6 +64,23 @@ module.exports = {
     });
   },
 
+  getRestaurantByLocation: function(req, res, next){
+    Logger.verbose('RestaurantController.getRestaurantByLocation');
+    Logger.info('input address', req.allParams().address);
+    
+    RestaurantService.getRestaurantByLocation(req.allParams().address, (err, restaurants) => {
+      if (err) {
+        res.send({ status: 300, message: 'serverError' });
+      } else {
+        if(restaurants!==undefined)
+          res.send({ status: 200, response: restaurants});
+        else{
+          res.send({ status: 404, response: 'Restaurant does not exist' });
+        }
+      }
+    });
+  },
+
   getRestaurantById: function (req, res, next) {
     Logger.verbose('RestaurantController.getRestaurantById');
 
@@ -73,7 +91,7 @@ module.exports = {
         if(restaurant!==undefined)
           res.send({ status: 200, response: restaurant });
         else{
-          res.send({ status: 200, response: 'Restaurant does not exist' });
+          res.send({ status: 404, response: 'Restaurant does not exist' });
         }
       }
     });

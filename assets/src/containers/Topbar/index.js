@@ -34,15 +34,12 @@ class Topbar extends Component {
     const goToManage = () => {
       this.props.history.push({pathname:'/restaurant/manage'});
     }
-    const logout = () =>{
-      // localStorage.removeItem('user_id');
-      // this.props.history.push({pathname:'/signin'});
+    const userSignOut = () =>{
+      localStorage.removeItem('user_id');
+      this.props.history.push({pathname:'/landingpage'});
     }
-
-    console.log('inside topbar', this.props);
-    
     return (
-      <Auxiliary>
+      
         <Header>      
           <div>
               <Breadcrumb separator=">">
@@ -50,9 +47,12 @@ class Topbar extends Component {
                 <Breadcrumb.Item><span className="gx-link" onClick={goToManage}>Manage Restaurant</span></Breadcrumb.Item>
               </Breadcrumb>
           </div>
-          <Icon type="logout" style={{fontSize:'25px', color:'steelblue'}} onClick={()=>this.props.userSignOut()}/>
+          <div>
+            <h1>All Restaurants</h1>
+          </div>
+          <Icon type="logout" style={{fontSize:'25px', color:'steelblue'}} onClick={userSignOut}/>
         </Header>
-      </Auxiliary>
+      
     );
   }
 }
@@ -62,4 +62,4 @@ const mapStateToProps = ({ settings }) => {
   return { locale, navStyle, navCollapsed, width }
 };
 
-export default connect(mapStateToProps, { toggleCollapsedSideNav, switchLanguage, userSignOut })(withRouter(Topbar));
+export default connect(mapStateToProps, { toggleCollapsedSideNav, switchLanguage })(withRouter(Topbar));

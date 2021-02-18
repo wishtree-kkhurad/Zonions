@@ -157,6 +157,8 @@ class Selection extends React.Component {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={data}
+          pagination={{pageSize: 3}}
+          // scroll={{y: 240}}
         />
       </Card>
     );

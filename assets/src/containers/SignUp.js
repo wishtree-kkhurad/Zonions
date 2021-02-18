@@ -70,7 +70,7 @@ class SignUp extends React.Component {
       }, 100);
     }
     if (this.props.authUser !== null) {
-      this.props.history.push('/restaurant/manage');
+      this.props.history.push('/');
     }
   }
 
@@ -138,35 +138,6 @@ class SignUp extends React.Component {
                   <span><IntlMessages id="app.userAuth.or" /></span> <Link to="/signin"><IntlMessages
                     id="app.userAuth.signIn" /></Link>
                 </FormItem>
-                <div className="gx-flex-row gx-justify-content-between">
-                  <span>or connect with</span>
-                  <ul className="gx-social-link">
-                    <li>
-                      <Icon type="google" onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userGoogleSignIn();
-                      }} />
-                    </li>
-                    <li>
-                      <Icon type="facebook" onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userFacebookSignIn();
-                      }} />
-                    </li>
-                    <li>
-                      <Icon type="github" onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userGithubSignIn();
-                      }} />
-                    </li>
-                    <li>
-                      <Icon type="twitter" onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userTwitterSignIn();
-                      }} />
-                    </li>
-                  </ul>
-                </div>
               </Form>
             </div>
             {loader &&

@@ -1,5 +1,7 @@
-import React, {Component} from "react";
-import {Layout} from "antd";
+import React, { Component } from "react";
+import { Layout, Icon, Input, Button } from "antd";
+import ButtonGroup from 'antd/lib/button/button-group';
+const { Search } = Input;
 
 import Sidebar from "../Sidebar/index";
 import HorizontalDefault from "../Topbar/HorizontalDefault/index";
@@ -9,10 +11,10 @@ import AboveHeader from "../Topbar/AboveHeader/index";
 import BelowHeader from "../Topbar/BelowHeader/index";
 
 import Topbar from "../Topbar/index";
-import {footerText} from "../../util/config";
+import { footerText } from "../../util/config";
 import RouteApp from "../../routes/index";
 import Customizer from "../../containers/Customizer";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import {
   NAV_STYLE_ABOVE_HEADER,
   NAV_STYLE_BELOW_HEADER,
@@ -29,7 +31,7 @@ import {
 import NoHeaderNotification from "../Topbar/NoHeaderNotification/index";
 
 
-const {Content, Footer} = Layout;
+const { Content, Footer, Header } = Layout;
 
 export class MainApp extends Component {
 
@@ -51,77 +53,101 @@ export class MainApp extends Component {
   };
   getNavStyles = (navStyle) => {
     switch (navStyle) {
-      case NAV_STYLE_DEFAULT_HORIZONTAL :
-        return <HorizontalDefault/>;
-      case NAV_STYLE_DARK_HORIZONTAL :
-        return <HorizontalDark/>;
-      case NAV_STYLE_INSIDE_HEADER_HORIZONTAL :
-        return <InsideHeader/>;
-      case NAV_STYLE_ABOVE_HEADER :
-        return <AboveHeader/>;
-      case NAV_STYLE_BELOW_HEADER :
-        return <BelowHeader/>;
-      case NAV_STYLE_FIXED :
-        return <Topbar/>;
-      case NAV_STYLE_DRAWER :
-        return <Topbar/>;
-      case NAV_STYLE_MINI_SIDEBAR :
-        return <Topbar/>;
-      case NAV_STYLE_NO_HEADER_MINI_SIDEBAR :
-        return <NoHeaderNotification/>;
-      case NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR :
-        return <NoHeaderNotification/>;
-      default :
+      case NAV_STYLE_DEFAULT_HORIZONTAL:
+        return <HorizontalDefault />;
+      case NAV_STYLE_DARK_HORIZONTAL:
+        return <HorizontalDark />;
+      case NAV_STYLE_INSIDE_HEADER_HORIZONTAL:
+        return <InsideHeader />;
+      case NAV_STYLE_ABOVE_HEADER:
+        return <AboveHeader />;
+      case NAV_STYLE_BELOW_HEADER:
+        return <BelowHeader />;
+      case NAV_STYLE_FIXED:
+        return <Topbar />;
+      case NAV_STYLE_DRAWER:
+        return <Topbar />;
+      case NAV_STYLE_MINI_SIDEBAR:
+        return <Topbar />;
+      case NAV_STYLE_NO_HEADER_MINI_SIDEBAR:
+        return <NoHeaderNotification />;
+      case NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR:
+        return <NoHeaderNotification />;
+      default:
         return null;
     }
   };
 
   getSidebar = (navStyle, width) => {
     if (width < TAB_SIZE) {
-      return <Sidebar/>;
+      return <Sidebar />;
     }
     switch (navStyle) {
-      case NAV_STYLE_FIXED :
-        return <Sidebar/>;
-      case NAV_STYLE_DRAWER :
-        return <Sidebar/>;
-      case NAV_STYLE_MINI_SIDEBAR :
-        return <Sidebar/>;
-      case NAV_STYLE_NO_HEADER_MINI_SIDEBAR :
-        return <Sidebar/>;
+      case NAV_STYLE_FIXED:
+        return <Sidebar />;
+      case NAV_STYLE_DRAWER:
+        return <Sidebar />;
+      case NAV_STYLE_MINI_SIDEBAR:
+        return <Sidebar />;
+      case NAV_STYLE_NO_HEADER_MINI_SIDEBAR:
+        return <Sidebar />;
       case NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR:
-        return <Sidebar/>;
-      default :
+        return <Sidebar />;
+      default:
         return null;
     }
   };
 
   render() {
-    const {match, width, navStyle} = this.props;
-
+    const { match, width, navStyle } = this.props;
+    // const goToHome = () => {
+    //   this.props.history.push({ pathname: '/home' });
+    // }
+    // const goToManage = () => {
+    //   this.props.history.push({ pathname: '/restaurant/manage' });
+    // }
+    const userSignOut = () => {
+      localStorage.removeItem('user_id');
+      this.props.history.push({ pathname: '/landingpage' });
+    }
     return (
       <Layout className="gx-app-layout">
         {/* {this.getSidebar(navStyle, width)} */}
         <Layout>
-          {this.getNavStyles(navStyle)}
-          <Content className={`gx-layout-content ${ this.getContainerClass(navStyle)} `}>
-            <RouteApp match={match}/>
-            <Footer>
+          {/* {this.getNavStyles(navStyle)} */}
+          
+          <Header style={{backgroundColor:'rgba(6, 12, 53, 0.829)'}}>
+            <div style={{position:'relative', float:'right'}}>
+              <Icon type="logout" 
+              style={{ fontSize: '25px', color: 'white'}} 
+              onClick={userSignOut} />
+            </div>
+            <ButtonGroup direction="vertical">
+              <Search placeholder="input search text"
+                onSearch={this.onSearch}
+                enterButton
+                style={{ width: 400 }} />
+            </ButtonGroup>
+          </Header>
+
+          <Content className={`gx-layout-content `}>
+            <RouteApp match={match} />
+            <Footer style={{backgroundColor:'rgba(6, 12, 53, 0.829)', color:'white'}}>
               <div className="gx-layout-footer-content">
                 {footerText}
               </div>
             </Footer>
           </Content>
         </Layout>
-        <Customizer/>
+        <Customizer />
       </Layout>
     )
   }
 }
 
-const mapStateToProps = ({settings}) => {
-  const {width, navStyle} = settings;
-  return {width, navStyle}
+const mapStateToProps = ({ settings }) => {
+  const { width, navStyle } = settings;
+  return { width, navStyle }
 };
 export default connect(mapStateToProps)(MainApp);
 

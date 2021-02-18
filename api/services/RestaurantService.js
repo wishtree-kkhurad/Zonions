@@ -51,11 +51,11 @@ module.exports = {
     },
 
     /**
-     * `RestaurantController.findOne()`
+     * `RestaurantService.findOne()`
      */
     getRestaurantByName(restaurantName, callback) {
         Logger.debug('RestaurantService.getRestaurantByName');
-        Restaurant.getRestaurantById(restaurantName, (error, restaurant) => {
+        Restaurant.getRestaurantByName(restaurantName, (error, restaurant) => {
             if (error) {
                 Logger.error(`RestaurantService.getRestaurantByName at Restaurant.getRestaurantByName ${error}`);
                 callback(error);
@@ -64,11 +64,11 @@ module.exports = {
                 callback(null, restaurant);
             }
         });
-
     },
+
     /**
-         * `RestaurantController.findOne()`
-         */
+     * `RestaurantService.findOne()`
+     */
     getRestaurantById(id, callback) {
         Logger.debug('RestaurantService.getRestaurantById');
 
@@ -80,6 +80,31 @@ module.exports = {
                 if(restaurant!==undefined)
                 {
                     Logger.info('Restaurant fetched successfully.');
+                    Logger.verbose(restaurant)
+                    callback(null, restaurant);
+                }
+                else{
+                    Logger.verbose(restaurant)
+                    callback(null, restaurant);
+                }
+            }
+        });
+    },
+
+    /**
+     * `RestaurantService.find()`
+     */
+    getRestaurantByLocation(address, callback){
+        Logger.debug('RestaurantService.getRestaurantByLocation');
+
+        Restaurant.getRestaurantByLocation(address, (error, restaurant) => {
+            if (error) {
+                Logger.error(`RestaurantService.getRestaurantByLocation at Restaurant.getRestaurantByLocation ${error}`);
+                callback(error);
+            } else {
+                if(restaurant!==undefined)
+                {
+                    Logger.info('Restaurants fetched successfully.');
                     Logger.verbose(restaurant)
                     callback(null, restaurant);
                 }

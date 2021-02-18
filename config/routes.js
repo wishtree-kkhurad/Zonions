@@ -49,7 +49,7 @@ module.exports.routes = {
  'GET /restaurants/:id': 'RestaurantController.getRestaurantById',
  'PUT /restaurants/:id': 'RestaurantController.updateRestaurant',
  'DELETE /restaurants/:id': 'RestaurantController.deleteRestaurant',
-
+ 'GET /restaurants/location/:address': 'RestaurantController.getRestaurantByLocation',
 
 
  /* File Upload */

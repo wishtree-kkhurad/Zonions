@@ -81,7 +81,7 @@ module.exports = {
   },
 
   async getRestaurantByName(name, callback) {
-    Logger.debug('Restaurant.getRestaurantByName')
+    Logger.debug('Restaurant.getRestaurantByName');
     try {
       const data = await Restaurant.find({ restaurantName: name});
 
@@ -94,6 +94,27 @@ module.exports = {
       return callback(null, retrievedRestro)
     } catch (error) {
       Logger.error(`Restaurant.getRestaurantByName at catch: ${error}`)
+      return callback(error);
+    }
+  },
+
+  async getRestaurantByLocation(address, callback) {
+    Logger.debug('Restaurant.getRestaurantByLocation');
+    try {
+      const data = await Restaurant.find({
+        where:{address: {contains : address}},
+        // skip:0,
+        // limit:10,
+        // sort: [{}]
+      }).meta({makeLikeModifierCaseInsensitive: true});
+      Logger.verbose(`Restaurant.getRestaurantByLocation at try: ${data}`)
+
+      if(data === undefined)
+        return callback(null, undefined);
+      else
+        return callback(null, data)
+    } catch (error) {
+      Logger.error(`Restaurant.getRestaurantByLocation at catch: ${error}`)
       return callback(error);
     }
   },
