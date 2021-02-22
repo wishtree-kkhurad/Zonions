@@ -55,7 +55,7 @@ module.exports = {
   getRestaurantByName: function (req, res, next) {
     Logger.verbose('RestaurantController.getRestaurantByName');
 
-    RestaurantService.getRestaurantByName((err, restaurant) => {
+    RestaurantService.getRestaurantByName(req.allParams().text,(err, restaurant) => {
       if (err) {
         res.send({ status: 300, message: 'serverError' });
       } else {

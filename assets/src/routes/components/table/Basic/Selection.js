@@ -1,10 +1,12 @@
 import React from "react";
 import axios from 'axios';
+import moment from 'moment';
 import { withRouter } from 'react-router-dom'
-import { Card, Col, Row, Table, Form, message, Popconfirm } from "antd";
+import { Card, Col, Row, Table, Form, Layout, Tooltip} from "antd";
 import { NotificationManager } from 'react-notifications';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
+
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -38,12 +40,12 @@ class Selection extends React.Component {
       id: row.id,
       restaurantName: row.restaurantName,
       address: row.address,
-      status: (row.isActive) ? "Active": "Deactive",
-      openingTime: row.openingTime,
-      closingTime: row.closingTime,
-      tagline:row.tagline,
+      status: (row.isActive) ? "Active" : "Deactive",
+      openingTime: (row.openingTime!=='N/A') ? moment(row.openingTime).format('HH:mm'): '--:--',
+      closingTime: (row.closingTime!=='N/A') ? moment(row.closingTime).format('HH:mm'): '--:--',
+      tagline: row.tagline,
       phone: row.phone,
-      key:row.id
+      key: row.id
     }));
 
     const columns = [
@@ -51,14 +53,39 @@ class Selection extends React.Component {
         title: 'Restaurant Name',
         dataIndex: 'restaurantName',
         key: 'restaurantName',
-        render: (text) => {
-          return <span className="gx-link" onClick={()=> alert(`clicked on ${text}`)}>{text}</span>
-        }
+        /**for ellipsis */
+        onCell: () => {
+          return {
+             style: {
+                whiteSpace: 'nowrap',
+                maxWidth: 150,
+             }
+          }
+       },
+        render: (text) => (
+          <Tooltip title={text}>
+             <div className="gx-link" style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>{text}</div>
+          </Tooltip>
+       )
       },
       {
         title: 'Location',
         dataIndex: 'address',
         key: 'address',
+        /**for ellipsis */
+        onCell: () => {
+          return {
+             style: {
+                whiteSpace: 'nowrap',
+                maxWidth: 150,
+             }
+          }
+       },
+        render: (text) => (
+          <Tooltip title={text}>
+             <div style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>{text}</div>
+          </Tooltip>
+       )
       },
       {
         title: 'Status',
@@ -66,9 +93,14 @@ class Selection extends React.Component {
         key: 'status',
       },
       {
+        title: 'Phone',
+        dataIndex: 'phone',
+        key: 'phone',
+      },
+      {
         title: 'Opening Time',
         dataIndex: 'openingTime',
-        key: 'open_time',
+        key: 'open_time'
       },
       {
         title: 'Closing Time',
@@ -82,7 +114,6 @@ class Selection extends React.Component {
         render: (text) => (
 
           <Row className="glyphs css-mapping">
-
             <Col className="gx-icon-views" xl={4} lg={6} md={6} sm={8} xs={12}>
               <i className="icon icon-edit" style={{ color: 'green' }} onClick={() => onEdit(text)} />
             </Col>
@@ -95,14 +126,12 @@ class Selection extends React.Component {
       }
     ];
 
-    const onNameClick = (text) => {
-      data.map((restro) => {
-        if (restro.name === text) {
-          this.props.history.push(`/restaurant/details/${restro.id}`)
-        }
-      })
-
-    }
+    // const onNameClick = async (text) => {
+    //   alert(`Clicked on ${text}`)
+    //   const restaurantByName = await axios.get(`http://localhost:1337/restaurants/byname/${text}`)
+    //   console.log('restaurant fetched by name', restaurantByName);
+    //   // this.props.history.push({pathname:`/restaurant/details/name/${text}`, data:restaurantByName})
+    // }
 
     const onDelete = (text) => {
       confirmAlert({
@@ -116,22 +145,22 @@ class Selection extends React.Component {
             label: 'Yes, Delete it!',
             onClick: () => {
               axios.delete(`http://localhost:1337/restaurants/${text.id}`)
-              .then((res)=>{
-                NotificationManager.success('You have deleted a restaurant!', 'Successful!', 3000);
-      
-                axios.get(`http://localhost:1337/restaurants`)
-                  .then((res)=>{
-                    this.setState({
-                      restaurants: res.data.response
+                .then((res) => {
+                  NotificationManager.success('You have deleted a restaurant!', 'Successful!', 3000);
+
+                  axios.get(`http://localhost:1337/restaurants`)
+                    .then((res) => {
+                      this.setState({
+                        restaurants: res.data.response
+                      })
                     })
-                  })
-                  .catch((err)=>{console.log('error while fetching new list of restaurants: ', err)})
-              })
-              .catch((err)=>{console.log('error while deleting restaurant: ', err)})
+                    .catch((err) => { console.log('error while fetching new list of restaurants: ', err) })
+                })
+                .catch((err) => { console.log('error while deleting restaurant: ', err) })
             }
           }
         ]
-      })      
+      })
     }
 
     const onEdit = (text) => {
@@ -157,10 +186,11 @@ class Selection extends React.Component {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={data}
-          pagination={{pageSize: 3}}
-          // scroll={{y: 240}}
+          pagination={{ pageSize: 3 }}
+        // scroll={{y: 240}}
         />
       </Card>
+
     );
   }
 };

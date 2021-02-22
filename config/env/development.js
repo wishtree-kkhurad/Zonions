@@ -77,10 +77,10 @@ module.exports = {
         type: 'file',
         fileName: 'Zonions_Logs/error.zonions.log',
       },
-      sentry: {
-        type: 'sentry',
-        dsn: 'https://42493d9c21cf444aa2a751745a0527a3@sentry.io/5171306',
-      },
+      // sentry: {
+      //   type: 'sentry',
+      //   dsn: 'https://42493d9c21cf444aa2a751745a0527a3@sentry.io/5171306',
+      // },
     },
 
     logLevelConfig: {

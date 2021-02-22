@@ -123,7 +123,7 @@ export class MainApp extends Component {
               onClick={userSignOut} />
             </div>
             <ButtonGroup direction="vertical">
-              <Search placeholder="input search text"
+              <Search placeholder="Input Restaurant Name"
                 onSearch={this.onSearch}
                 enterButton
                 style={{ width: 400 }} />

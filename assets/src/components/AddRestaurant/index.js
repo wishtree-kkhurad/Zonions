@@ -31,7 +31,6 @@ class AddRestaurant extends React.Component {
                     .then((res) => {
                         this.props.history.push({pathname:'/restaurant/manage', from:'AddRestaurant'});
                         NotificationManager.success('You have added a new restaurant!', 'Successful!', 3000);
-                        // return(<Alert message="Success Text" type="success" showIcon/>) 
                     })
                     .catch((err) => {
                         console.log('error while adding restaurant', err);
@@ -127,7 +126,7 @@ class AddRestaurant extends React.Component {
                         {getFieldDecorator('tagline', {
                             rules: [{ required: false }],
                         })(
-                            <Input style={{ width: '100%' }} />
+                            <Input />
                         )}
                     </FormItem>
                     <FormItem
@@ -137,7 +136,7 @@ class AddRestaurant extends React.Component {
                         {getFieldDecorator('address', {
                             rules: [{ required: true, message: 'Please input your location!' }],
                         })(
-                            <Input style={{ width: '100%' }} />
+                            <Input />
                         )}
                     </FormItem>
                     <FormItem

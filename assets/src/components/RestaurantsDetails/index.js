@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown } from "antd";
-import { DownOutlined } from '@ant-design/icons';
+import moment from 'moment';
+import { Layout,Form, Input, Button, Menu } from "antd";
 
-import ButtonGroup from 'antd/lib/button/button-group';
-const { Search } = Input;
 const { Content, Footer, Header } = Layout;
 import { footerText } from "../../util/config";
 import Customizer from "../../containers/Customizer";
@@ -82,8 +80,9 @@ const menu = (
 );
 
 class RestaurantDetails extends Component {
-
     render() {
+        console.log('in deatils page', this.props.location)
+
         return (
             <Layout className="gx-app-layout">
                 <Content className={`gx-layout-content`}>
@@ -96,15 +95,18 @@ class RestaurantDetails extends Component {
                         </div>
                         <div className='col-md-6' >
                             <div style={{marginBottom:'3px'}}>
-                                <h1 
-                                style={{ fontSize: '3rem'}}>
+                                <h1 style={{ fontSize: '3rem', overflow: 'hidden',textOverflow: 'ellipsis'}}>
                                     {this.props.location.data.restaurantName}
                                 </h1>
                             </div>
                             <div>
-                                <h2 style={{display:'inline-block'}}>Location: {this.props.location.data.address}</h2>
-                                <h3>Opens at: {this.props.location.data.openingTime}</h3>
-                                <h3>Closes at: {this.props.location.data.closingTime}</h3>
+                                <h2 style={{ 
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis'}}>
+                                        Location: {this.props.location.data.address}
+                                </h2>
+                                <h3>Opens at: {moment(this.props.location.data.openingTime).format('HH:mm')}</h3>
+                                <h3>Closes at: {moment(this.props.location.data.closingTime).format('HH:mm')}</h3>
                             </div>
                             <div>
                                 <button type='button'

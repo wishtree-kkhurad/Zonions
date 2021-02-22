@@ -89,7 +89,8 @@ class LocationWiseRestaurants extends React.Component {
         super(props)
 
         this.state = {
-            filteredRestaurants: []
+            filteredRestaurants: [],
+            search:''
         }
     }
 
@@ -105,25 +106,25 @@ class LocationWiseRestaurants extends React.Component {
         this.props.history.push({ pathname: '/signup' });
     }
 
-    /*onSearch = async (value) => {
-        let retrievedData = await axios.get(`http://localhost:1337/restaurants/location/${value}`)
+    onSearch = (value) =>{
         this.setState({
-            filteresRestaurants: retrievedData.data.response
-        });
-        console.log('location wise data', this.state.filteresRestaurants)
-    }*/
-    
-    async componentDidMount(){
-        let data = await axios.get(`http://localhost:1337/restaurants/location/${this.props.match.params.location}`);
+            search:value
+        })
+        console.log('keyword',this.state.search)
+    }
 
+    async componentDidMount() {
+        let data = await axios.get(`http://localhost:1337/restaurants/location/${this.props.match.params.location}`);
+        
         this.setState({
             filteredRestaurants: data.data.response
         })
     }
 
     getDetails = (restaurant) => {
-        this.props.history.push({pathname:`/restaurant/details/${restaurant.id}`, data:restaurant, from:'LocationWiseRestaurants'})
+        this.props.history.push({ pathname: `/restaurant/details/${restaurant.id}`, data: restaurant, from: 'LocationWiseRestaurants' })
     }
+
     render() {
 
         return (
@@ -161,7 +162,7 @@ class LocationWiseRestaurants extends React.Component {
 
                             <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>See who delivers in your neighborhood</h3>
                             <ButtonGroup direction="vertical">
-                                <Search placeholder="input search text"
+                                <Search placeholder="Input restaurant name"
                                     onSearch={this.onSearch}
                                     enterButton
                                     style={{ width: 400 }} />
@@ -170,29 +171,48 @@ class LocationWiseRestaurants extends React.Component {
                     </div>
 
                     <div className='row' style={{ marginTop: '30px', marginBottom: '40px' }}>
+                        {
+                            (this.state.filteredRestaurants.length) > 0 ?
+                                <div className='col-md-12'>
 
-                        <div className='col-md-12'>
-                            <Divider className='col-md-12'
-                                style={{ fontSize: '25px', marginBottom: '3%' }}
-                                orientation="center">Discover the best restaurants in {this.props.match.params.location}</Divider>
-                            {
-                                this.state.filteredRestaurants.map((restaurant) => {
-                                    return (
-                                        <div key={restaurant.id} className='cuisine-card'>
-                                            <a onClick={()=>this.getDetails(restaurant)}>
-                                                <div className='card_img'>
-                                                    <img src='../../../images/default_img.jpg' alt={restaurant.imageName} />
+                                    <Divider className='col-md-12'
+                                        style={{ fontSize: '25px', marginBottom: '3%' }}
+                                        orientation="center">Discover the best restaurants in {this.props.match.params.location}
+                                    </Divider>
+                                    {
+                                        this.state.filteredRestaurants.map((restaurant) => {
+                                            return (
+                                                <div key={restaurant.id} className='cuisine-card'>
+                                                    <a onClick={() => this.getDetails(restaurant)}>
+                                                        <div className='card_img'>
+                                                            <img src='../../../images/default_img.jpg' alt={restaurant.imageName} />
+                                                        </div>
+                                                        <div className='card_text'
+                                                            style={{
+                                                                overflow: 'hidden',
+                                                                textOverflow: 'ellipsis'
+                                                            }}>
+                                                            {restaurant.restaurantName}
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                                <div className='card_text'>
-                                                    {restaurant.restaurantName}
-                                                </div>
-                                            </a>
-                                        </div>
 
-                                    );
-                                })
-                            }
-                        </div>
+                                            );
+                                        })
+                                    }
+                                </div> :
+                                <>
+                                    <Divider className='col-md-12'
+                                        style={{ fontSize: '25px', marginBottom: '3%' }}
+                                        orientation="center">
+                                        Oops! No Restaurant Serving in {this.props.match.params.location}
+
+                                    </Divider>
+                                    <div className='col-md-12' style={{ marginLeft: '40%' }}>
+                                        <Button type='primary' ghost onClick={() => history.back()}>Back To Home</Button>
+                                    </div>
+                                </>
+                        }
                     </div>
 
                     <div className='footer-div'>

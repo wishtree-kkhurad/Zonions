@@ -12,6 +12,7 @@ module.exports = {
   attributes: {
     restaurantName: {
       type: 'string',
+      unique:true,
       required: true,
       columnName: 'restaurant_name'
     },
@@ -30,17 +31,20 @@ module.exports = {
       type: 'string',
       required: true,
       maxLength: 10,
+      regex: /^[789]\d{9}$/,
       columnName: 'phone'
     },
     openingTime: {
       type: 'string',
+      columnType: 'datetime',
       columnName: 'opening_time',
-      defaultsTo: 'N/A',
+      defaultsTo: 'N/A'
     },
     closingTime: {
       type: 'string',
+      columnType: 'datetime',
       columnName: 'closing_time',
-      defaultsTo: 'N/A',
+      defaultsTo: 'N/A'
     },
     imageData: {
       type: 'string',
@@ -49,10 +53,8 @@ module.exports = {
     },
     imageName: {
       type: 'string',
-      defaultsTo: 'none',
       columnName: 'img_alt',
       defaultsTo: 'default image',
-
     },
     isActive: {
       type: 'boolean',
@@ -73,7 +75,7 @@ module.exports = {
 
   async getAllRestaurants(callback) {
     try {
-      const restaurants = await Restaurant.find({});
+      const restaurants = await Restaurant.find({}).sort([{ restaurantName: 'ASC' }]);
       return callback(null, restaurants);
     } catch (error) {
       return callback(error);
@@ -105,7 +107,7 @@ module.exports = {
         where:{address: {contains : address}},
         // skip:0,
         // limit:10,
-        // sort: [{}]
+        sort: [{ restaurantName: 'ASC' }]
       }).meta({makeLikeModifierCaseInsensitive: true});
       Logger.verbose(`Restaurant.getRestaurantByLocation at try: ${data}`)
 

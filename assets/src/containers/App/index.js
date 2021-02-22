@@ -76,7 +76,8 @@ class App extends Component {
         return ( <Redirect to={'/restaurant/manage'} /> );
       }
       else {
-        return (<Redirect to={initURL} />);
+        // return (<Redirect to={initURL} />);
+        return ( <Redirect to={'/restaurant/manage'} /> );
       }
     }
     const currentAppLocale = AppLocale[locale.locale];
@@ -90,6 +91,7 @@ class App extends Component {
             <Route exact path='/landingpage' component={LandingPage} />
             <Route exact path='/restaurants/:location' component={LocationWiseRestaurants} />
             <Route exact path='/restaurant/details/:id' component={RestaurantsDetails}/>
+            <Route exact path='/restaurant/details/name/:name' component={RestaurantsDetails}/>
             <Route exact path='/signin' component={SignIn} />
             <Route exact path='/signup' component={SignUp} />
 

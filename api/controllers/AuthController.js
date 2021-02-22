@@ -7,6 +7,7 @@
 
 const passport = require('passport');
 const Logger = require('../services/Logger');
+
 module.exports = {
 
   //Login function
@@ -22,7 +23,7 @@ module.exports = {
       req.login(user, function (err) {
         if (err)
           res.send(err);
-        // sails.log('User'+ user.id + 'has logged in');
+
         Logger.log('User '+ user.id + ' has logged in');
 
       }); 
@@ -32,7 +33,6 @@ module.exports = {
   //Logout function
   logout: function (req, res) {
     Logger.debug('AuthController.logout');
-    // sails.log('AuthController.logout')
     req.logout();
     res.send({ status: 200, message: 'User logged out successfully.' });
     Logger.debug('AuthController.logout: User logged out successfully');
@@ -41,7 +41,6 @@ module.exports = {
   //Register function
   register: function (req, res) {
     Logger.debug('AuthController.register');
-    // sails.log('AuthController.register');
 
     //TODO: form validation here
     data = {
@@ -59,12 +58,11 @@ module.exports = {
         
         Logger.debug('AuthController.register at User.create');
         Logger.log(user);
-        // sails.log('AuthController.register at req.login',user);
+        
         if (err){
           return res.negotiate(err);
         }
         Logger.debug('AuthController.register at req.login User '+ user.id + ' has logged in.');
-        // sails.log('AuthController.register at req.login User'+ user.id + ' has logged in.');
 
       })
     })

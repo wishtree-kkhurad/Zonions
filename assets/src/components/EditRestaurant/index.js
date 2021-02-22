@@ -20,14 +20,16 @@ class EditRestaurant extends React.Component {
             tagline: '',
             address: '',
             phone: '',
-            imgUrl: '',
-            status: '',
+            imageData: '',
+            imageName:'',
+            status: false,
             openingTime: '',
             closingTime:''
         }
     }
     componentDidMount() {
-        const { id, restaurantName, tagline, address, phone, imgUrl, status, openingTime, closingTime} = this.props.location.data;
+        console.log('data', this.props.location.data)
+        const { id, restaurantName, tagline, address, phone, imageData, imageName, status, openingTime, closingTime} = this.props.location.data;
 
         this.setState({
             id:id,
@@ -35,7 +37,8 @@ class EditRestaurant extends React.Component {
             tagline: tagline,
             address: address,
             phone: phone,
-            imgUrl: imgUrl,
+            imageData: imageData,
+            imageName:imageName,
             status: status,
             openingTime: openingTime,
             closingTime:closingTime
@@ -58,9 +61,11 @@ class EditRestaurant extends React.Component {
         
     }
     changeHandler = (e) => {
+        console.log('current target', e.target)
         this.setState({
             [e.target.name]: e.target.value
         })
+        console.log('states after edit', this.state)
     }
     render() {
         const formItemLayout = {
@@ -122,17 +127,27 @@ class EditRestaurant extends React.Component {
                         {...formItemLayout}
                         label="Phone Number"
                     >
-                        <Input addonBefore={prefixSelector} value={this.state.phone} onChange={this.changeHandler} />
+                        <Input addonBefore={prefixSelector} name='phone' value={this.state.phone} onChange={this.changeHandler} />
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Opening Time">
-                        <TimePicker format={format} />
+                        <TimePicker 
+                            format={format} 
+                            // name='openingTime'
+                            value={moment(this.state.openingTime, format)}
+                            onChange={this.changeHandler}
+                            />
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Closing Time">
-                        <TimePicker format={format} />
+                        <TimePicker 
+                            format={format} 
+                            // name='closingTime'
+                            value={moment(this.state.closingTime, format)}
+                            onChange={this.changeHandler}
+                        />
                     </FormItem>
                     <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Submit</Button>

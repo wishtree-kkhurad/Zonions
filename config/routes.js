@@ -47,6 +47,8 @@ module.exports.routes = {
  'POST /restaurants': 'RestaurantController.createRestaurants',
  'GET /restaurants': 'RestaurantController.getAllRestaurants',
  'GET /restaurants/:id': 'RestaurantController.getRestaurantById',
+ 'GET /restaurants/byname/:name': 'RestaurantController.getRestaurantByName',
+
  'PUT /restaurants/:id': 'RestaurantController.updateRestaurant',
  'DELETE /restaurants/:id': 'RestaurantController.deleteRestaurant',
  'GET /restaurants/location/:address': 'RestaurantController.getRestaurantByLocation',

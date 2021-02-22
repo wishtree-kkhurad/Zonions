@@ -137,10 +137,7 @@ class LandingPage extends React.Component {
     }
 
     onSearch = async (value) => {
-        let data = await axios.get(`http://localhost:1337/restaurants/location/${value}`);
-        console.log('retrieved data',data.data.response)
-
-        this.props.history.push({ pathname: `/restaurants/${value}`, filteredData:data.data.response})
+        this.props.history.push({ pathname: `/restaurants/${value}`})
     }
 
     render() {
@@ -179,7 +176,7 @@ class LandingPage extends React.Component {
 
                             <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>See who delivers in your neighborhood</h3>
                             <ButtonGroup direction="vertical">
-                                <Search placeholder="input search text"
+                                <Search placeholder="Input City"
                                     onSearch={this.onSearch}
                                     enterButton
                                     style={{ width: 400 }} />
