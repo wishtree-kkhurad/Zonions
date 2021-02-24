@@ -1,15 +1,27 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { AutoComplete, Button, Card, Form, Input, Select, TimePicker, Alert} from "antd";
+import { AutoComplete, Button, Card, Form, Input, Select, TimePicker, Alert } from "antd";
 import { NotificationManager } from 'react-notifications';
-import moment from "moment";
 
+import validate from 'react-joi-validation';
+import Joi from 'joi' // or whatever Joi library you are using
+
+import moment from "moment";
 import axios from 'axios';
 
 const format = 'HH:mm';
 const FormItem = Form.Item;
 const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
+
+const schema = Joi.object().keys({
+    restaurantName: Joi.string().required(),
+    address: Joi.string().required(),
+    phone: Joi.string().regex(/^[789]\d{9}$/).required(),
+    tagline: Joi.string().optional().allow(''),
+    openingTime: Joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required(),
+    closingTime: Joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required()
+});
+
 
 class AddRestaurant extends React.Component {
     constructor(props) {
@@ -17,33 +29,117 @@ class AddRestaurant extends React.Component {
 
         this.state = {
             confirmDirty: false,
-            autoCompleteResult: [],
-            imageData: ''
+            // imageData: ''
+            restaurantName: '',
+            address: '',
+            phone: '',
+            tagline: '',
+            openingTime: '',
+            closingTime: '',
+
+            restaurantNameError: '',
+            addressError: '',
+            phoneError: '',
+            taglineError: '',
+            openingTimeError: '',
+            closingTimeError: ''
         }
+    }
+    validate = () => {
+        const result = Joi.validate(
+            {
+                restaurantName: this.state.restaurantName,
+                tagline: this.state.tagline,
+                phone: this.state.phone,
+                address: this.state.address,
+                openingTime: this.state.openingTime,
+                closingTime: this.state.closingTime
+            }
+            , schema)
+        return result;
+    }
+    onChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+          })
+          this.props.form.setFieldsValue({
+            [e.target.name]: this.state
+          });
+      
+    }
+    onOpenTimeChange = (val) => {
+       
+        this.setState({
+            ...this.state,
+            openingTime: moment(val._d.getTime()).format('HH:mm')
+        })
+        this.props.form.setFieldsValue({
+            ...this.state,
+            openingTime: this.state
+        });
+    }
+    onClosingTimeChange = (val) => {
+        this.setState({
+            ...this.state,
+            closingTime: moment(val._d.getTime()).format('HH:mm')
+        })
+    }
+
+    handleConfirmBlur = (e) => {
+        const value = e.target.value;
+        console.log('in handle blur', value)
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     }
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-                axios.post('http://localhost:1337/restaurants', values)
-                    .then((res) => {
-                        this.props.history.push({pathname:'/restaurant/manage', from:'AddRestaurant'});
-                        NotificationManager.success('You have added a new restaurant!', 'Successful!', 3000);
-                    })
-                    .catch((err) => {
-                        console.log('error while adding restaurant', err);
-                    })
+        const result = this.validate();
 
+        if (result.error !== null){
+            const errorField = result.error.details[0].context.key;
+            console.log('errorFiels', errorField);
+
+            if(errorField === 'restaurantName'){
+                this.setState({
+                    restaurantNameError: result.error.details[0].message
+                })
+            }else if(errorField === 'tagline'){
+                this.setState({
+                    taglineError: result.error.details[0].message
+                })
+            }else if(errorField === 'address'){
+                this.setState({
+                    addressError: result.error.details[0].message
+                })
+            }else if(errorField === 'phone'){
+                console.log(result.error.details[0].message)
+                this.setState({
+                    phoneError: result.error.details[0].message
+                })
+            }else if(errorField === 'openingTime'){
+                this.setState({
+                    openingTimeError: result.error.details[0].message
+                })
+            }else if(errorField === 'closingTime'){
+                this.setState({
+                    closingTimeError: result.error.details[0].message
+                })
             }
-        });
+        }
+        else
+        {
+            console.log('Received values of form: ', this.state);
+            axios.post('http://localhost:1337/restaurants', this.state)
+                .then((res) => {
+                    this.props.history.push({ pathname: '/restaurant/manage', from: 'AddRestaurant' });
+                    NotificationManager.success('You have added a new restaurant!', 'Successful!', 3000);
+                })
+                .catch((err) => {
+                    console.log('error while adding restaurant', err);
+                })
+        }
     }
-    handleConfirmBlur = (e) => {
-        const value = e.target.value;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    }
-
+    
     // uploadImage = async (e) =>{
     //     console.log('inside uploadImage front end')
     //     e.preventDefault();
@@ -71,6 +167,8 @@ class AddRestaurant extends React.Component {
     // }
 
     render() {
+        const { restaurantName, address, phone, tagline, openingTime, closingTime } = this.state;
+
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -109,93 +207,117 @@ class AddRestaurant extends React.Component {
         return (
             <Card className="gx-card" title="Add Restaurant">
                 <Form onSubmit={this.handleSubmit}>
+                    
                     <FormItem
                         {...formItemLayout}
                         label="Restaurant Name"
                     >
-                        {getFieldDecorator('restaurantName', {
-                            rules: [{ required: true, message: 'Please input your restaurant name!' }],
-                        })(
-                            <Input />
-                        )}
+                       <Input type='text'
+                            name='restaurantName'
+                            value={restaurantName}
+                            onBlur={(e)=>this.handleConfirmBlur(e)}
+                            onChange={(e) => this.onChange(e)} />
+                        {
+                            this.state.restaurantNameError !== '' ? 
+                            <span style={{color:'red'}}>{this.state.restaurantNameError}</span>
+                            :null
+                        }
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Restaurant Tag line"
                     >
-                        {getFieldDecorator('tagline', {
-                            rules: [{ required: false }],
-                        })(
-                            <Input />
-                        )}
+                        <Input type='text'
+                            name='tagline'
+                            value={tagline}
+                            onChange={(e) => this.onChange(e)} />
+                        {
+                            this.state.taglineError !== '' ? 
+                            <span style={{color:'red'}}>{this.state.taglineError}</span>
+                            :null
+                        }   
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Location"
                     >
-                        {getFieldDecorator('address', {
-                            rules: [{ required: true, message: 'Please input your location!' }],
-                        })(
-                            <Input />
-                        )}
+                        <Input type='text'
+                            name='address'
+                            value={address}
+                            onChange={(e) => this.onChange(e)} />
+                        {
+                            this.state.addressError !== '' ? 
+                            <span style={{color:'red'}}>{this.state.addressError}</span>
+                            :null
+                        }
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Phone Number"
                     >
-                        {getFieldDecorator('phone', {
-                            rules: [{ required: true, message: 'Please input your phone number!' }],
-                        })(
-                            <Input addonBefore={prefixSelector} />
-                        )}
+                        <Input addonBefore={prefixSelector}
+                            type='text'
+                            name='phone'
+                            value={phone}
+                            onChange={(e) => this.onChange(e)} />
+                        {
+                            this.state.phoneError !== '' ? 
+                            <span style={{color:'red'}}>{this.state.phoneError}</span>
+                            :<span>Phone number must contain 10 digits</span>
+                        }
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Opening Time">
-                        {getFieldDecorator('openingTime', {
-                            rules: [{ required: false, message: "Please input your restaurant's opening time!" }],
-                        })(
-                            <TimePicker format={format} />
-                        )}
+                        <TimePicker format={format}
+                            name='openingTime'
+                            initialValue={openingTime}
+                            onChange={this.onOpenTimeChange} />
+                        {
+                            this.state.openingTimeError !== '' ? 
+                            <span style={{color:'red'}}>{this.state.openingTimeError}</span>
+                            :null
+                        }
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Closing Time">
-                        {getFieldDecorator('closingTime', {
-                            rules: [{ required: false, message: "Please input your restaurant's closing time!" }],
-                        })(
-                            <TimePicker format={format} />
-                        )}
+                        <TimePicker format={format}
+                            name='closingTime'
+                            initialValue={closingTime}
+                            onChange={this.onClosingTimeChange}
+                        />
+                        {
+                            this.state.closingTimeError !== '' ? 
+                            <span style={{color:'red'}}>{this.state.closingTimeError}</span>
+                            :null
+                        }
+
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Image"
                     >
-
-                        {getFieldDecorator('file', {
-                            rules: [{ required: false, message: "Please input your menu image!" }],
-                        })(
-                            <div className='row'>
-                                <div className='col-6'>
-                                    <Input type='file' name='file' />
-                                </div>
-                                <div className='col-6'>
-                                    <span className='gx-link'>Upload</span>
-                                </div>
+                        <div className='row'>
+                            <div className='col-6'>
+                                <Input type='file' name='file' />
                             </div>
-                        )}
+                            <div className='col-6'>
+                                <span className='gx-link'>Upload</span>
+                            </div>
+                        </div>
+
                     </FormItem>
 
                     <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Add</Button>
                     </FormItem>
                 </Form>
+
             </Card>
-
         )
-
     }
-
 }
+
 const AddRestaurantForm = Form.create()(withRouter(AddRestaurant));
 export default AddRestaurantForm;

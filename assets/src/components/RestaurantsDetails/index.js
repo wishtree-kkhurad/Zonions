@@ -105,8 +105,8 @@ class RestaurantDetails extends Component {
                                     textOverflow: 'ellipsis'}}>
                                         Location: {this.props.location.data.address}
                                 </h2>
-                                <h3>Opens at: {moment(this.props.location.data.openingTime).format('HH:mm')}</h3>
-                                <h3>Closes at: {moment(this.props.location.data.closingTime).format('HH:mm')}</h3>
+                                <h3>Opens at: {this.props.location.data.openingTime}</h3>
+                                <h3>Closes at: {this.props.location.data.closingTime}</h3>
                             </div>
                             <div>
                                 <button type='button'

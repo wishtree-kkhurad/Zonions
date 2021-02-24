@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Suspense  } from "react";
 import { connect } from "react-redux";
 import URLSearchParams from 'url-search-params'
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
@@ -88,15 +88,19 @@ class App extends Component {
           messages={currentAppLocale.messages}>
 
           <Switch>
-            <Route exact path='/landingpage' component={LandingPage} />
-            <Route exact path='/restaurants/:location' component={LocationWiseRestaurants} />
-            <Route exact path='/restaurant/details/:id' component={RestaurantsDetails}/>
-            <Route exact path='/restaurant/details/name/:name' component={RestaurantsDetails}/>
-            <Route exact path='/signin' component={SignIn} />
-            <Route exact path='/signup' component={SignUp} />
+           
+              <Route exact path='/landingpage' component={LandingPage} />
+            
+              <Route exact path='/restaurants/:location' component={LocationWiseRestaurants} />
+              
+              <Route exact path='/restaurant/details/:id' component={RestaurantsDetails}/>
+              <Route exact path='/restaurant/details/name/:name' component={RestaurantsDetails}/>
 
-            <RestrictedRoute path={`${match.url}`} authUser={authUser}
-              component={MainApp} />
+              <Route exact path='/signin' component={SignIn} />
+              <Route exact path='/signup' component={SignUp} />
+            
+              <RestrictedRoute path={`${match.url}`} authUser={authUser}
+                component={MainApp} />
           </Switch>
         </IntlProvider>
       </LocaleProvider>

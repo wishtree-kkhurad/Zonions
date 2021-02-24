@@ -41,8 +41,8 @@ class Selection extends React.Component {
       restaurantName: row.restaurantName,
       address: row.address,
       status: (row.isActive) ? "Active" : "Deactive",
-      openingTime: (row.openingTime!=='N/A') ? moment(row.openingTime).format('HH:mm'): '--:--',
-      closingTime: (row.closingTime!=='N/A') ? moment(row.closingTime).format('HH:mm'): '--:--',
+      openingTime: (row.openingTime!=='N/A') ?row.openingTime: '--:--',
+      closingTime: (row.closingTime!=='N/A') ?row.closingTime: '--:--',
       tagline: row.tagline,
       phone: row.phone,
       key: row.id

@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { withTranslation} from 'react-i18next';
 import axios from 'axios';
 
 import Classic from '../../routes/customViews/extras/testimonials/Classic/index';
@@ -105,6 +106,8 @@ const menu = (
     </Menu>
 );
 
+const languages = ['English', 'Arebic', 'French', 'Hindi', 'Marathi'];
+
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -122,7 +125,7 @@ class LandingPage extends React.Component {
             filteresRestaurants: []
         }
     }
-
+    
     onSubmit = (e, values) => {
         e.preventDefault();
         console.log('Success:', values);
@@ -131,18 +134,39 @@ class LandingPage extends React.Component {
     goToLogin = () => {
         this.props.history.push({ pathname: '/signin' });
     }
-    
+
     goToSignup = () => {
         this.props.history.push({ pathname: '/signup' });
     }
 
     onSearch = async (value) => {
-        this.props.history.push({ pathname: `/restaurants/${value}`})
+        this.props.history.push({ pathname: `/restaurants/${value}` })
+    }
+
+    changeLanguage = (language) => {
+        // alert(`selected ${language}`)
+        this.props.i18n.changeLanguage(language);
     }
 
     render() {
+        const {t} = this.props
+        const lngChoice = (
+            <Menu>
+                {
+                    languages.map((lng) => {
+                        return (
+                            <Menu.Item key={lng}>
+                                <a target="_blank" rel="noopener noreferrer" onClick={() =>{this.changeLanguage(lng)}}>
+                                    {lng}
+                                </a>
+                            </Menu.Item>)
+                    })
+                }
+            </Menu>
+        );
+
         return (
-            <Layout className="gx-app-layout">
+                <Layout className="gx-app-layout">
                 <Content className={`gx-layout-content`}>
                     <div id='landingpage-div1'>
                         <div className='customHeader-container'>
@@ -165,16 +189,25 @@ class LandingPage extends React.Component {
                                         </Button>
                                     </li>
                                     <li>
-                                        <Button ghost style={{ border: '0' }}>Contact Us</Button>
+                                        <Button ghost style={{ border: '0' }}>
+                                            <Dropdown overlay={lngChoice}>
+                                                <a className="ant-dropdown-link"
+                                                    onClick={e => e.preventDefault()}>
+                                                    Languages<span><DownOutlined /></span>
+                                                </a>
+                                            </Dropdown>
+                                        </Button>
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
                         <div className='appTitleDiv'>
-                            <h1>Zonions</h1>
+                            <h1>{t('Welcome to Zonions')}</h1>
 
-                            <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>See who delivers in your neighborhood</h3>
+                            <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>
+                            See who delivers in your neighborhood
+                            </h3>
                             <ButtonGroup direction="vertical">
                                 <Search placeholder="Input City"
                                     onSearch={this.onSearch}
@@ -250,9 +283,10 @@ class LandingPage extends React.Component {
                 </Content>
 
             </Layout>
+            
         )
     }
-
-
 }
-export default withRouter(LandingPage)
+const ExtendedComponent = withTranslation()(LandingPage);
+export default withRouter(ExtendedComponent)
+// export default withRouter(LandingPage)

@@ -160,6 +160,7 @@ class SignIn extends React.Component {
 }
 
 const WrappedNormalLoginForm = Form.create()(withRouter(SignIn));
+// export default WrappedNormalLoginForm;
 
 const mapStateToProps = ({ auth }) => {
   const { loader, alertMessage, showMessage, authUser } = auth;
