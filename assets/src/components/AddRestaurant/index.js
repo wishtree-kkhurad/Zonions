@@ -101,15 +101,11 @@ class AddRestaurant extends React.Component {
 
             if(errorField === 'restaurantName'){
                 this.setState({
-                    restaurantNameError: result.error.details[0].message
-                })
-            }else if(errorField === 'tagline'){
-                this.setState({
-                    taglineError: result.error.details[0].message
+                    restaurantNameError: 'Restaurant name is required.'
                 })
             }else if(errorField === 'address'){
                 this.setState({
-                    addressError: result.error.details[0].message
+                    addressError: 'Restaurant location is required.'
                 })
             }else if(errorField === 'phone'){
                 console.log(result.error.details[0].message)
@@ -118,11 +114,11 @@ class AddRestaurant extends React.Component {
                 })
             }else if(errorField === 'openingTime'){
                 this.setState({
-                    openingTimeError: result.error.details[0].message
+                    openingTimeError: 'Restaurant opening time is required.'
                 })
             }else if(errorField === 'closingTime'){
                 this.setState({
-                    closingTimeError: result.error.details[0].message
+                    closingTimeError: 'Restaurant closing time is required.'
                 })
             }
         }

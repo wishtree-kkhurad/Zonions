@@ -10,7 +10,7 @@ module.exports = {
     User.getAllUsers((err, userData) => {
       if (err) {
         Logger.error(`UserService.getAllUsers at User.getAllUsers ${err}`);
-        callback(err);
+        callback(err, null);
       } else {
         Logger.info('User List fetched successfully.');
         callback(null, userData);
@@ -45,5 +45,4 @@ module.exports = {
       }
     });
   },
-
 };

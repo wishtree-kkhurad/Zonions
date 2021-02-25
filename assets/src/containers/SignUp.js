@@ -13,11 +13,20 @@ import {
   userTwitterSignIn
 } from "../appRedux/actions/Auth";
 
+import validate from 'react-joi-validation';
+import Joi from 'joi' // or whatever Joi library you are using
+
 import IntlMessages from "../util/IntlMessages";
 import { message } from "antd/lib/index";
 import CircularProgress from "../components/CircularProgress/index";
 
 const FormItem = Form.Item;
+
+const schema = Joi.object().keys({
+  userName: Joi.string().required(),
+  email: Joi.string().regex(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/).required(),
+  password: Joi.string().min(8).required(),
+});
 
 class SignUp extends React.Component {
 
@@ -29,32 +38,74 @@ class SignUp extends React.Component {
       userName: '',
       email: '',
       password: '',
-      usersData: []
+      userNameError:'',
+      emailError:'',
+      passwordError:''
     }
+  }
+  validate = () => {
+    const result = Joi.validate(
+      {
+        userName: this.state.userName,
+        email: this.state.email,
+        password: this.state.password
+      }
+      , schema)
+    return result;
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
 
-      console.log("values", values);
+    const result = this.validate();
 
-      if (!err) {
-        this.props.showAuthLoader();
-        this.props.userSignUp(values);
+    if (result.error !== null) {
+      const errorField = result.error.details[0].context.key;
+      console.log('errorFiels', errorField);
 
-        // const { userName, email, password, usersData } = this.state
-        // usersData.push({ userName: userName, email: email, password: password })
-        // localStorage.setItem("users", JSON.stringify(usersData));
-        // this.props.history.push('/restaurant/manage');
+      if (errorField === 'userName') {
+        this.setState({
+          userNameError: result.error.details[0].message
+        })
+      } else if (errorField === 'email') {
+        this.setState({
+          emailError: result.error.details[0].message
+        })
+      } else if (errorField === 'password') {
+        this.setState({
+          passwordError: result.error.details[0].message
+        })
       }
-    });
+    }
+    else {
+      console.log('Received values in sign up: ', this.state);
+      axios.post('http://localhost:1337/api/register', this.state)
+        .then((res) => {
+          console.log('User sign up successfully', res)
+          // this.props.history.push({ pathname: '/restaurant/manage', from: 'AddRestaurant' });
+          // NotificationManager.success('You have added a new restaurant!', 'Successful!', 3000);
+        })
+        .catch((err) => {
+          console.log('User sign up error', err);
+        })
+    }
+
+    // this.props.form.validateFields((err, values) => {
+
+    //   console.log("values", values);
+
+    //   if (!err) {
+    //     this.props.showAuthLoader();
+    //     this.props.userSignUp(values);
+
+    //}
+    // });
 
   };
 
   changeHandler = (e) => {
     e.preventDefault();
-  
+
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -63,16 +114,16 @@ class SignUp extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    if (this.props.showMessage) {
-      setTimeout(() => {
-        this.props.hideMessage();
-      }, 100);
-    }
-    if (this.props.authUser !== null) {
-      this.props.history.push('/');
-    }
-  }
+  // componentDidUpdate() {
+  //   if (this.props.showMessage) {
+  //     setTimeout(() => {
+  //       this.props.hideMessage();
+  //     }, 100);
+  //   }
+  //   if (this.props.authUser !== null) {
+  //     this.props.history.push('/');
+  //   }
+  // }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -101,6 +152,11 @@ class SignUp extends React.Component {
                   })(
                     <Input type='text' placeholder="Username" name='userName' />
                   )}
+                  {
+                    this.state.userNameError !== '' ? 
+                    <span style={{color:'red'}}>{this.state.userNameError}</span>
+                    :null
+                  } 
                 </FormItem>
 
                 <FormItem>
@@ -108,18 +164,28 @@ class SignUp extends React.Component {
                     rules: [{
                       required: true, type: 'email', message: 'The input is not valid E-mail!',
                     }],
-                    onChange:this.changeHandler
+                    onChange: this.changeHandler
                   })(
                     <Input placeholder="Email" name="email" />
                   )}
+                  {
+                    this.state.emailError !== '' ? 
+                    <span style={{color:'red'}}>{this.state.emailError}</span>
+                    :null
+                  }
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator('password', {
                     rules: [{ required: true, message: 'Please input your Password!' }],
-                    onChange:this.changeHandler
+                    onChange: this.changeHandler
                   })(
                     <Input type="password" placeholder="Password" name='password' />
                   )}
+                  {
+                    this.state.passwordError !== '' ? 
+                    <span style={{color:'red'}}>{this.state.passwordError}</span>
+                    :null
+                  }
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator('remember', {
@@ -157,18 +223,19 @@ class SignUp extends React.Component {
 }
 
 const WrappedSignUpForm = Form.create()(withRouter(SignUp));
+export default WrappedSignUpForm;
 
-const mapStateToProps = ({ auth }) => {
-  const { loader, alertMessage, showMessage, authUser } = auth;
-  return { loader, alertMessage, showMessage, authUser }
-};
+// const mapStateToProps = ({ auth }) => {
+//   const { loader, alertMessage, showMessage, authUser } = auth;
+//   return { loader, alertMessage, showMessage, authUser }
+// };
 
-export default connect(mapStateToProps, {
-  userSignUp,
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGoogleSignIn,
-  userGithubSignIn,
-  userTwitterSignIn
-})(WrappedSignUpForm);
+// export default connect(mapStateToProps, {
+//   userSignUp,
+//   hideMessage,
+//   showAuthLoader,
+//   userFacebookSignIn,
+//   userGoogleSignIn,
+//   userGithubSignIn,
+//   userTwitterSignIn
+// })(WrappedSignUpForm);

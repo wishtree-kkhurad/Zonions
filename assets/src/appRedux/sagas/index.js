@@ -4,7 +4,7 @@ import notesSagas from "./Notes";
 
 export default function* rootSaga(getState) {
   yield all([
-    authSagas(),
-    notesSagas()
+    // authSagas(),
+    // notesSagas()
   ]);
 }

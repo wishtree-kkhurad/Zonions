@@ -9,7 +9,6 @@ import registerServiceWorker from './registerServiceWorker';
 // Add this import:
 import {AppContainer} from 'react-hot-loader';
 
-import './i18nextConf';
 import ReactJoiValidations from 'react-joi-validation'
 import Joi from 'joi-browser' // or whatever Joi library you are using
  

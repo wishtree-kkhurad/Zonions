@@ -160,19 +160,19 @@ class SignIn extends React.Component {
 }
 
 const WrappedNormalLoginForm = Form.create()(withRouter(SignIn));
-// export default WrappedNormalLoginForm;
+export default WrappedNormalLoginForm;
 
-const mapStateToProps = ({ auth }) => {
-  const { loader, alertMessage, showMessage, authUser } = auth;
-  return { loader, alertMessage, showMessage, authUser }
-};
+// const mapStateToProps = ({ auth }) => {
+//   const { loader, alertMessage, showMessage, authUser } = auth;
+//   return { loader, alertMessage, showMessage, authUser }
+// };
 
-export default connect(mapStateToProps, {
-  userSignIn,
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGoogleSignIn,
-  userGithubSignIn,
-  userTwitterSignIn
-})(WrappedNormalLoginForm);
+// export default connect(mapStateToProps, {
+//   userSignIn,
+//   hideMessage,
+//   showAuthLoader,
+//   userFacebookSignIn,
+//   userGoogleSignIn,
+//   userGithubSignIn,
+//   userTwitterSignIn
+// })(WrappedNormalLoginForm);

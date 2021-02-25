@@ -16,14 +16,14 @@ const passport = require('passport'),
     
     //Local
 	passport.use(new LocalStrategy({
-			usernameField: 'username',
-			passportField: 'password'
-		}, function(username, password, cb){
-		User.findOne({username: username}, function(err, user){
+			emailField: 'email',
+			passwordField: 'password'
+		}, function(email, password, cb){
+		User.findOne({email: email}, function(err, user){
 			if(err)
 				return cb(err);
 			if(!user)
-				return cb(null, false, {message: 'Username not found'});
+				return cb(null, false, {message: 'Email not found'});
             
 			bcrypt.compare(password, user.password, function(err, res){
 				if(!res) 

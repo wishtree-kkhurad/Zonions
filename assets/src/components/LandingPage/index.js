@@ -1,10 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { withTranslation} from 'react-i18next';
 import axios from 'axios';
 
 import Classic from '../../routes/customViews/extras/testimonials/Classic/index';
-import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown } from "antd";
+import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown,Popover } from "antd";
 import { DownOutlined } from '@ant-design/icons';
 
 const { Content, Footer, Header } = Layout;
@@ -106,8 +105,6 @@ const menu = (
     </Menu>
 );
 
-const languages = ['English', 'Arebic', 'French', 'Hindi', 'Marathi'];
-
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -125,7 +122,7 @@ class LandingPage extends React.Component {
             filteresRestaurants: []
         }
     }
-    
+  
     onSubmit = (e, values) => {
         e.preventDefault();
         console.log('Success:', values);
@@ -143,28 +140,9 @@ class LandingPage extends React.Component {
         this.props.history.push({ pathname: `/restaurants/${value}` })
     }
 
-    changeLanguage = (language) => {
-        // alert(`selected ${language}`)
-        this.props.i18n.changeLanguage(language);
-    }
+    
 
     render() {
-        const {t} = this.props
-        const lngChoice = (
-            <Menu>
-                {
-                    languages.map((lng) => {
-                        return (
-                            <Menu.Item key={lng}>
-                                <a target="_blank" rel="noopener noreferrer" onClick={() =>{this.changeLanguage(lng)}}>
-                                    {lng}
-                                </a>
-                            </Menu.Item>)
-                    })
-                }
-            </Menu>
-        );
-
         return (
                 <Layout className="gx-app-layout">
                 <Content className={`gx-layout-content`}>
@@ -188,22 +166,12 @@ class LandingPage extends React.Component {
                                             </Dropdown>
                                         </Button>
                                     </li>
-                                    <li>
-                                        <Button ghost style={{ border: '0' }}>
-                                            <Dropdown overlay={lngChoice}>
-                                                <a className="ant-dropdown-link"
-                                                    onClick={e => e.preventDefault()}>
-                                                    Languages<span><DownOutlined /></span>
-                                                </a>
-                                            </Dropdown>
-                                        </Button>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
 
                         <div className='appTitleDiv'>
-                            <h1>{t('Welcome to Zonions')}</h1>
+                            <h1>Zonions</h1>
 
                             <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>
                             See who delivers in your neighborhood
@@ -287,6 +255,6 @@ class LandingPage extends React.Component {
         )
     }
 }
-const ExtendedComponent = withTranslation()(LandingPage);
-export default withRouter(ExtendedComponent)
-// export default withRouter(LandingPage)
+// const ExtendedComponent = withTranslation()(LandingPage);
+// export default withRouter(ExtendedComponent)
+export default withRouter(LandingPage)
