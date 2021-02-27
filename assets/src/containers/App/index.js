@@ -14,6 +14,7 @@ import { setInitUrl } from "../../appRedux/actions/Auth";
 import { onLayoutTypeChange, onNavStyleChange, setThemeType } from "../../appRedux/actions/Setting";
 import LandingPage from '../../components/LandingPage/index';
 import LocationWiseRestaurants from '../../components/LocationWiseRestaurants/index';
+import Cookies from 'js-cookie';
 
 
 import {
@@ -27,7 +28,8 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL
 } from "../../constants/ThemeSetting";
 
-const RestrictedRoute = ({ component: Component, authUser, ...rest }) => {
+const RestrictedRoute = ({ component: Component, ...rest }) => {
+  let authUser = Cookies.get()
   return (
     <Route
       {...rest}

@@ -14,7 +14,7 @@ import { NAV_STYLE_DRAWER, NAV_STYLE_FIXED, NAV_STYLE_MINI_SIDEBAR, TAB_SIZE } f
 import { connect } from "react-redux";
 import {withRouter} from 'react-router-dom';
 import {userSignOut} from "../../appRedux/actions/Auth";
-
+import Cookies from 'js-cookie';
 const { Header } = Layout;
 
 class Topbar extends Component {
@@ -35,7 +35,9 @@ class Topbar extends Component {
       this.props.history.push({pathname:'/restaurant/manage'});
     }
     const userSignOut = () =>{
-      localStorage.removeItem('user_id');
+      Cookies.set('token', "");
+      window.localStorage.clear();
+      window.sessionStorage.clear();
       this.props.history.push({pathname:'/landingpage'});
     }
     return (

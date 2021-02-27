@@ -22,16 +22,26 @@ module.exports = {
 		return _.omit(this, ['password'])
 	},
 
-	beforeCreate: function (user, cb) {
-		bcrypt.genSalt(10, function (err, salt) {
-			bcrypt.hash(user.password, salt, null, function (err, hash) {
-				if (err) return cb(err);
-				user.password = hash;
-				return cb();
-			});
-		});
-	},
+	// beforeCreate: function (user, cb) {
+	// 	bcrypt.genSalt(10, function (err, salt) {
+	// 		bcrypt.hash(user.password, salt, null, function (err, hash) {
+	// 			if (err) return cb(err);
+	// 			user.password = hash;
+	// 			return cb();
+	// 		});
+	// 	});
+	// },
 
+	// LIFE CYCLE
+	beforeCreate: async function (values, proceed) {
+		// Hash password
+		const hashedPassword = await sails.helpers.passwords.hashPassword(
+		values.password
+		);
+		values.password = hashedPassword;
+		return proceed();
+  	},
+	  
 	async createNewUser(data, cb){
 		Logger.debug('User.createNewUser');
 		User.findOrCreate({email:data.email}, data)

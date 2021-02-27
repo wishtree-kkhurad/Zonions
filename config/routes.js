@@ -34,9 +34,12 @@ module.exports.routes = {
   ***************************************************************************/
 
   /* Auth APIs*/
- 'post /api/login': 'AuthController.login',
- 'post /api/register': 'AuthController.register',
- 'post /api/logout': 'AuthController.logout',
+//  'post /api/login': 'AuthController.login',
+//  'post /api/register': 'AuthController.register',
+'POST /api/user/register': 'user/register',
+'POST /api/user/login': 'user/login',
+
+ 'POST /api/user/logout': 'AuthController.logout',
 
  /* User APIs */
  'get /api/users/all': 'UserController.getAllUsers',
@@ -45,12 +48,12 @@ module.exports.routes = {
 
  /* Restaurant APIs */
  'POST /restaurants': 'RestaurantController.createRestaurants',
+ 'PUT /restaurants/:id': 'RestaurantController.updateRestaurant',
+ 'DELETE /restaurants/:id': 'RestaurantController.deleteRestaurant',
+
  'GET /restaurants': 'RestaurantController.getAllRestaurants',
  'GET /restaurants/:id': 'RestaurantController.getRestaurantById',
  'GET /restaurants/byname/:name': 'RestaurantController.getRestaurantByName',
-
- 'PUT /restaurants/:id': 'RestaurantController.updateRestaurant',
- 'DELETE /restaurants/:id': 'RestaurantController.deleteRestaurant',
  'GET /restaurants/location/:address': 'RestaurantController.getRestaurantByLocation',
 
 

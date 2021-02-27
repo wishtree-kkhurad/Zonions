@@ -17,11 +17,27 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
   // '*': 'authenticated',
-  
+
   // whitelist the auth controller
-  'auth': {
-    '*': true
-  }
+  // 'auth': {
+  //   '*': true
+  // }
+ 
   // '*': true,
 
+  '*': true, // Everything is unresctricted here
+  'user':{
+    register: true,
+    login: true
+  },
+
+  'RestaurantController':{
+    // getAllRestaurants: true,
+    // getRestaurantById: true,
+    // getRestaurantByName: true,
+    // getRestaurantByLocation: true,
+    createRestaurants:true,
+    updateRestaurant: true,
+    deleteRestaurant: true
+  }
 };

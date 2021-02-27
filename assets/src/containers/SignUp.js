@@ -79,28 +79,15 @@ class SignUp extends React.Component {
     }
     else {
       console.log('Received values in sign up: ', this.state);
-      axios.post('http://localhost:1337/api/register', this.state)
+      axios.post('http://localhost:1337/api/user/register', this.state)
         .then((res) => {
           console.log('User sign up successfully', res)
-          // this.props.history.push({ pathname: '/restaurant/manage', from: 'AddRestaurant' });
-          // NotificationManager.success('You have added a new restaurant!', 'Successful!', 3000);
+          this.props.history.push({ pathname: '/restaurant/manage', from: 'SignUp' });
         })
         .catch((err) => {
           console.log('User sign up error', err);
         })
     }
-
-    // this.props.form.validateFields((err, values) => {
-
-    //   console.log("values", values);
-
-    //   if (!err) {
-    //     this.props.showAuthLoader();
-    //     this.props.userSignUp(values);
-
-    //}
-    // });
-
   };
 
   changeHandler = (e) => {

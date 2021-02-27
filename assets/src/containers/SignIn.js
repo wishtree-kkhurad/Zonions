@@ -2,6 +2,9 @@ import React from "react";
 import { Button, Checkbox, Form, Icon, Input, message } from "antd";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import axios from 'axios';
+import { NotificationManager } from 'react-notifications';
+import Cookies from 'js-cookie';
 
 import {
   hideMessage,
@@ -15,7 +18,15 @@ import {
 import IntlMessages from "../util/IntlMessages";
 import CircularProgress from "../components/CircularProgress/index";
 
+import validate from 'react-joi-validation';
+import Joi from 'joi' // or whatever Joi library you are using
+
 const FormItem = Form.Item;
+
+const schema = Joi.object().keys({
+  email: Joi.string().regex(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/).required(),
+  password: Joi.string().min(8).required(),
+});
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -23,65 +34,85 @@ class SignIn extends React.Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      emailError: '',
+      passwordError: ''
     }
   }
 
+  validate = () => {
+    const result = Joi.validate(
+      {
+        email: this.state.email,
+        password: this.state.password
+      }
+      , schema)
+    return result;
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('inside  handle submit of signin')
-        this.props.showAuthLoader();
-        this.props.userSignIn(values);
 
-    //     let users = JSON.parse(localStorage.getItem('users'));
-    //     users.map((user) => {
-    //       console.log('email:', user.email, 'password', user.password)
-    //       console.log('from state variables', this.state.email, '****', this.state.password)
+    const result = this.validate();
 
-    //       if (user.email === this.state.email) {
-    //         if(user.password === this.state.password)
-    //         {
-    //           console.log('inside handle submit of sign in props value:' , this.props);
-    //           let authUser = 'abc'+10*(Math.random());
-    //           console.log('authUser=', authUser)
-    //           localStorage.setItem('authUser',JSON.stringify(authUser))
-    //         }
-    //         else{
-    //           alert('password did not match')
-    //         }
-    //       }
-    //       else{
-    //         alert('email did not match')
-    //       }
-    //       if(localStorage.getItem('authUser') !== null)
-    //         this.props.history.push({pathname:'/restaurant/manage'})
-    //     })
+    if (result.error !== null) {
+      const errorField = result.error.details[0].context.key;
+      console.log('errorFields', errorField);
+
+      if (errorField === 'email') {
+        this.setState({
+          emailError: result.error.details[0].message
+        })
+      } else if (errorField === 'password') {
+        this.setState({
+          passwordError: result.error.details[0].message
+        })
       }
-    });
+    }
+    else {
+      console.log('Received values in Sign in: ', this.state);
+      axios.post('http://localhost:1337/api/user/login', this.state)
+        .then((res) => {
+          let authToken = res.data.token;
+
+          Cookies.set('token', authToken);
+
+          console.log(Cookies.get())
+
+          // Adds the token to the header
+          axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
+          // alert(res.data.message);
+          // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
+          this.props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+        })
+        .catch((err) => {
+          console.log('User sign in error', err);
+          alert('Incorrect user credentials')
+          // NotificationManager.error('Password did not match', 'Fail!', 30000);
+        })
+    }
   };
 
-  componentDidUpdate() {
-    if (this.props.showMessage) {
-      setTimeout(() => {
-        this.props.hideMessage();
-      }, 100);
-    }
-    if (this.props.authUser !== null) {
-      this.props.history.push('/');
-    }
-  }
+  // componentDidUpdate() {
+  //   if (this.props.showMessage) {
+  //     setTimeout(() => {
+  //       this.props.hideMessage();
+  //     }, 100);
+  //   }
+  //   if (this.props.authUser !== null) {
+  //     this.props.history.push('/');
+  //   }
+  // }
 
   changeHandler = (e) => {
+    e.preventDefault();
+
     this.setState({
       [e.target.name]: e.target.value
     })
     this.props.form.setFieldsValue({
       [e.target.name]: this.state
     });
-
   }
 
   render() {
@@ -102,7 +133,7 @@ class SignIn extends React.Component {
                 <p><IntlMessages id="app.userAuth.bySigning" /></p>
                 <p><IntlMessages id="app.userAuth.getAccount" /></p>
               </div>
-          
+
             </div>
             <div className="gx-app-login-content">
               <Form onSubmit={this.handleSubmit} className="gx-signin-form gx-form-row0">
@@ -112,19 +143,29 @@ class SignIn extends React.Component {
                     //initialValue: "demo@example.com",
                     rules: [{
                       required: true, type: 'email', message: 'The input is not valid E-mail!',
-                    }],onChange: this.changeHandler
+                    }], onChange: this.changeHandler
                   })(
                     <Input type='email' name='email' placeholder="Email" />
                   )}
+                  {
+                    this.state.emailError !== '' ?
+                      <span style={{ color: 'red' }}>{this.state.emailError}</span>
+                      : null
+                  }
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator('password', {
                     //initialValue: "demo#123",
                     rules: [{ required: true, message: 'Please input your Password!' }],
-                    onChange : this.changeHandler
+                    onChange: this.changeHandler
                   })(
                     <Input type="password" name='password' placeholder="Password" />
                   )}
+                  {
+                    this.state.passwordError !== '' ?
+                      <span style={{ color: 'red' }}>{this.state.passwordError}</span>
+                      : null
+                  }
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator('remember', {

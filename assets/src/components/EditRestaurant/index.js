@@ -118,7 +118,7 @@ class EditRestaurant extends React.Component {
         else {
             const editUrl = `http://localhost:1337/restaurants/${this.state.id}`;
             const dataToupload = this.state;
-
+            console.log('data to upload in edit form', dataToupload)
             axios.put(editUrl, dataToupload)
                 .then((res) => {
                     this.props.history.push({ pathname: '/restaurant/manage', from: 'EditRestaurant' });
