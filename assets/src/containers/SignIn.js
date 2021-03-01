@@ -71,17 +71,19 @@ class SignIn extends React.Component {
     }
     else {
       console.log('Received values in Sign in: ', this.state);
+
       axios.post('http://localhost:1337/api/user/login', this.state)
         .then((res) => {
           let authToken = res.data.token;
 
-          Cookies.set('token', authToken);
+          // Cookies.set('token', authToken);
+          // console.log(Cookies.get())
 
-          console.log(Cookies.get())
+          localStorage.setItem('authToken', authToken)
+          console.log(localStorage.getItem('authToken'));
 
           // Adds the token to the header
           axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
-          // alert(res.data.message);
           // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
           this.props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
         })
@@ -90,6 +92,7 @@ class SignIn extends React.Component {
           alert('Incorrect user credentials')
           // NotificationManager.error('Password did not match', 'Fail!', 30000);
         })
+
     }
   };
 

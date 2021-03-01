@@ -35,9 +35,10 @@ class Topbar extends Component {
       this.props.history.push({pathname:'/restaurant/manage'});
     }
     const userSignOut = () =>{
-      Cookies.set('token', "");
-      window.localStorage.clear();
-      window.sessionStorage.clear();
+      localStorage.removeItem('authToken');
+      // window.localStorage.clear();
+      // window.sessionStorage.clear();
+      console.log('after log out', localStorage.getItem('authToken'))
       this.props.history.push({pathname:'/landingpage'});
     }
     return (

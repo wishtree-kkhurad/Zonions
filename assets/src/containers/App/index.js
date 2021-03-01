@@ -29,12 +29,12 @@ import {
 } from "../../constants/ThemeSetting";
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
-  let authUser = Cookies.get()
+  let authUser = localStorage.getItem('authToken')
   return (
     <Route
       {...rest}
       render={props =>
-        authUser
+        authUser !== null
           ? <Component {...props} />
           : <Redirect
             to={{

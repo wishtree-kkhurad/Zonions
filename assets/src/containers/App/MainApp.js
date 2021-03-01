@@ -107,7 +107,7 @@ export class MainApp extends Component {
     //   this.props.history.push({ pathname: '/restaurant/manage' });
     // }
     const userSignOut = () => {
-      localStorage.removeItem('user_id');
+      localStorage.removeItem('authToken');
       this.props.history.push({ pathname: '/landingpage' });
     }
     return (
