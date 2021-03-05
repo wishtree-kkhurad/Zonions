@@ -80,9 +80,27 @@ const menu = (
 );
 
 class RestaurantDetails extends Component {
-    render() {
-        console.log('in deatils page', this.props.location)
+    constructor(props) {
+        super(props)
+        var today = new Date(),
+    
+        // time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        time = today.getHours() + ':' + today.getMinutes();
+        this.state = {
+          currentTime: time
+        }
+      }
+      componentDidMount(){
+          let time1 = this.props.location.data.closingTime
+        //   let ms1 = Number(time1.split(':')[0]) * 60 * 60 * 1000 + Number(time1.split(':')[1]) * 60 * 1000;
+        
+            console.log('time1', time1);
+            let time2 = this.state.currentTime;
 
+            console.log('time2', time2);
+            console.log('compared', time2 > time1)
+      }
+    render() {
         return (
             <Layout className="gx-app-layout">
                 <Content className={`gx-layout-content`}>
@@ -95,7 +113,7 @@ class RestaurantDetails extends Component {
                         </div>
                         <div className='col-md-6' >
                             <div style={{marginBottom:'3px'}}>
-                                <h1 style={{ fontSize: '3rem', overflow: 'hidden',textOverflow: 'ellipsis'}}>
+                                <h1 style={{ fontSize: '2.5rem', overflow: 'hidden',textOverflow: 'ellipsis'}}>
                                     {this.props.location.data.restaurantName}
                                 </h1>
                             </div>
@@ -103,10 +121,24 @@ class RestaurantDetails extends Component {
                                 <h2 style={{ 
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis'}}>
-                                        Location: {this.props.location.data.address}
+                                        Address: {this.props.location.data.address}
                                 </h2>
-                                <h3>Opens at: {this.props.location.data.openingTime}</h3>
-                                <h3>Closes at: {this.props.location.data.closingTime}</h3>
+                                <div style={{fontSize:'1.2rem'}}>Hours: 
+                                    {
+                                        (this.state.currentTime > this.props.location.data.closingTime)
+                                        ? 
+                                        <>
+                                            <p style={{color:'red'}}>Closed</p>
+                                            <p>Opens at {this.props.location.data.openingTime}</p>
+                                        </>
+                                        : <>
+                                            <p style={{color:'green'}}>Open </p>
+                                            <p>Closes At: {this.props.location.data.closingTime}</p>
+                                        </>
+                                    }
+                                </div>
+                                <h3>Phone: {this.props.location.data.phone}</h3>
+
                             </div>
                             <div>
                                 <button type='button'

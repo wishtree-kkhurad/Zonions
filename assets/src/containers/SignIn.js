@@ -76,12 +76,7 @@ class SignIn extends React.Component {
         .then((res) => {
           let authToken = res.data.token;
 
-          // Cookies.set('token', authToken);
-          // console.log(Cookies.get())
-
-          localStorage.setItem('authToken', authToken)
-          console.log(localStorage.getItem('authToken'));
-
+          localStorage.setItem('user', JSON.stringify({'email':this.state.email, 'authToken': authToken}))
           // Adds the token to the header
           axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
           // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
@@ -132,9 +127,9 @@ class SignIn extends React.Component {
                 <img src="../../images/signin_cover.jpg" alt='Neature' />
               </div>
               <div className="gx-app-logo-wid">
-                <h1><IntlMessages id="app.userAuth.signIn" /></h1>
-                <p><IntlMessages id="app.userAuth.bySigning" /></p>
-                <p><IntlMessages id="app.userAuth.getAccount" /></p>
+                <h1><IntlMessages id="Sign in" /></h1>
+                <p><IntlMessages id="By Signing Up, you can avail full features of our services." /></p>
+                <p><IntlMessages id="Get an account !!!" /></p>
               </div>
 
             </div>
@@ -175,17 +170,17 @@ class SignIn extends React.Component {
                     valuePropName: 'checked',
                     initialValue: true,
                   })(
-                    <Checkbox><IntlMessages id="appModule.iAccept" /></Checkbox>
+                    <Checkbox><IntlMessages id="by signing up, I accept" /></Checkbox>
                   )}
                   <span className="gx-signup-form-forgot gx-link"><IntlMessages
-                    id="appModule.termAndCondition" /></span>
-                </FormItem>
+                    id="Terms & Conditions" /></span>
+                </FormItem> 
                 <FormItem>
                   <Button type="primary" className="gx-mb-0" htmlType="submit">
-                    <IntlMessages id="app.userAuth.signIn" />
+                    <IntlMessages id="Sign in" />
                   </Button>
-                  <span><IntlMessages id="app.userAuth.or" /></span> <Link to="/signup"><IntlMessages
-                    id="app.userAuth.signUp" /></Link>
+                  <span><IntlMessages id="or" /></span> <Link to="/signup"><IntlMessages
+                    id="Sign up" /></Link>
                 </FormItem>
               </Form>
             </div>

@@ -6,6 +6,7 @@ import { Card, Col, Row, Table, Form, Layout, Tooltip} from "antd";
 import { NotificationManager } from 'react-notifications';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
+import {Sorter} from '../../../../../src/util/sorter'
 
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
@@ -53,6 +54,17 @@ class Selection extends React.Component {
         title: 'Restaurant Name',
         dataIndex: 'restaurantName',
         key: 'restaurantName',
+
+        /**For filtering by restaurant name */
+      
+        filters: [
+          {
+            text: 'S',
+            value: 'S',
+          },
+        ],
+        onFilter: (value, record) => record.restaurantName.indexOf(value) === 0,
+
         /**for ellipsis */
         onCell: () => {
           return {
@@ -72,6 +84,7 @@ class Selection extends React.Component {
         title: 'Location',
         dataIndex: 'address',
         key: 'address',
+        
         /**for ellipsis */
         onCell: () => {
           return {
@@ -100,7 +113,10 @@ class Selection extends React.Component {
       {
         title: 'Opening Time',
         dataIndex: 'openingTime',
-        key: 'open_time'
+        key: 'open_time',
+        sorter: {
+          compare: Sorter.DEFAULT
+        },
       },
       {
         title: 'Closing Time',
@@ -132,6 +148,7 @@ class Selection extends React.Component {
     //   console.log('restaurant fetched by name', restaurantByName);
     //   // this.props.history.push({pathname:`/restaurant/details/name/${text}`, data:restaurantByName})
     // }
+    
 
     const onDelete = (text) => {
       confirmAlert({
@@ -186,7 +203,7 @@ class Selection extends React.Component {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={data}
-          pagination={{ pageSize: 3 }}
+          pagination={{ pageSize: 5 }}
         // scroll={{y: 240}}
         />
       </Card>

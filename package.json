@@ -43,6 +43,7 @@
     "prop-types": "^15.6.2",
     "raven": "^2.6.4",
     "react": "^16.8.6",
+    "react-autosuggest": "^10.1.0",
     "react-big-calendar": "^0.19.2",
     "react-bootstrap": "^1.4.3",
     "react-bootstrap-sweetalert": "^4.4.1",

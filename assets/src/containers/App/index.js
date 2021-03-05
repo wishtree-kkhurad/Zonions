@@ -29,7 +29,7 @@ import {
 } from "../../constants/ThemeSetting";
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
-  let authUser = localStorage.getItem('authToken')
+  let authUser = localStorage.getItem('user')
   return (
     <Route
       {...rest}
@@ -50,31 +50,34 @@ class App extends Component {
     super(props)
   }
 
-  componentWillMount() {
-    if (this.props.initURL === '') {
-      this.props.setInitUrl(this.props.history.location.pathname);
-    }
-    const params = new URLSearchParams(this.props.location.search);
+  // componentWillMount() {
+  //   if (this.props.initURL === '') {
+  //     this.props.setInitUrl(this.props.history.location.pathname);
+  //   }
+  //   const params = new URLSearchParams(this.props.location.search);
 
-    if (params.has("theme")) {
-      this.props.setThemeType(params.get('theme'));
-    }
-    if (params.has("nav-style")) {
-      this.props.onNavStyleChange(params.get('nav-style'));
-    }
-    if (params.has("layout-type")) {
-      this.props.onLayoutTypeChange(params.get('layout-type'));
-    }
-  }
+  //   if (params.has("theme")) {
+  //     this.props.setThemeType(params.get('theme'));
+  //   }
+  //   if (params.has("nav-style")) {
+  //     this.props.onNavStyleChange(params.get('nav-style'));
+  //   }
+  //   if (params.has("layout-type")) {
+  //     this.props.onLayoutTypeChange(params.get('layout-type'));
+  //   }
+  // }
 
   render() {
-    const { match, location, layoutType, navStyle, locale, authUser, initURL } = this.props;
-
+    const { match, location, layoutType, navStyle, locale,initURL } = this.props;
+    let authUser = localStorage.getItem('user')
+    
     if (location.pathname === '/') {
+
       if (authUser === null) {
         return (<Redirect to={'/landingpage'} />);
 
-      } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
+      } else if ((initURL === '' || initURL === '/' || initURL === '/signin')) {
+
         return ( <Redirect to={'/restaurant/manage'} /> );
       }
       else {

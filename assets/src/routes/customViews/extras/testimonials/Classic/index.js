@@ -1,6 +1,7 @@
 import React from "react";
 // import StarRatingComponent from "react-star-rating-component";
 import {Avatar,Col} from "antd";
+import IntlMessages from "../../../../../util/IntlMessages";
 
 // const Classic = ({testimonial}) => {
 //   const {content, avatar, name, title} = testimonial;
@@ -28,8 +29,12 @@ const Classic = (props) => {
               className="gx-classic-testimonial"
               style={{display:'inline-block'}}>
               {<Avatar src={eachFeature.logo} alt="feature logo"/>}
-              <h3 className="gx-title">{eachFeature.title}</h3>
-              <p className="gx-description">{eachFeature.description}</p>
+              <h3 className="gx-title">
+                <IntlMessages id={eachFeature.title} />
+              </h3>
+              <p className="gx-description">
+                <IntlMessages id={eachFeature.description} />
+              </p>
             </Col>
           )
         })

@@ -15,7 +15,6 @@ const RouteApp = ({match}) => (
       <Route path={`${match.url}restaurant/edit/:id`} component={EditRestaurant}/>
     </Switch>
     <NotificationContainer />
-
   </div>
 );
 

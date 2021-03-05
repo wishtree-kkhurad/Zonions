@@ -3,15 +3,26 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import Classic from '../../routes/customViews/extras/testimonials/Classic/index';
-import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown,Popover } from "antd";
+import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown, Popover } from "antd";
 import { DownOutlined } from '@ant-design/icons';
+
+/**For multiple language */
+import CustomScrollbars from "../../util/CustomScrollbars";
+import languageData from "../../containers/Topbar/languageData";
+import { switchLanguage, toggleCollapsedSideNav } from "../../appRedux/actions/Setting";
+import { connect } from "react-redux";
+import IntlMessages from "../../util/IntlMessages";
+import { Link } from "react-router-dom";
+
+/*Auto suggestions */
+import Autosuggest from 'react-autosuggest';
+
+const cities = ['Pune', 'Nagpur','Wardha','Nashik','Hyderabad','Yavatmal','Amaravati'];
 
 const { Content, Footer, Header } = Layout;
 import { footerText } from "../../util/config";
 import ButtonGroup from 'antd/lib/button/button-group';
 const { Search } = Input;
-
-const style = { background: '#0092ff', padding: '8px 0' };
 
 const appFeatures = [
     {
@@ -96,10 +107,10 @@ const menu = (
                 return (
                     <Menu.Item key={item.cuisineId}>
                         <a target="_blank" rel="noopener noreferrer" onClick={() => alert(`clicked on ${item.cuisineName}`)}>
-                            {item.cuisineName}
+                            <IntlMessages id={item.cuisineName}/>
                         </a>
-                    </Menu.Item>)
-
+                    </Menu.Item>
+                )
             })
         }
     </Menu>
@@ -119,10 +130,58 @@ class LandingPage extends React.Component {
         super(props)
 
         this.state = {
-            filteresRestaurants: []
+            text: '',
+            suggestions: []
         }
     }
-  
+    /**Auto Suggestions */
+    onTextChange = (e) => {
+        const value = e.target.value;
+        let suggestions = [];
+        if(value.length > 0){
+            const regex = new RegExp(`^${value}`, 'i');
+            suggestions = cities.sort().filter(v => regex.test(v))
+        }
+        this.setState(() => ({
+            suggestions,
+            text: value
+        }))
+
+    }
+
+    selectedText(value) {
+        this.setState(() => ({
+            text: value,
+            suggestions: [],
+        }))
+    }
+
+    renderSuggestions = () => {
+        let { suggestions } = this.state;
+        if(suggestions.length === 0){
+            return null;
+        }
+        return (
+            <ul >
+                {
+                    suggestions.map((item, index) => (
+                    <li key={index} 
+                        onClick={() => this.selectedText(item)}
+                        style={{color:'white'}}>
+                        {item}
+                    </li>)
+                    )
+                }
+            </ul>
+            // <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight"
+            //     content={this.searchMenu()} trigger="hover">
+            //         <span style={{ color: 'white' }}>
+            //             <IntlMessages id='Languages' />
+            //         </span>
+            // </Popover>
+        );
+    }
+
     onSubmit = (e, values) => {
         e.preventDefault();
         console.log('Success:', values);
@@ -139,55 +198,106 @@ class LandingPage extends React.Component {
     onSearch = async (value) => {
         this.props.history.push({ pathname: `/restaurants/${value}` })
     }
+    searchMenu = () =>(
+        <CustomScrollbars className="gx-popover-lang-scroll">
+            <ul className="gx-sub-popover">
+                {this.state.suggestions.map((item, index) =>
+                    <li className="gx-media gx-pointer" key={index} 
+                    onClick={() => this.selectedText(item)}>
+                        <span className="gx-language-text">{item}</span>
+                    </li>
+                )}
+            </ul>
+        </CustomScrollbars>
+    );
 
-    
+    languageMenu = () => (
+        <CustomScrollbars className="gx-popover-lang-scroll">
+            <ul className="gx-sub-popover">
+                {languageData.map(language =>
+                    <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
+                        this.props.switchLanguage(language)
+                    }>
+                        <span className="gx-language-text">{language.name}</span>
+                    </li>
+                )}
+            </ul>
+        </CustomScrollbars>
+    );
 
     render() {
+        const { locale } = this.props;
+        const { text, suggestions } = this.state;
+
         return (
-                <Layout className="gx-app-layout">
+            <Layout className="gx-app-layout">
                 <Content className={`gx-layout-content`}>
                     <div id='landingpage-div1'>
                         <div className='customHeader-container'>
                             <div className='header-left'>
                                 <ul className='headerList'>
                                     <li>
-                                        <Button ghost style={{ border: '0' }} onClick={() => this.goToLogin()}>Log in</Button>
+                                        <Button ghost style={{ border: '0' }} onClick={() => this.goToLogin()} >
+                                            <IntlMessages id='Sign in' />
+                                        </Button>
                                     </li>
                                     <li>
-                                        <Button ghost style={{ border: '0' }} onClick={() => this.goToSignup()}>Sign up</Button>
+                                        <Button ghost style={{ border: '0' }} onClick={() => this.goToSignup()}>
+                                            <IntlMessages id='Sign up' />
+                                        </Button>
                                     </li>
                                     <li>
                                         <Button ghost style={{ border: '0' }}>
                                             <Dropdown overlay={menu}>
                                                 <a className="ant-dropdown-link"
                                                     onClick={e => e.preventDefault()}>
-                                                    Cuisines<span><DownOutlined /></span>
+                                                    <IntlMessages id='Cuisines' />
+                                                    <span><DownOutlined /></span>
                                                 </a>
                                             </Dropdown>
                                         </Button>
+                                    </li>
+                                    <li className="gx-language">
+                                    
+                                        <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight"
+                                            content={this.languageMenu()} trigger="hover">
+                                            <span style={{ color: 'white' }}>
+                                                <IntlMessages id='Languages' />
+                                            </span>
+                                        </Popover>
+                                    
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
                         <div className='appTitleDiv'>
-                            <h1>Zonions</h1>
+                            <h1><IntlMessages id='Zonions' /></h1>
 
-                            <h3 style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>
-                            See who delivers in your neighborhood
+                            <h3 id='landingPage.beforeSearchText' style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>
+                                <IntlMessages id='See who delivers in your neighborhood' />
                             </h3>
                             <ButtonGroup direction="vertical">
-                                <Search placeholder="Input City"
+                                <Search placeholder='Input City'
                                     onSearch={this.onSearch}
                                     enterButton
-                                    style={{ width: 400 }} />
+                                    style={{ width: 400 }}
+
+                                    onChange={this.onTextChange} 
+                                    // onChange ={this.renderSuggestions()}
+                                    value={text}
+                                />
+                                {this.renderSuggestions()}
                             </ButtonGroup>
                         </div>
                     </div>
+
                     <div className='row' style={{ marginTop: '30px' }}>
                         <div className='container'>
                             <div className='col-md-12'>
-                                <Divider className='col-md-12' style={{ fontSize: '25px', marginBottom: '3%' }} orientation="center">Cuisines</Divider>
+                                <Divider className='col-md-12' style={{ fontSize: '25px', marginBottom: '3%' }} orientation="center">
+                                    <IntlMessages id="Cuisines" />
+                                </Divider>
                                 {
                                     cuisines.map((item) => {
                                         return (
@@ -197,11 +307,10 @@ class LandingPage extends React.Component {
                                                         <img src={item.backGroundImg} alt='Cuisine Image' />
                                                     </div>
                                                     <div className='card_text'>
-                                                        {item.cuisineName}
+                                                        <IntlMessages id={item.cuisineName} /> 
                                                     </div>
                                                 </a>
                                             </div>
-
                                         );
                                     })
                                 }
@@ -211,7 +320,9 @@ class LandingPage extends React.Component {
 
                     <div style={{ marginTop: '30px' }}>
                         <div className='container'>
-                            <Divider style={{ fontSize: '20px', marginBottom: '3%' }} orientation="center">Why order with Zonions</Divider>
+                            <Divider style={{ fontSize: '20px', marginBottom: '3%' }} orientation="center">
+                                <IntlMessages id='Why order with Zonions' />
+                            </Divider>
                             <div style={{ paddingBottom: '50px' }} >
                                 <Row>
                                     <Classic features={appFeatures} />
@@ -221,8 +332,12 @@ class LandingPage extends React.Component {
                     </div>
 
                     <div className='footer-div'>
-                        <h2>Become an Inside</h2>
-                        <p>Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime).</p>
+                        <h2>
+                            <IntlMessages id='Become an Insider' />
+                        </h2>
+                        <p>
+                            <IntlMessages id='Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime).' />
+                        </p>
 
                         <Form name="horizontal_login" layout="inline" onSubmit={(e) => { this.onSubmit(e) }}>
                             <Form.Item
@@ -242,11 +357,11 @@ class LandingPage extends React.Component {
                                     type="primary"
                                     htmlType="submit"
                                 >
-                                    Sign Up
+                                    <IntlMessages id='Sign up' />
                                 </Button>
                             </Form.Item>
                         </Form>
-                        {footerText}
+                        <IntlMessages id={footerText} />
                     </div>
                 </Content>
 
@@ -257,4 +372,10 @@ class LandingPage extends React.Component {
 }
 // const ExtendedComponent = withTranslation()(LandingPage);
 // export default withRouter(ExtendedComponent)
-export default withRouter(LandingPage)
+// export default withRouter (LandingPage)
+
+const mapStateToProps = ({ settings }) => {
+    const { locale, navCollapsed } = settings;
+    return { locale, navCollapsed }
+};
+export default connect(mapStateToProps, { toggleCollapsedSideNav, switchLanguage })(LandingPage);

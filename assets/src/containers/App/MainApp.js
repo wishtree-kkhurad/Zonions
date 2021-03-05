@@ -100,6 +100,7 @@ export class MainApp extends Component {
 
   render() {
     const { match, width, navStyle } = this.props;
+
     // const goToHome = () => {
     //   this.props.history.push({ pathname: '/home' });
     // }
@@ -107,7 +108,7 @@ export class MainApp extends Component {
     //   this.props.history.push({ pathname: '/restaurant/manage' });
     // }
     const userSignOut = () => {
-      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
       this.props.history.push({ pathname: '/landingpage' });
     }
     return (
@@ -122,12 +123,12 @@ export class MainApp extends Component {
               style={{ fontSize: '25px', color: 'white'}} 
               onClick={userSignOut} />
             </div>
-            <ButtonGroup direction="vertical">
+            {/* <ButtonGroup direction="vertical">
               <Search placeholder="Input Restaurant Name"
                 onSearch={this.onSearch}
                 enterButton
                 style={{ width: 400 }} />
-            </ButtonGroup>
+            </ButtonGroup> */}
           </Header>
 
           <Content className={`gx-layout-content `}>
