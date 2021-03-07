@@ -1,9 +1,8 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import Classic from '../../routes/customViews/extras/testimonials/Classic/index';
-import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown, Popover } from "antd";
+import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown, Popover, AutoComplete} from "antd";
 import { DownOutlined } from '@ant-design/icons';
 
 /**For multiple language */
@@ -12,17 +11,12 @@ import languageData from "../../containers/Topbar/languageData";
 import { switchLanguage, toggleCollapsedSideNav } from "../../appRedux/actions/Setting";
 import { connect } from "react-redux";
 import IntlMessages from "../../util/IntlMessages";
-import { Link } from "react-router-dom";
 
 /*Auto suggestions */
-import Autosuggest from 'react-autosuggest';
-
-const cities = ['Pune', 'Nagpur','Wardha','Nashik','Hyderabad','Yavatmal','Amaravati'];
+import Complete from '../Complete';
 
 const { Content, Footer, Header } = Layout;
 import { footerText } from "../../util/config";
-import ButtonGroup from 'antd/lib/button/button-group';
-const { Search } = Input;
 
 const appFeatures = [
     {
@@ -124,62 +118,17 @@ const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
 };
 
+const mockVal = (str) => ({
+    value: str,
+  });
+  
 class LandingPage extends React.Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            text: '',
-            suggestions: []
         }
-    }
-    /**Auto Suggestions */
-    onTextChange = (e) => {
-        const value = e.target.value;
-        let suggestions = [];
-        if(value.length > 0){
-            const regex = new RegExp(`^${value}`, 'i');
-            suggestions = cities.sort().filter(v => regex.test(v))
-        }
-        this.setState(() => ({
-            suggestions,
-            text: value
-        }))
-
-    }
-
-    selectedText(value) {
-        this.setState(() => ({
-            text: value,
-            suggestions: [],
-        }))
-    }
-
-    renderSuggestions = () => {
-        let { suggestions } = this.state;
-        if(suggestions.length === 0){
-            return null;
-        }
-        return (
-            <ul >
-                {
-                    suggestions.map((item, index) => (
-                    <li key={index} 
-                        onClick={() => this.selectedText(item)}
-                        style={{color:'white'}}>
-                        {item}
-                    </li>)
-                    )
-                }
-            </ul>
-            // <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight"
-            //     content={this.searchMenu()} trigger="hover">
-            //         <span style={{ color: 'white' }}>
-            //             <IntlMessages id='Languages' />
-            //         </span>
-            // </Popover>
-        );
     }
 
     onSubmit = (e, values) => {
@@ -194,22 +143,6 @@ class LandingPage extends React.Component {
     goToSignup = () => {
         this.props.history.push({ pathname: '/signup' });
     }
-
-    onSearch = async (value) => {
-        this.props.history.push({ pathname: `/restaurants/${value}` })
-    }
-    searchMenu = () =>(
-        <CustomScrollbars className="gx-popover-lang-scroll">
-            <ul className="gx-sub-popover">
-                {this.state.suggestions.map((item, index) =>
-                    <li className="gx-media gx-pointer" key={index} 
-                    onClick={() => this.selectedText(item)}>
-                        <span className="gx-language-text">{item}</span>
-                    </li>
-                )}
-            </ul>
-        </CustomScrollbars>
-    );
 
     languageMenu = () => (
         <CustomScrollbars className="gx-popover-lang-scroll">
@@ -277,18 +210,7 @@ class LandingPage extends React.Component {
                             <h3 id='landingPage.beforeSearchText' style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>
                                 <IntlMessages id='See who delivers in your neighborhood' />
                             </h3>
-                            <ButtonGroup direction="vertical">
-                                <Search placeholder='Input City'
-                                    onSearch={this.onSearch}
-                                    enterButton
-                                    style={{ width: 400 }}
-
-                                    onChange={this.onTextChange} 
-                                    // onChange ={this.renderSuggestions()}
-                                    value={text}
-                                />
-                                {this.renderSuggestions()}
-                            </ButtonGroup>
+                            <Complete />
                         </div>
                     </div>
 
@@ -366,13 +288,9 @@ class LandingPage extends React.Component {
                 </Content>
 
             </Layout>
-            
         )
     }
 }
-// const ExtendedComponent = withTranslation()(LandingPage);
-// export default withRouter(ExtendedComponent)
-// export default withRouter (LandingPage)
 
 const mapStateToProps = ({ settings }) => {
     const { locale, navCollapsed } = settings;

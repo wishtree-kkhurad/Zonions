@@ -6,7 +6,6 @@ import { Card, Col, Row, Table, Form, Layout, Tooltip} from "antd";
 import { NotificationManager } from 'react-notifications';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
-import {Sorter} from '../../../../../src/util/sorter'
 
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
@@ -76,7 +75,8 @@ class Selection extends React.Component {
        },
         render: (text) => (
           <Tooltip title={text}>
-             <div className="gx-link" style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>{text}</div>
+             <div className="gx-link" 
+                  style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>{text}</div>
           </Tooltip>
        )
       },
@@ -115,7 +115,15 @@ class Selection extends React.Component {
         dataIndex: 'openingTime',
         key: 'open_time',
         sorter: {
-          compare: Sorter.DEFAULT
+          compare: (a, b) => {
+            if(a.openingTime > b.openingTime)
+              return 1;
+            else if(a.openingTime < b.openingTime)
+              return -1;
+            else
+              return 0;
+          },
+          multiple: 1,
         },
       },
       {
@@ -203,8 +211,8 @@ class Selection extends React.Component {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={data}
-          pagination={{ pageSize: 5 }}
-        // scroll={{y: 240}}
+          pagination={{ pageSize: 3}}
+          // scroll={{y: 240}}
         />
       </Card>
 
