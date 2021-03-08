@@ -33,6 +33,7 @@ class EditRestaurant extends React.Component {
             restaurantName: '',
             address: '',
             phone: '',
+            regexp:/^[0-9\b]+$/,
             tagline: '',
             openingTime: '',
             closingTime: '',
@@ -134,6 +135,19 @@ class EditRestaurant extends React.Component {
             [e.target.name]: e.target.value
         })  
     }
+    onPhoneChange = (e) =>{
+        let telephone = e.target.value;
+
+        // if value is not blank, then test the regex
+        if (telephone === '' || this.state.regexp.test(telephone)) {
+            this.setState({ [e.target.name]: telephone })
+        }
+        else{
+            this.setState({
+                phoneError: 'Only digits from 0-9 are allowed'
+            })
+        }
+    }
     onOpenTimeChange = (val) => {
         this.setState({
             ...this.state,
@@ -222,7 +236,7 @@ class EditRestaurant extends React.Component {
                         {...formItemLayout}
                         label="Phone Number"
                     >
-                        <Input addonBefore={prefixSelector} name='phone' value={this.state.phone} onChange={this.changeHandler} />
+                        <Input addonBefore={prefixSelector} name='phone' value={this.state.phone} onChange={this.onPhoneChange} />
                         {
                             this.state.phoneError !== '' ?
                                 <span style={{ color: 'red' }}>{this.state.phoneError}</span>

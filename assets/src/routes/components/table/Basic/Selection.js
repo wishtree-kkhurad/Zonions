@@ -2,7 +2,8 @@ import React from "react";
 import axios from 'axios';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom'
-import { Card, Col, Row, Table, Form, Layout, Tooltip} from "antd";
+import { Card, Col, Row, Table, Form, Tooltip, Input, Button, Icon} from "antd";
+
 import { NotificationManager } from 'react-notifications';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
@@ -22,7 +23,8 @@ class Selection extends React.Component {
     super(props);
 
     this.state = {
-      restaurants: []
+      restaurants: [],
+      searchText: ""
     }
   }
 
@@ -34,6 +36,76 @@ class Selection extends React.Component {
     })
   }
 
+  getColumnSearchProps = dataIndex => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters
+    }) => (
+      <div className="custom-filter-dropdown">
+        <Input
+          ref={node => {
+            this.searchInput = node;
+          }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={e =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
+          style={{ width: 188, marginBottom: 8, display: "block" }}
+        />
+        <Button
+          type="primary"
+          onClick={() => this.handleSearch(selectedKeys, confirm)}
+          icon="search"
+          size="small"
+          style={{ width: 90, marginRight: 8 }}
+        >
+          Search
+        </Button>
+        <Button
+          onClick={() => this.handleReset(clearFilters)}
+          size="small"
+          style={{ width: 90 }}
+        >
+          Reset
+        </Button>
+      </div>
+    ),
+    filterIcon: filtered => (
+      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes(value.toLowerCase()),
+    onFilterDropdownVisibleChange: visible => {
+      if (visible) {
+        setTimeout(() => this.searchInput.select());
+      }
+    },
+    // render: text => (
+    //   <Highlighter
+    //     highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+    //     searchWords={[this.state.searchText]}
+    //     autoEscape
+    //     textToHighlight={text.toString()}
+    //   />
+    // )
+  });
+
+  handleSearch = (selectedKeys, confirm) => {
+    confirm();
+    this.setState({ searchText: selectedKeys[0] });
+  };
+
+  handleReset = clearFilters => {
+    clearFilters();
+    this.setState({ searchText: "" });
+  };
 
   render() {
     const data = this.state.restaurants.map((row, index) => ({
@@ -47,22 +119,14 @@ class Selection extends React.Component {
       phone: row.phone,
       key: row.id
     }));
-
     const columns = [
       {
         title: 'Restaurant Name',
         dataIndex: 'restaurantName',
         key: 'restaurantName',
-
+        sorter: false,
         /**For filtering by restaurant name */
-      
-        filters: [
-          {
-            text: 'S',
-            value: 'S',
-          },
-        ],
-        onFilter: (value, record) => record.restaurantName.indexOf(value) === 0,
+        ...this.getColumnSearchProps("restaurantName"),
 
         /**for ellipsis */
         onCell: () => {
@@ -72,7 +136,7 @@ class Selection extends React.Component {
                 maxWidth: 150,
              }
           }
-       },
+        },
         render: (text) => (
           <Tooltip title={text}>
              <div className="gx-link" 
@@ -114,22 +178,13 @@ class Selection extends React.Component {
         title: 'Opening Time',
         dataIndex: 'openingTime',
         key: 'open_time',
-        sorter: {
-          compare: (a, b) => {
-            if(a.openingTime > b.openingTime)
-              return 1;
-            else if(a.openingTime < b.openingTime)
-              return -1;
-            else
-              return 0;
-          },
-          multiple: 1,
-        },
+        sorter: false,
       },
       {
         title: 'Closing Time',
         dataIndex: 'closingTime',
         key: 'close_time',
+        sorter: false,
       },
       {
         title: 'Action',

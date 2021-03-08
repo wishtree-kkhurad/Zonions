@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+
 import Classic from '../../routes/customViews/extras/testimonials/Classic/index';
 import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown, Popover, AutoComplete} from "antd";
 import { DownOutlined } from '@ant-design/icons';
@@ -118,10 +119,6 @@ const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
 };
 
-const mockVal = (str) => ({
-    value: str,
-  });
-  
 class LandingPage extends React.Component {
 
     constructor(props) {
@@ -252,7 +249,7 @@ class LandingPage extends React.Component {
                             </div>
                         </div>
                     </div>
-
+                    
                     <div className='footer-div'>
                         <h2>
                             <IntlMessages id='Become an Insider' />
