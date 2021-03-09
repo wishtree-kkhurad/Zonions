@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-
 
 import Classic from '../../routes/customViews/extras/testimonials/Classic/index';
 import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown, Popover, AutoComplete} from "antd";

@@ -119,12 +119,12 @@ class SignUp extends React.Component {
       <div className="gx-app-login-wrap">
         <div className="gx-app-login-container">
           <div className="gx-app-login-main-content">
-            <div className="gx-app-logo-content">
-              <div className="gx-app-logo-content-bg">
+            <div className="gx-app-logo-content" style={{ backgroundColor: 'rgba(6, 12, 53, 0.829)' }}>
+              {/* <div className="gx-app-logo-content-bg">
                 <img src='../../images/signin_cover.jpg' alt='Neature' />
-              </div>
+              </div> */}
               <div className="gx-app-logo-wid">
-                <h1><IntlMessages id="app.userAuth.signUp" /></h1>
+                <h1><IntlMessages id="Sign Up with Zonions" /></h1>
                 <p><IntlMessages id="app.userAuth.bySigning" /></p>
                 <p><IntlMessages id="app.userAuth.getAccount" /></p>
               </div>

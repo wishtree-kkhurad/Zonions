@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Layout, Icon, Input, Button } from "antd";
+import { Link, withRouter } from 'react-router-dom'
+import { Layout, Icon, Input, Button , Breadcrumb} from "antd";
 import ButtonGroup from 'antd/lib/button/button-group';
 const { Search } = Input;
 
@@ -97,7 +98,7 @@ export class MainApp extends Component {
         return null;
     }
   };
-
+  
   render() {
     const { match, width, navStyle } = this.props;
 
@@ -111,29 +112,49 @@ export class MainApp extends Component {
       localStorage.removeItem('user');
       this.props.history.push({ pathname: '/landingpage' });
     }
+    const breadcrumbNameMap = {
+      '/restaurant/add': 'Add Restaurant',
+      '/restaurant/manage': 'Manage Restaurants',
+      '/restaurant/edit/:id': 'Edit Restaurant'
+    };
+    const { location } = this.props;
+    const pathSnippets = location.pathname.split('/').filter(i => i);
+
+    const extraBreadcrumbItems = pathSnippets.map((_, index) => {
+      const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+      console.log('ULR = ', url)
+      return (
+        <Breadcrumb.Item key={url}>
+          <Link to={url} style={{color: 'white' }}>{breadcrumbNameMap[url]}</Link>
+        </Breadcrumb.Item>
+      );
+    });
+
+    const breadcrumbItems = [
+      <Breadcrumb.Item key="home">
+        <Link to="/landingPage" style={{color: 'white' }}>Home</Link>
+      </Breadcrumb.Item>,
+    ].concat(extraBreadcrumbItems);
+
     return (
       <Layout className="gx-app-layout">
         {/* {this.getSidebar(navStyle, width)} */}
         <Layout>
           {/* {this.getNavStyles(navStyle)} */}
-          
-          <Header style={{backgroundColor:'rgba(6, 12, 53, 0.829)'}}>
-            <div style={{position:'relative', float:'right'}}>
-              <Icon type="logout" 
-              style={{ fontSize: '25px', color: 'white'}} 
-              onClick={userSignOut} />
+          <Header style={{ backgroundColor: 'rgba(6, 12, 53, 0.829)' }}>
+            <div>
+              <Breadcrumb separator=">">{breadcrumbItems}</Breadcrumb>
             </div>
-            {/* <ButtonGroup direction="vertical">
-              <Search placeholder="Input Restaurant Name"
-                onSearch={this.onSearch}
-                enterButton
-                style={{ width: 400 }} />
-            </ButtonGroup> */}
+            <div>
+              <Icon type="logout"
+                style={{ fontSize: '25px', color: 'white' }}
+                onClick={userSignOut} />
+            </div>
           </Header>
 
           <Content className={`gx-layout-content `}>
             <RouteApp match={match} />
-            <Footer style={{backgroundColor:'rgba(6, 12, 53, 0.829)', color:'white'}}>
+            <Footer style={{ backgroundColor: 'rgba(6, 12, 53, 0.829)', color: 'white' }}>
               <div className="gx-layout-footer-content">
                 {footerText}
               </div>

@@ -28,7 +28,7 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL
 } from "../../constants/ThemeSetting";
 
-const RestrictedRoute = ({ component: Component, ...rest }) => {
+const RestrictedRoute = ({ path, name, component: Component, ...rest }) => {
   let authUser = localStorage.getItem('user')
   return (
     <Route

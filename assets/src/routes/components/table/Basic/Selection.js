@@ -43,7 +43,7 @@ class Selection extends React.Component {
       confirm,
       clearFilters
     }) => (
-      <div className="custom-filter-dropdown">
+      <div className="custom-filter-dropdown" style={{paddingLeft:'7px', paddingRight:'7px', paddingTop:'7px'}}>
         <Input
           ref={node => {
             this.searchInput = node;
@@ -75,7 +75,7 @@ class Selection extends React.Component {
       </div>
     ),
     filterIcon: filtered => (
-      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
+      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined}} />
     ),
     onFilter: (value, record) =>
       record[dataIndex]
@@ -124,9 +124,12 @@ class Selection extends React.Component {
         title: 'Restaurant Name',
         dataIndex: 'restaurantName',
         key: 'restaurantName',
-        sorter: false,
+        
         /**For filtering by restaurant name */
         ...this.getColumnSearchProps("restaurantName"),
+
+        /**For sorting by restaurant name */
+        sorter: (a, b) => a.restaurantName.localeCompare(b.restaurantName),
 
         /**for ellipsis */
         onCell: () => {
@@ -178,13 +181,13 @@ class Selection extends React.Component {
         title: 'Opening Time',
         dataIndex: 'openingTime',
         key: 'open_time',
-        sorter: false,
+        sorter: (a, b) => a.openingTime.localeCompare(b.openingTime),
       },
       {
         title: 'Closing Time',
         dataIndex: 'closingTime',
         key: 'close_time',
-        sorter: false,
+        sorter: (a, b) => a.closingTime.localeCompare(b.closingTime),
       },
       {
         title: 'Action',
