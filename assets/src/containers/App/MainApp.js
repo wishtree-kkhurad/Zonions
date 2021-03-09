@@ -143,7 +143,7 @@ export class MainApp extends Component {
           {/* {this.getNavStyles(navStyle)} */}
           <Header style={{ backgroundColor: 'rgba(6, 12, 53, 0.829)' }}>
             <div>
-              <Breadcrumb separator=">">{breadcrumbItems}</Breadcrumb>
+              <Breadcrumb separator="/">{breadcrumbItems}</Breadcrumb>
             </div>
             <div>
               <Icon type="logout"
