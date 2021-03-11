@@ -130,6 +130,12 @@ class Selection extends React.Component {
 
         /**For sorting by restaurant name */
         sorter: (a, b) => a.restaurantName.localeCompare(b.restaurantName),
+        // sorter: async (a, b) => {
+        //   let sortedData = await axios.get('http://localhost:1337/restaurants?sortBy=restaurantName:acs')
+          
+        //   console.log('inside sort method', sortedData);
+        // },
+
 
         /**for ellipsis */
         onCell: () => {
@@ -181,13 +187,13 @@ class Selection extends React.Component {
         title: 'Opening Time',
         dataIndex: 'openingTime',
         key: 'open_time',
-        sorter: (a, b) => a.openingTime.localeCompare(b.openingTime),
+        // sorter: (a, b) => a.openingTime.localeCompare(b.openingTime),
       },
       {
         title: 'Closing Time',
         dataIndex: 'closingTime',
         key: 'close_time',
-        sorter: (a, b) => a.closingTime.localeCompare(b.closingTime),
+        // sorter: (a, b) => a.closingTime.localeCompare(b.closingTime),
       },
       {
         title: 'Action',

@@ -42,6 +42,14 @@ module.exports = {
 
   getAllRestaurants: function (req, res, next) {
     Logger.verbose('RestaurantController.getAllRestaurants');
+    
+    // console.log('req.qyery.sortBy',req.query.sortBy)
+    // const sort = [];
+    // if(req.query.sortBy){
+    //   const str = req.query.sortBy.split(':');
+    //   console.log('str=',str)
+    //   sort[str[0]] = str[1] ==='desc'?-1:1;
+    // }
 
     RestaurantService.getAllRestaurants((err, restaurantData) => {
       if (err) {

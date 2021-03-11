@@ -7,14 +7,15 @@ import { IntlProvider } from "react-intl";
 
 import AppLocale from "../../lngProvider";
 import MainApp from "./MainApp";
-import RestaurantsDetails from '../../components/RestaurantsDetails/index'
+import RestaurantsDetails from '../../components/RestaurantsDetails/index';
+import ManageRestaurants from '../../components/ManageRestaurant/index'
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import { setInitUrl } from "../../appRedux/actions/Auth";
 import { onLayoutTypeChange, onNavStyleChange, setThemeType } from "../../appRedux/actions/Setting";
 import LandingPage from '../../components/LandingPage/index';
 import LocationWiseRestaurants from '../../components/LocationWiseRestaurants/index';
-import Cookies from 'js-cookie';
+import Page404 from '../../components/Page404'
 
 
 import {
@@ -101,10 +102,18 @@ class App extends Component {
               <Route exact path='/restaurant/details/:id' component={RestaurantsDetails}/>
               <Route exact path='/restaurant/details/name/:name' component={RestaurantsDetails}/>
 
+              {/* {
+                localStorage.getItem('user')=== null ? 
+                <Route exact path='/signin' component={SignIn} />
+                :  <Redirect to={'/restaurant/manage'} />
+                
+                // <Route path={`${match.url}restaurant/manage`} component={ManageRestaurants}/>
+              } */}
+              
               <Route exact path='/signin' component={SignIn} />
               <Route exact path='/signup' component={SignUp} />
             
-              <RestrictedRoute path={`${match.url}`} authUser={authUser}
+              <RestrictedRoute authUser={authUser}
                 component={MainApp} />
           </Switch>
         </IntlProvider>

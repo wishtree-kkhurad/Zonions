@@ -140,7 +140,7 @@ class LandingPage extends React.Component {
     }
 
     languageMenu = () => (
-        <CustomScrollbars className="gx-popover-lang-scroll">
+        // <CustomScrollbars className="gx-popover-lang-scroll">
             <ul className="gx-sub-popover">
                 {languageData.map(language =>
                     <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
@@ -150,7 +150,7 @@ class LandingPage extends React.Component {
                     </li>
                 )}
             </ul>
-        </CustomScrollbars>
+        // </CustomScrollbars>
     );
 
     render() {
@@ -185,11 +185,10 @@ class LandingPage extends React.Component {
                                             </Dropdown>
                                         </Button>
                                     </li>
-                                    <li className="gx-language">
-                                    
+                                    <li>
                                         <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight"
                                             content={this.languageMenu()} trigger="hover">
-                                            <span style={{ color: 'white' }}>
+                                            <span style={{ color: 'white'}}>
                                                 <IntlMessages id='Languages' />
                                             </span>
                                         </Popover>

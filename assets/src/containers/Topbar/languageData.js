@@ -42,6 +42,5 @@ const languageData = [
   //   name: 'Arabic',
   //   icon: 'sa'
   // }
-
 ];
 export default languageData;
