@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom'
-import { Layout, Icon, Input, Button , Breadcrumb} from "antd";
+import { Layout, Icon, Input} from "antd";
+import {HomeFilled} from '@ant-design/icons';
 import ButtonGroup from 'antd/lib/button/button-group';
 const { Search } = Input;
 
@@ -102,9 +103,9 @@ export class MainApp extends Component {
   render() {
     const { match, width, navStyle } = this.props;
 
-    // const goToHome = () => {
-    //   this.props.history.push({ pathname: '/home' });
-    // }
+    const goToHome = () => {
+      this.props.history.push({ pathname: '/landingPage' });
+    }
     // const goToManage = () => {
     //   this.props.history.push({ pathname: '/restaurant/manage' });
     // }
@@ -112,30 +113,7 @@ export class MainApp extends Component {
       localStorage.removeItem('user');
       this.props.history.push({ pathname: '/landingpage' });
     }
-    const breadcrumbNameMap = {
-      '/restaurant/add': 'Add Restaurant',
-      '/restaurant/manage': 'Manage Restaurants',
-      '/restaurant/edit/:id': 'Edit Restaurant'
-    };
-    const { location } = this.props;
-    const pathSnippets = location.pathname.split('/').filter(i => i);
-
-    const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-      const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-      console.log('ULR = ', url)
-      return (
-        <Breadcrumb.Item key={url}>
-          <Link to={url} style={{color: 'white' }}>{breadcrumbNameMap[url]}</Link>
-        </Breadcrumb.Item>
-      );
-    });
-
-    const breadcrumbItems = [
-      <Breadcrumb.Item key="home">
-        <Link to="/landingPage" style={{color: 'white' }}>Home</Link>
-      </Breadcrumb.Item>,
-    ].concat(extraBreadcrumbItems);
-
+  
     return (
       <Layout className="gx-app-layout">
         {/* {this.getSidebar(navStyle, width)} */}
@@ -143,7 +121,7 @@ export class MainApp extends Component {
           {/* {this.getNavStyles(navStyle)} */}
           <Header style={{ backgroundColor: 'rgba(6, 12, 53, 0.829)' }}>
             <div>
-              <Breadcrumb separator=">">{breadcrumbItems}</Breadcrumb>
+              <HomeFilled style={{ fontSize: '25px', color: 'white' }} onClick={goToHome}/>
             </div>
             <div>
               <Icon type="logout"

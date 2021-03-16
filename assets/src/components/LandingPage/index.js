@@ -318,7 +318,6 @@ class LandingPage extends React.Component {
                             description={footerText} />
                     </div>
                 </Content>
-
             </Layout>
         )
     }

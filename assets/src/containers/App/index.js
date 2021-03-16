@@ -17,7 +17,7 @@ import LandingPage from '../../components/LandingPage/index';
 import LocationWiseRestaurants from '../../components/LocationWiseRestaurants/index';
 import Page404 from '../../components/Page404'
 import Cookie from 'js-cookie';
-
+import UserLoginForm from '../../components/UserLogin/index'
 
 import {
   LAYOUT_TYPE_BOXED,
@@ -115,7 +115,8 @@ class App extends Component {
                 // <Route path={`${match.url}restaurant/manage`} component={ManageRestaurants}/>
               } */}
               
-              <Route exact path='/signin' component={SignIn} />
+              {/* <Route exact path='/signin' component={SignIn} /> */}
+              <Route exact path='/signin' component={UserLoginForm} />
               <Route exact path='/signup' component={SignUp} />
             
               <RestrictedRoute authUser={authUser}

@@ -36,9 +36,9 @@ module.exports = {
     /**
      * `RestaurantController.find()`
      */
-    getAllRestaurants(limit, skip, callback) {
+    getAllRestaurants(limit,page, callback) {
         Logger.debug('RestaurantService.getAllRestaurants');
-        Restaurant.getAllRestaurants(limit, skip, (err, restaurantData) => {
+        Restaurant.getAllRestaurants(limit,page, (err, restaurantData) => {
             if (err) {
                 Logger.error(`RestaurantService.getAllRestaurants at Restaurant.getAllRestaurants ${err}`);
                 callback(err);

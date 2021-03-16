@@ -73,12 +73,12 @@ module.exports = {
     }
   },
 
-  async getAllRestaurants(limit, skip, callback) {
+  async getAllRestaurants(limit,page,callback) {
    
     try {
       const restaurants = await Restaurant.find({})
-      .skip(skip)
-      .limit(limit)
+      .skip((page-1)*limit)
+      .limit(limit*1)
       .sort([{ restaurantName: 'ASC' },{ openingTime: 'ASC' },{ closingTime: 'ASC' },]);
       // const restaurants = await Restaurant.find({}).sort()
 

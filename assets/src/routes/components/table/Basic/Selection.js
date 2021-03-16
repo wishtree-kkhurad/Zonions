@@ -2,12 +2,12 @@ import React from "react";
 import axios from 'axios';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom'
-import { Card, Col, Row, Form, Tooltip, Input, Button, Icon, Table, Tag, Space } from "antd";
+import { Card, Col, Row, Form, Tooltip, Input, Button, Icon, Table, Tag, Pagination} from "antd";
 const { Column, ColumnGroup } = Table;
 import { NotificationManager } from 'react-notifications';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
-import RestaurantList from '../../../../components/Pagination/index'
+// import Pagination from '../../../../components/Pagination/index'
 
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
@@ -22,43 +22,22 @@ const rowSelection = {
 class Selection extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      restaurants: [],
+      restaurants: [], 
       searchText: "",
       // Intial values to get first page
-      limit: 3,
-      skip: 0,
+      limit: 2,
+      page: 1,
     }
   }
-  nextPage() {
-    this.setState({
-      skip: this.state.skip + this.state.limit,
-    })
-  }
-  previousPage() {
-    if (this.state.skip > 0) {
-      this.setState({
-        skip: this.state.skip - this.state.limit,
-      })
-    }
-  }
-
+ 
   async componentDidMount() {
-    const data = await axios.get(`http://localhost:1337/restaurants?limit=${this.state.limit}&skip=${this.state.skip}`);
-
+    const data = await axios.get(`http://localhost:1337/restaurants?limit=${this.state.limit}&page=${this.state.page}`);
+    
     this.setState({
       restaurants: data.data.response
     })
   }
-
-  // async componentDidUpdate(prevProps, prevState) {
-  //   const data = await axios.get(`http://localhost:1337/restaurants?limit=${this.state.limit}&skip=${this.state.skip}`);
-
-  //   this.setState({
-  //     restaurants: data.data.response
-  //   })
-  // }
 
   getColumnSearchProps = dataIndex => ({
     filterDropdown: ({
@@ -123,12 +102,24 @@ class Selection extends React.Component {
     this.setState({ searchText: "" });
   };
 
+  showTotal = (total) => {
+    return `Total ${total} items`;
+  }
+  onPageChange = async (page, pageSize) =>{
+    // console.log('inside page change' + page + 'size=' + pageSize)
+    const data = await axios.get(`http://localhost:1337/restaurants?limit=${pageSize}&page=${page}`);
+    
+    this.setState({
+      restaurants: data.data.response
+    })
+  }
+
   render() {
     const data = this.state.restaurants.map((row, index) => ({
       id: row.id,
       restaurantName: row.restaurantName,
       address: row.address,
-      status: (row.isActive) ? "Active" : "Deactive",
+      status: (row.isActive) ? <Tag color="#87d068">Active</Tag> : <Tag color="#cd201f">Deactive</Tag>,
       openingTime: (row.openingTime !== 'N/A') ? row.openingTime : '--:--',
       closingTime: (row.closingTime !== 'N/A') ? row.closingTime : '--:--',
       tagline: row.tagline,
@@ -291,13 +282,17 @@ class Selection extends React.Component {
           rowSelection={rowSelection} 
           columns={columns} 
           dataSource={data}
-          pagination={`${this.state.limit}`}
+          pagination={false}
           // scroll={{y: 240}}
         />
-        {/* <Pagination defaultCurrent={1} total={50}/> */}
-        {/* <RestaurantList /> */}
-
-        
+        <div style={{paddingTop:'5px', float:'right'}}>
+          <Pagination defaultCurrent={1} 
+          total={25}
+          pageSize={this.state.limit}
+          // showTotal={this.showTotal}
+          onChange={this.onPageChange}
+        />
+        </div>
       </Card>
 
     );
