@@ -8,14 +8,15 @@ import { IntlProvider } from "react-intl";
 import AppLocale from "../../lngProvider";
 import MainApp from "./MainApp";
 import RestaurantsDetails from '../../components/RestaurantsDetails/index';
-import ManageRestaurants from '../../components/ManageRestaurant/index'
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import { setInitUrl } from "../../appRedux/actions/Auth";
-import { onLayoutTypeChange, onNavStyleChange, setThemeType } from "../../appRedux/actions/Setting";
+import { onLayoutTypeChange, onNavStyleChange, setThemeType , switchLanguage} from "../../appRedux/actions/Setting";
+
 import LandingPage from '../../components/LandingPage/index';
 import LocationWiseRestaurants from '../../components/LocationWiseRestaurants/index';
 import Page404 from '../../components/Page404'
+import Cookie from 'js-cookie';
 
 
 import {
@@ -69,16 +70,14 @@ class App extends Component {
   // }
 
   render() {
-    const { match, location, layoutType, navStyle, locale,initURL } = this.props;
+    const { match, location, layoutType, navStyle,locale, initURL } = this.props;
     let authUser = localStorage.getItem('user')
     
     if (location.pathname === '/') {
 
       if (authUser === null) {
         return (<Redirect to={'/landingpage'} />);
-
       } else if ((initURL === '' || initURL === '/' || initURL === '/signin')) {
-
         return ( <Redirect to={'/restaurant/manage'} /> );
       }
       else {
@@ -86,22 +85,28 @@ class App extends Component {
         return ( <Redirect to={'/restaurant/manage'} /> );
       }
     }
+    
+    console.log('locale from props', locale)
     const currentAppLocale = AppLocale[locale.locale];
+  
+    console.log('currentAppLocale',currentAppLocale)
+    console.log('current locale', currentAppLocale.locale)
+    console.log('browser language', navigator.language)
+    console.log('currentAppLocale.antd', currentAppLocale.antd)
+
+    
     return (
-      <LocaleProvider locale={currentAppLocale.antd}>
+      <LocaleProvider >
         <IntlProvider
           locale={currentAppLocale.locale}
-          messages={currentAppLocale.messages}>
+          messages={currentAppLocale.messages}
+        >
 
           <Switch>
-           
               <Route exact path='/landingpage' component={LandingPage} />
-            
               <Route exact path='/restaurants/:location' component={LocationWiseRestaurants} />
-              
               <Route exact path='/restaurant/details/:id' component={RestaurantsDetails}/>
               <Route exact path='/restaurant/details/name/:name' component={RestaurantsDetails}/>
-
               {/* {
                 localStorage.getItem('user')=== null ? 
                 <Route exact path='/signin' component={SignIn} />
@@ -127,4 +132,4 @@ const mapStateToProps = ({ settings, auth }) => {
   const { authUser, initURL } = auth;
   return { locale, navStyle, layoutType, authUser, initURL }
 };
-export default connect(mapStateToProps, { setInitUrl, setThemeType, onNavStyleChange, onLayoutTypeChange })(withRouter(App));
+export default connect(mapStateToProps, {setInitUrl, setThemeType, onNavStyleChange, onLayoutTypeChange, switchLanguage})(withRouter(App));

@@ -7,7 +7,7 @@ const EnLang = {
     ...enMessages
   },
   antd: antdEn,
-  locale: 'en-US',
+  locale: 'en',
   data: appLocaleData
 };
 export default EnLang;

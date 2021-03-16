@@ -2,11 +2,12 @@ import React from "react";
 import axios from 'axios';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom'
-import { Card, Col, Row, Table, Form, Tooltip, Input, Button, Icon} from "antd";
-
+import { Card, Col, Row, Form, Tooltip, Input, Button, Icon, Table, Tag, Space } from "antd";
+const { Column, ColumnGroup } = Table;
 import { NotificationManager } from 'react-notifications';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
+import RestaurantList from '../../../../components/Pagination/index'
 
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
@@ -24,17 +25,40 @@ class Selection extends React.Component {
 
     this.state = {
       restaurants: [],
-      searchText: ""
+      searchText: "",
+      // Intial values to get first page
+      limit: 3,
+      skip: 0,
+    }
+  }
+  nextPage() {
+    this.setState({
+      skip: this.state.skip + this.state.limit,
+    })
+  }
+  previousPage() {
+    if (this.state.skip > 0) {
+      this.setState({
+        skip: this.state.skip - this.state.limit,
+      })
     }
   }
 
   async componentDidMount() {
-    const data = await axios.get('http://localhost:1337/restaurants');
+    const data = await axios.get(`http://localhost:1337/restaurants?limit=${this.state.limit}&skip=${this.state.skip}`);
 
     this.setState({
       restaurants: data.data.response
     })
   }
+
+  // async componentDidUpdate(prevProps, prevState) {
+  //   const data = await axios.get(`http://localhost:1337/restaurants?limit=${this.state.limit}&skip=${this.state.skip}`);
+
+  //   this.setState({
+  //     restaurants: data.data.response
+  //   })
+  // }
 
   getColumnSearchProps = dataIndex => ({
     filterDropdown: ({
@@ -43,7 +67,7 @@ class Selection extends React.Component {
       confirm,
       clearFilters
     }) => (
-      <div className="custom-filter-dropdown" style={{paddingLeft:'7px', paddingRight:'7px', paddingTop:'7px'}}>
+      <div className="custom-filter-dropdown" style={{ paddingLeft: '7px', paddingRight: '7px', paddingTop: '7px' }}>
         <Input
           ref={node => {
             this.searchInput = node;
@@ -75,7 +99,7 @@ class Selection extends React.Component {
       </div>
     ),
     filterIcon: filtered => (
-      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined}} />
+      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
     ),
     onFilter: (value, record) =>
       record[dataIndex]
@@ -86,15 +110,7 @@ class Selection extends React.Component {
       if (visible) {
         setTimeout(() => this.searchInput.select());
       }
-    },
-    // render: text => (
-    //   <Highlighter
-    //     highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-    //     searchWords={[this.state.searchText]}
-    //     autoEscape
-    //     textToHighlight={text.toString()}
-    //   />
-    // )
+    }
   });
 
   handleSearch = (selectedKeys, confirm) => {
@@ -113,8 +129,8 @@ class Selection extends React.Component {
       restaurantName: row.restaurantName,
       address: row.address,
       status: (row.isActive) ? "Active" : "Deactive",
-      openingTime: (row.openingTime!=='N/A') ?row.openingTime: '--:--',
-      closingTime: (row.closingTime!=='N/A') ?row.closingTime: '--:--',
+      openingTime: (row.openingTime !== 'N/A') ? row.openingTime : '--:--',
+      closingTime: (row.closingTime !== 'N/A') ? row.closingTime : '--:--',
       tagline: row.tagline,
       phone: row.phone,
       key: row.id
@@ -124,7 +140,7 @@ class Selection extends React.Component {
         title: 'Restaurant Name',
         dataIndex: 'restaurantName',
         key: 'restaurantName',
-        
+
         /**For filtering by restaurant name */
         ...this.getColumnSearchProps("restaurantName"),
 
@@ -132,7 +148,7 @@ class Selection extends React.Component {
         sorter: (a, b) => a.restaurantName.localeCompare(b.restaurantName),
         // sorter: async (a, b) => {
         //   let sortedData = await axios.get('http://localhost:1337/restaurants?sortBy=restaurantName:acs')
-          
+
         //   console.log('inside sort method', sortedData);
         // },
 
@@ -140,38 +156,38 @@ class Selection extends React.Component {
         /**for ellipsis */
         onCell: () => {
           return {
-             style: {
-                whiteSpace: 'nowrap',
-                maxWidth: 150,
-             }
+            style: {
+              whiteSpace: 'nowrap',
+              maxWidth: 150,
+            }
           }
         },
         render: (text) => (
           <Tooltip title={text}>
-             <div className="gx-link" 
-                  style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>{text}</div>
+            <div className="gx-link"
+              style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>{text}</div>
           </Tooltip>
-       )
+        )
       },
       {
         title: 'Location',
         dataIndex: 'address',
         key: 'address',
-        
+
         /**for ellipsis */
         onCell: () => {
           return {
-             style: {
-                whiteSpace: 'nowrap',
-                maxWidth: 150,
-             }
+            style: {
+              whiteSpace: 'nowrap',
+              maxWidth: 150,
+            }
           }
-       },
+        },
         render: (text) => (
           <Tooltip title={text}>
-             <div style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>{text}</div>
+            <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>{text}</div>
           </Tooltip>
-       )
+        )
       },
       {
         title: 'Status',
@@ -220,7 +236,7 @@ class Selection extends React.Component {
     //   console.log('restaurant fetched by name', restaurantByName);
     //   // this.props.history.push({pathname:`/restaurant/details/name/${text}`, data:restaurantByName})
     // }
-    
+
 
     const onDelete = (text) => {
       confirmAlert({
@@ -272,12 +288,16 @@ class Selection extends React.Component {
         </Row>
       }>
         <Table className="gx-table-responsive"
-          rowSelection={rowSelection}
-          columns={columns}
+          rowSelection={rowSelection} 
+          columns={columns} 
           dataSource={data}
-          pagination={{ pageSize: 3}}
+          pagination={`${this.state.limit}`}
           // scroll={{y: 240}}
         />
+        {/* <Pagination defaultCurrent={1} total={50}/> */}
+        {/* <RestaurantList /> */}
+
+        
       </Card>
 
     );

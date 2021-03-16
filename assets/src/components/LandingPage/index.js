@@ -10,18 +10,19 @@ import languageData from "../../containers/Topbar/languageData";
 import { switchLanguage, toggleCollapsedSideNav } from "../../appRedux/actions/Setting";
 import { connect } from "react-redux";
 import IntlMessages from "../../util/IntlMessages";
-
+import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 /*Auto suggestions */
 import Complete from '../Complete';
 
 const { Content, Footer, Header } = Layout;
 import { footerText } from "../../util/config";
+import GeoLocation from '../GeoLocation';
 
 const appFeatures = [
     {
         "id": "feature1",
         "title": "Find Favourites and Discover New Ones",
-        "description": "Browse thousands of restaurants and stores to get the best of your neighborhood delivered.",
+        "description": "Browse thousands of restaurants and stores to get the best of your neighbourhood delivered.",
         "logo": require('../../../images/favourite_food.png')
     },
     {
@@ -33,7 +34,7 @@ const appFeatures = [
     {
         "id": "feature3",
         "title": "Place Your Order",
-        "description": "Enter your address, find what you're looking for, and easily order from the best restaurants in the neighborhood.",
+        "description": "Enter your address, find what you're looking for, and easily order from the best restaurants in the neighbourhood.",
         "logo": require('../../../images/place_order_feature.png')
     },
     {
@@ -118,12 +119,9 @@ const tailLayout = {
 };
 
 class LandingPage extends React.Component {
-
     constructor(props) {
         super(props)
 
-        this.state = {
-        }
     }
 
     onSubmit = (e, values) => {
@@ -152,11 +150,10 @@ class LandingPage extends React.Component {
             </ul>
         // </CustomScrollbars>
     );
+   
 
     render() {
-        const { locale } = this.props;
-        const { text, suggestions } = this.state;
-
+        
         return (
             <Layout className="gx-app-layout">
                 <Content className={`gx-layout-content`}>
@@ -166,12 +163,18 @@ class LandingPage extends React.Component {
                                 <ul className='headerList'>
                                     <li>
                                         <Button ghost style={{ border: '0' }} onClick={() => this.goToLogin()} >
-                                            <IntlMessages id='Sign in' />
+                                            {/* <IntlMessages id='Sign in' /> */}
+                                            <FormattedMessage id="Sign in"
+                                                defaultMessage="Sign in"
+                                                description="Sign in"/>
                                         </Button>
                                     </li>
                                     <li>
                                         <Button ghost style={{ border: '0' }} onClick={() => this.goToSignup()}>
-                                            <IntlMessages id='Sign up' />
+                                            {/* <IntlMessages id='Sign up' /> */}
+                                            <FormattedMessage id="Sign up"
+                                                defaultMessage="Sign up"
+                                                description="Sign up"/>
                                         </Button>
                                     </li>
                                     <li>
@@ -179,30 +182,44 @@ class LandingPage extends React.Component {
                                             <Dropdown overlay={menu}>
                                                 <a className="ant-dropdown-link"
                                                     onClick={e => e.preventDefault()}>
-                                                    <IntlMessages id='Cuisines' />
+                                                    {/* <IntlMessages id='Cuisines' /> */}
+                                                    <FormattedMessage id="Cuisines"
+                                                        defaultMessage="Cuisines"
+                                                        description="Cuisines"/>
                                                     <span><DownOutlined /></span>
                                                 </a>
                                             </Dropdown>
                                         </Button>
                                     </li>
+                                    
                                     <li>
                                         <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight"
                                             content={this.languageMenu()} trigger="hover">
                                             <span style={{ color: 'white'}}>
-                                                <IntlMessages id='Languages' />
+                                                {/* <IntlMessages id='Languages' /> */}
+                                                <FormattedMessage id="Languages"
+                                                        defaultMessage="Languages"
+                                                        description="Languages"/>
                                             </span>
                                         </Popover>
-                                    
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
                         <div className='appTitleDiv'>
-                            <h1><IntlMessages id='Zonions' /></h1>
+                            <h1>
+                                <IntlMessages id='Zonions' />
+                                <FormattedMessage id="Zonions"
+                                    defaultMessage="Zonions"
+                                    description="Zonions"/>
+                            </h1>
 
                             <h3 id='landingPage.beforeSearchText' style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>
-                                <IntlMessages id='See who delivers in your neighborhood' />
+                                {/* <IntlMessages id='See who delivers in your neighbourhood' /> */}
+                                <FormattedMessage id="See who delivers in your neighbourhood"
+                                    defaultMessage="See who delivers in your neighbourhood"
+                                    description="See who delivers in your neighbourhood"/>
                             </h3>
                             <Complete />
                         </div>
@@ -212,7 +229,10 @@ class LandingPage extends React.Component {
                         <div className='container'>
                             <div className='col-md-12'>
                                 <Divider className='col-md-12' style={{ fontSize: '25px', marginBottom: '3%' }} orientation="center">
-                                    <IntlMessages id="Cuisines" />
+                                    {/* <IntlMessages id="Cuisines" /> */}
+                                    <FormattedMessage id="Cuisines"
+                                        defaultMessage="Cuisines"
+                                        description="Cuisines"/>
                                 </Divider>
                                 {
                                     cuisines.map((item) => {
@@ -223,7 +243,10 @@ class LandingPage extends React.Component {
                                                         <img src={item.backGroundImg} alt='Cuisine Image' />
                                                     </div>
                                                     <div className='card_text'>
-                                                        <IntlMessages id={item.cuisineName} /> 
+                                                        {/* <IntlMessages id={item.cuisineName} />  */}
+                                                        <FormattedMessage id={item.cuisineName}
+                                                            defaultMessage={item.cuisineName}
+                                                            description={item.cuisineName}/>
                                                     </div>
                                                 </a>
                                             </div>
@@ -237,7 +260,10 @@ class LandingPage extends React.Component {
                     <div style={{ marginTop: '30px' }}>
                         <div className='container'>
                             <Divider style={{ fontSize: '20px', marginBottom: '3%' }} orientation="center">
-                                <IntlMessages id='Why order with Zonions' />
+                                {/* <IntlMessages id='Why order with Zonions' /> */}
+                                <FormattedMessage id="Why order with Zonions"
+                                        defaultMessage="Why order with Zonions"
+                                        description="Why order with Zonions"/>
                             </Divider>
                             <div style={{ paddingBottom: '50px' }} >
                                 <Row>
@@ -246,13 +272,19 @@ class LandingPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    
+                    <GeoLocation />
                     <div className='footer-div'>
                         <h2>
-                            <IntlMessages id='Become an Insider' />
+                            {/* <IntlMessages id='Become an Insider' /> */}
+                            <FormattedMessage id="Become an Insider"
+                                defaultMessage="Become an Insider"
+                                description="Become an Insider"/>
                         </h2>
                         <p>
-                            <IntlMessages id='Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime).' />
+                            {/* <IntlMessages id='Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime).' /> */}
+                            <FormattedMessage id="Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime)."
+                                defaultMessage="Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime)."
+                                description="Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime)."/>
                         </p>
 
                         <Form name="horizontal_login" layout="inline" onSubmit={(e) => { this.onSubmit(e) }}>
@@ -273,11 +305,17 @@ class LandingPage extends React.Component {
                                     type="primary"
                                     htmlType="submit"
                                 >
-                                    <IntlMessages id='Sign up' />
+                                    {/* <IntlMessages id='Sign up' /> */}
+                                    <FormattedMessage id="Sign up"
+                                        defaultMessage="Sign up"
+                                        description="Sign up"/>
                                 </Button>
                             </Form.Item>
                         </Form>
-                        <IntlMessages id={footerText} />
+                        {/* <IntlMessages id={footerText} /> */}
+                        <FormattedMessage id={footerText}
+                            defaultMessage={footerText}
+                            description={footerText} />
                     </div>
                 </Content>
 

@@ -25,5 +25,4 @@ addLocaleData(AppLocale.en.data);
 // addLocaleData(AppLocale.fr.data);
 addLocaleData(AppLocale.hi.data);
 
-
 export default AppLocale;

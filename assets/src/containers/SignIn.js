@@ -3,6 +3,8 @@ import { Button, Checkbox, Form, Icon, Input, message } from "antd";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import axios from 'axios';
+import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+
 import { NotificationManager } from 'react-notifications';
 import Cookies from 'js-cookie';
 
@@ -128,9 +130,24 @@ class SignIn extends React.Component {
               </div> */}
             
               <div className="gx-app-logo-wid" >
-                <h1><IntlMessages id="Sign in to Zonions" /></h1>
-                <p><IntlMessages id="By Signing Up, you can avail full features of our services." /></p>
-                <p><IntlMessages id="Get an account !!!" /></p>
+                <h1>
+                  {/* <IntlMessages id="Sign in to Zonions" /> */}
+                  <FormattedMessage id="Sign in to Zonions"
+                    defaultMessage="Sign in to Zonions"
+                    description="Sign in to Zonions"/>
+                </h1>
+                <p>
+                  {/* <IntlMessages id="By Signing Up, you can avail full features of our services." /> */}
+                  <FormattedMessage id="By Signing Up, you can avail full features of our services."
+                    defaultMessage="By Signing Up, you can avail full features of our services."
+                    description="By Signing Up, you can avail full features of our services."/>
+                </p>
+                <p>
+                  {/* <IntlMessages id="Get an account !!!" /> */}
+                  <FormattedMessage id="Get an account !!!"
+                    defaultMessage="Get an account !!!"
+                    description="Get an account !!!"/>
+                </p>
               </div>
 
             </div>
@@ -171,17 +188,38 @@ class SignIn extends React.Component {
                     valuePropName: 'checked',
                     initialValue: true,
                   })(
-                    <Checkbox><IntlMessages id="by signing up, I accept" /></Checkbox>
+                    <Checkbox>
+                      {/* <IntlMessages id="by signing up, I accept" /> */}
+                      <FormattedMessage id="by signing up, I accept"
+                        defaultMessage="by signing up, I accept"
+                        description="by signing up, I accept"/>
+                    </Checkbox>
                   )}
-                  <span className="gx-signup-form-forgot gx-link"><IntlMessages
-                    id="Terms & Conditions" /></span>
+                  <span className="gx-signup-form-forgot gx-link">
+                    {/* <IntlMessages id="Terms & Conditions" /> */}
+                    <FormattedMessage id="Terms & Conditions"
+                        defaultMessage="Terms & Conditions"
+                        description="Terms & Conditions"/>
+                    </span>
                 </FormItem> 
                 <FormItem>
                   <Button type="primary" className="gx-mb-0" htmlType="submit">
-                    <IntlMessages id="Sign in" />
+                    {/* <IntlMessages id="Sign in" /> */}
+                    <FormattedMessage id="Sign in"
+                        defaultMessage="Sign in"
+                        description="Sign in"/>
                   </Button>
-                  <span><IntlMessages id="or" /></span> <Link to="/signup"><IntlMessages
-                    id="Sign up" /></Link>
+                  <span>
+                    {/* <IntlMessages id="or" /> */}
+                    <FormattedMessage id="or"
+                        defaultMessage="or"
+                        description="or"/>
+                  </span> <Link to="/signup">
+                    {/* <IntlMessages id="Sign up" /> */}
+                    <FormattedMessage id="Sign up"
+                        defaultMessage="Sign up"
+                        description="Sign up"/>
+                    </Link>
                 </FormItem>
               </Form>
             </div>

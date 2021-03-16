@@ -73,10 +73,12 @@ module.exports = {
     }
   },
 
-  async getAllRestaurants(callback) {
+  async getAllRestaurants(limit, skip, callback) {
    
     try {
       const restaurants = await Restaurant.find({})
+      .skip(skip)
+      .limit(limit)
       .sort([{ restaurantName: 'ASC' },{ openingTime: 'ASC' },{ closingTime: 'ASC' },]);
       // const restaurants = await Restaurant.find({}).sort()
 
