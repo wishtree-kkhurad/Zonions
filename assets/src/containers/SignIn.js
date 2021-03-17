@@ -20,7 +20,6 @@ import {
 import IntlMessages from "../util/IntlMessages";
 import CircularProgress from "../components/CircularProgress/index";
 
-import validate from 'react-joi-validation';
 import Joi from 'joi' // or whatever Joi library you are using
 
 const FormItem = Form.Item;

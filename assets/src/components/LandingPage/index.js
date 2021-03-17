@@ -209,7 +209,7 @@ class LandingPage extends React.Component {
 
                         <div className='appTitleDiv'>
                             <h1>
-                                <IntlMessages id='Zonions' />
+                                {/* <IntlMessages id='Zonions' /> */}
                                 <FormattedMessage id="Zonions"
                                     defaultMessage="Zonions"
                                     description="Zonions"/>

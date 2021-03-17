@@ -1,232 +1,253 @@
-import React from "react";
-import { Button, Checkbox, Form, Icon, Input, message } from "antd";
-import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import React, {useState} from 'react';
 import axios from 'axios';
-import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+// import Divider from '@material-ui/core/Divider';
+import { Divider} from "antd";
 
-import { NotificationManager } from 'react-notifications';
-import Cookies from 'js-cookie';
+/**Social media login options */
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 
-
-import CircularProgress from "../../components/CircularProgress/index";
-
-import validate from 'react-joi-validation';
-import Joi from 'joi' // or whatever Joi library you are using
-
-const FormItem = Form.Item;
+/**JOI Validations */
+import Joi from 'joi';
 
 const schema = Joi.object().keys({
   email: Joi.string().regex(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/).required(),
   password: Joi.string().min(8).required(),
 });
 
-class UserLogin extends React.Component {
-  constructor(props) {
-    super(props)
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="/landingPage">
+        Zonions
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
-    this.state = {
-      email: '',
-      password: '',
-      emailError: '',
-      passwordError: ''
-    }
-  }
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100vh'
+  },
+  image: {
+    backgroundImage: 'url("../../../images/landingpage_cover.jpg")',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
-  validate = () => {
+function UserLoginForm(props) {
+  const classes = useStyles();
+
+  const [email, setEmail] = useState('');
+  const [emailErr, setEmailErr] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordErr, setPasswordErr] = useState('');
+
+  const validate = () => {
     const result = Joi.validate(
       {
-        email: this.state.email,
-        password: this.state.password
+        email: email,
+        password: password
       }
       , schema)
     return result;
   }
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const result = this.validate();
-
+    const result = validate();
+  
     if (result.error !== null) {
       const errorField = result.error.details[0].context.key;
       console.log('errorFields', errorField);
-
+  
       if (errorField === 'email') {
-        this.setState({
-          emailError: result.error.details[0].message
-        })
+        setEmailErr(result.error.details[0].message)
       } else if (errorField === 'password') {
-        this.setState({
-          passwordError: result.error.details[0].message
-        })
+        setPasswordErr(result.error.details[0].message)
       }
     }
     else {
-      console.log('Received values in Sign in: ', this.state);
+      const data = {email:email, password:password}
 
-      axios.post('http://localhost:1337/api/user/login', this.state)
+      axios.post('http://localhost:1337/api/user/login', data)
         .then((res) => {
           let authToken = res.data.token;
-
-          localStorage.setItem('user', JSON.stringify({'email':this.state.email, 'authToken': authToken}))
+  
+          localStorage.setItem('user', JSON.stringify({'email':email, 'authToken': authToken}))
           // Adds the token to the header
           axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
           // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
-          this.props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+          props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
         })
         .catch((err) => {
           console.log('User sign in error', err);
           alert('Incorrect user credentials')
           // NotificationManager.error('Password did not match', 'Fail!', 30000);
         })
-
+  
     }
   };
+  
+  const responseFacebook = (response) => {
+    console.log('In facebook sign in',response);
+    
+    localStorage.setItem('user', JSON.stringify({'email':response.email, 'authToken': response.accessToken}))
 
-  // componentDidUpdate() {
-  //   if (this.props.showMessage) {
-  //     setTimeout(() => {
-  //       this.props.hideMessage();
-  //     }, 100);
-  //   }
-  //   if (this.props.authUser !== null) {
-  //     this.props.history.push('/');
-  //   }
-  // }
-
-  changeHandler = (e) => {
-    e.preventDefault();
-
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-    this.props.form.setFieldsValue({
-      [e.target.name]: this.state
-    });
+    props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
   }
 
-  render() {
-    const { getFieldDecorator } = this.props.form;
-
-    const { showMessage, loader, alertMessage } = this.props;
-
-    return (
-      <div className="gx-app-login-wrap">
-        <div className="gx-app-login-container">
-          <div className="gx-app-login-main-content">
-            <div className="gx-app-logo-content" style={{ backgroundColor: 'rgba(6, 12, 53, 0.829)' }}>
-              {/* <div className="gx-app-logo-content-bg">
-                <img src="../../images/signin_cover.jpg" alt='Neature' />
-              </div> */}
-            
-              <div className="gx-app-logo-wid" >
-                <h1>
-                  {/* <IntlMessages id="Sign in to Zonions" /> */}
-                  <FormattedMessage id="Sign in to Zonions"
-                    defaultMessage="Sign in to Zonions"
-                    description="Sign in to Zonions"/>
-                </h1>
-                <p>
-                  {/* <IntlMessages id="By Signing Up, you can avail full features of our services." /> */}
-                  <FormattedMessage id="By Signing Up, you can avail full features of our services."
-                    defaultMessage="By Signing Up, you can avail full features of our services."
-                    description="By Signing Up, you can avail full features of our services."/>
-                </p>
-                <p>
-                  {/* <IntlMessages id="Get an account !!!" /> */}
-                  <FormattedMessage id="Get an account !!!"
-                    defaultMessage="Get an account !!!"
-                    description="Get an account !!!"/>
-                </p>
-              </div>
-
-            </div>
-            <div className="gx-app-login-content">
-              <Form onSubmit={this.handleSubmit} className="gx-signin-form gx-form-row0">
-
-                <FormItem>
-                  {getFieldDecorator('email', {
-                    //initialValue: "demo@example.com",
-                    rules: [{
-                      required: true, type: 'email', message: 'The input is not valid E-mail!',
-                    }], onChange: this.changeHandler
-                  })(
-                    <Input type='email' name='email' placeholder="Email" />
-                  )}
-                  {
-                    this.state.emailError !== '' ?
-                      <span style={{ color: 'red' }}>{this.state.emailError}</span>
-                      : null
-                  }
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator('password', {
-                    //initialValue: "demo#123",
-                    rules: [{ required: true, message: 'Please input your Password!' }],
-                    onChange: this.changeHandler
-                  })(
-                    <Input type="password" name='password' placeholder="Password" />
-                  )}
-                  {
-                    this.state.passwordError !== '' ?
-                      <span style={{ color: 'red' }}>{this.state.passwordError}</span>
-                      : null
-                  }
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator('remember', {
-                    valuePropName: 'checked',
-                    initialValue: true,
-                  })(
-                    <Checkbox>
-                      {/* <IntlMessages id="by signing up, I accept" /> */}
-                      <FormattedMessage id="by signing up, I accept"
-                        defaultMessage="by signing up, I accept"
-                        description="by signing up, I accept"/>
-                    </Checkbox>
-                  )}
-                  <span className="gx-signup-form-forgot gx-link">
-                    {/* <IntlMessages id="Terms & Conditions" /> */}
-                    <FormattedMessage id="Terms & Conditions"
-                        defaultMessage="Terms & Conditions"
-                        description="Terms & Conditions"/>
-                    </span>
-                </FormItem> 
-                <FormItem>
-                  <Button type="primary" className="gx-mb-0" htmlType="submit">
-                    {/* <IntlMessages id="Sign in" /> */}
-                    <FormattedMessage id="Sign in"
-                        defaultMessage="Sign in"
-                        description="Sign in"/>
-                  </Button>
-                  <span>
-                    {/* <IntlMessages id="or" /> */}
-                    <FormattedMessage id="or"
-                        defaultMessage="or"
-                        description="or"/>
-                  </span> <Link to="/signup">
-                    {/* <IntlMessages id="Sign up" /> */}
-                    <FormattedMessage id="Sign up"
-                        defaultMessage="Sign up"
-                        description="Sign up"/>
-                    </Link>
-                </FormItem>
-              </Form>
-            </div>
-
-            {loader ?
-              <div className="gx-loader-view">
-                <CircularProgress />
-              </div> : null}
-            {showMessage ?
-              message.error(alertMessage.toString()) : null}
-          </div>
-        </div>
-      </div>
-    );
-  }
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
 }
 
-const UserLoginForm = Form.create()(withRouter(UserLogin));
-export default UserLoginForm;
+  const responseGoogle = (response) => {
+    console.log('in google login',response);
+    localStorage.setItem('user', JSON.stringify({'email':response.Hs.nt, 'authToken': response.accessToken}))
+
+    props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+  }
+
+  return (
+    <Grid container component="main" className={classes.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={classes.image}>
+        <div style={{
+          marginTop:'12%',
+          marginLeft:'15%',
+          width:'250px',
+          textAlign:'center'}}>
+          <h1 style={{fontSize:'3rem', fontWeight:'bolder', color:'white'}}>
+            Zonions
+          </h1>
+        </div>
+      </Grid>
+      
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={(e)=>handleSubmit(e)}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
+            />
+            {emailErr ? <span style={{color:'red'}}>{emailErr}</span>:null}
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
+            />
+            {passwordErr ? <span style={{color:'red'}}>{passwordErr}</span>:null}
+
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+            <Divider> OR</Divider>
+            <div>
+              <FacebookLogin
+                appId="490145122393571"
+                fields="name,email,picture"
+                buttonText="FACEBOOK"
+                callback={responseFacebook}
+              />
+              <GoogleLogin
+                clientId="291680999068-5n6h9ptfbt45soa9ivlubrenni7mrb2v.apps.googleusercontent.com"
+                buttonText="LOGIN WITH GOOGLE"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+              />
+            </div>
+            
+            <Box mt={3}>
+              <Copyright />
+            </Box>
+          </form>
+        </div>
+      </Grid>
+    </Grid>
+  );
+}
+
+export default UserLoginForm
