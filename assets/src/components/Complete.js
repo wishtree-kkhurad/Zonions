@@ -43,7 +43,7 @@ const Complete = (props) => {
         }}
         onSelect={onSelect}
         onSearch={handleSearch}
-        placeholder="input here"
+        placeholder="input location here"
     >
         {result.map((email) => (
             <Option key={email} value={email}>

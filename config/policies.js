@@ -31,11 +31,15 @@ module.exports.policies = {
     login: true
   },
 
+  'UserController': {
+    createUser: true
+  },
+
+  'AuthController':{
+    login: true
+  },
+
   'RestaurantController':{
-    // getAllRestaurants: true,
-    // getRestaurantById: true,
-    // getRestaurantByName: true,
-    // getRestaurantByLocation: true,
     createRestaurants:true,
     updateRestaurant: true,
     deleteRestaurant: true

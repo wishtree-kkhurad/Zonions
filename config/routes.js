@@ -34,10 +34,10 @@ module.exports.routes = {
   ***************************************************************************/
 
   /* Auth APIs*/
-//  'post /api/login': 'AuthController.login',
-//  'post /api/register': 'AuthController.register',
-'POST /api/user/register': 'user/register',
-'POST /api/user/login': 'user/login',
+ 'POST /api/user/login': 'AuthController.login',
+
+'POST /api/user/register': 'UserController.createUser',
+// 'POST /api/user/login': 'user/login',
 
  'POST /api/user/logout': 'AuthController.logout',
 

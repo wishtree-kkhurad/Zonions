@@ -6,10 +6,22 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 var Logger = require('../services/Logger');
-const User = require('../models/User');
 var UserService = require('../services/UserService')
 
 module.exports = {
+    createUser: function (req, res, next) {
+        Logger.verbose('UserController.createUser');
+        const data = req.body;
+        console.log('inside user controller', data)
+        UserService.createUser(data, (err, userData) => {
+            if (err) {
+                res.send({ status: 300, message: 'serverError' });
+            } else {
+                res.send({ status: 200, data: userData });
+            }
+        });
+
+    },
     getSingleUser: function (req, res, next) {
         Logger.verbose('UserController.getSingleUser');
         const email = req.param.email;

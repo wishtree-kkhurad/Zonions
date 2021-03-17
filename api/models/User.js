@@ -23,22 +23,33 @@ module.exports = {
 	},
 
 	// LIFE CYCLE
-	beforeCreate: async function (values, proceed) {
-		// Hash password
-		const hashedPassword = await sails.helpers.passwords.hashPassword(
-		values.password
-		);
-		values.password = hashedPassword;
-		return proceed();
-  	},
+	beforeCreate: function (user, cb) {
+		if (user.password) {
+		  bcrypt.genSalt(10, function (err, salt) {
+			bcrypt.hash(user.password, salt, function (err, hash) {
+			  if (err) {
+				console.log(err);
+				cb(err);
+			  } else {
+				user.password = hash;
+				console.log("saving data" + user.password);
+				cb();
+			  }
+			});
+		  });
+		}else{
+		  cb();
+		}
+	},
 	  
-	async createNewUser(data, cb){
-		Logger.debug('User.createNewUser');
+	async createUser(data, cb){
+		Logger.debug('User.createUser');
+
 		User.findOrCreate({email:data.email}, data)
 		.exec(function(err, newOrExistingRecord, wasCreated) {
 		  Logger.debug('User.findOrCreate at .exec');
 		  if(err){
-			Logger.debug(`User.findOrCreate at .exec ${err}`);
+			Logger.error(`User.findOrCreate at .exec ${err}`);
 			cb(err, null)
 		  }
 		  else {

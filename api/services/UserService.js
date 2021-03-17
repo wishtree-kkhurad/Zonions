@@ -4,6 +4,20 @@ const Logger = require('../services/Logger');
 
 module.exports = {
 
+  createUser(data, callback) {
+    Logger.debug('UserService.createUser');
+
+    User.createUser(data, (err, userData) => {
+      if (err) {
+        Logger.error(`UserService.createUser at User.createUser ${err}`);
+        callback(err, null);
+      } else {
+        Logger.info('User created successfully.');
+        callback(null, userData);
+      }
+    });
+    },
+
   getAllUsers(callback) {
     Logger.debug('UserService.getUserList');
 

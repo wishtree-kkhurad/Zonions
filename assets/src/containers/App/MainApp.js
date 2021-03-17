@@ -106,9 +106,6 @@ export class MainApp extends Component {
     const goToHome = () => {
       this.props.history.push({ pathname: '/landingPage' });
     }
-    // const goToManage = () => {
-    //   this.props.history.push({ pathname: '/restaurant/manage' });
-    // }
     const userSignOut = () => {
       localStorage.removeItem('user');
       this.props.history.push({ pathname: '/landingpage' });

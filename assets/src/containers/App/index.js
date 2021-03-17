@@ -115,8 +115,8 @@ class App extends Component {
                 // <Route path={`${match.url}restaurant/manage`} component={ManageRestaurants}/>
               } */}
               
-              {/* <Route exact path='/signin' component={SignIn} /> */}
-              <Route exact path='/signin' component={UserLoginForm} />
+              <Route exact path='/signin' component={SignIn} />
+              {/* <Route exact path='/signin' component={UserLoginForm} /> */}
               <Route exact path='/signup' component={SignUp} />
             
               <RestrictedRoute authUser={authUser}

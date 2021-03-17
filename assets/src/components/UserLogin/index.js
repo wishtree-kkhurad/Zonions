@@ -116,7 +116,7 @@ function UserLoginForm(props) {
           // Adds the token to the header
           axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
           // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
-          props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+          props.history.push({ pathname: 'restaurant/bookings', from: 'SignIn' });
         })
         .catch((err) => {
           console.log('User sign in error', err);
@@ -132,7 +132,7 @@ function UserLoginForm(props) {
     
     localStorage.setItem('user', JSON.stringify({'email':response.email, 'authToken': response.accessToken}))
 
-    props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+    props.history.push({ pathname: '/restaurant/bookings', from: 'SignIn' });
   }
 
 function checkLoginState() {
@@ -145,7 +145,7 @@ function checkLoginState() {
     console.log('in google login',response);
     localStorage.setItem('user', JSON.stringify({'email':response.Hs.nt, 'authToken': response.accessToken}))
 
-    props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+    props.history.push({ pathname: '/restaurant/bookings', from: 'SignIn' });
   }
 
   return (

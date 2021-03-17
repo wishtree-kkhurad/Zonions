@@ -75,13 +75,19 @@ class SignIn extends React.Component {
 
       axios.post('http://localhost:1337/api/user/login', this.state)
         .then((res) => {
-          let authToken = res.data.token;
-
-          localStorage.setItem('user', JSON.stringify({'email':this.state.email, 'authToken': authToken}))
-          // Adds the token to the header
-          axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
-          // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
-          this.props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+          console.log('front end response after sign in', res)
+          if(res.data.status === 200){
+            // let authToken = res.data.token;
+            localStorage.setItem('user', JSON.stringify({'email':this.state.email}))
+            // Adds the token to the header
+            // axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
+            // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
+            this.props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+          }
+          else{
+            // NotificationManager.success('Login Failed!', 'Fail!', 3000);
+            alert('Login Failed!')
+          }
         })
         .catch((err) => {
           console.log('User sign in error', err);
