@@ -35,10 +35,7 @@ module.exports.routes = {
 
   /* Auth APIs*/
  'POST /api/user/login': 'AuthController.login',
-
-'POST /api/user/register': 'UserController.createUser',
-// 'POST /api/user/login': 'user/login',
-
+ 'POST /api/user/register': 'UserController.createUser',
  'POST /api/user/logout': 'AuthController.logout',
 
  /* User APIs */
@@ -58,6 +55,6 @@ module.exports.routes = {
 
 
  /* File Upload */
- 'post /file/upload': 'RestaurantController.uploadFile'
+ 'POST /file/upload': 'RestaurantController.uploadFile'
 
 };

@@ -2,25 +2,29 @@
 const passport = require('passport'),
 LocalStrategy = require('passport-local').Strategy,
   bcrypt = require('bcrypt-nodejs');
+// const Logger = require('services/Logger');
   
   //Serialize the user
 passport.serializeUser(function(user, cb) {
+  Logger.debug('passport.serializeUser', user)
   cb(null, user.id);
 });
   
   //Deserialize the user
-passport.deserializeUser(function(email, cb){
-  User.findOne({email}, function(err, user) {
+passport.deserializeUser(function(id, cb){
+  Logger.debug('passport.deserializeUser', user)
+
+  User.findOne({id}, function(err, user) {
     cb(err, user);
   });
 });
   
   //Local -code1
 passport.use(new LocalStrategy({
-    emailField: 'email',
+    usernameField: 'email',
     passwordField: 'password'
   }, function(email, password, cb){
-  User.getSingleUser(email, function(err, user){
+  User.findOne({email: email}, function(err, user){
     Logger.debug('passport.use at User.getSingleUser');
     if(err){
       Logger.debug('User.getSingleUser', err)

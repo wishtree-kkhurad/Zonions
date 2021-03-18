@@ -151,31 +151,31 @@ class AddRestaurant extends React.Component {
         }
     }
     
-    // uploadImage = async (e) =>{
-    //     console.log('inside uploadImage front end')
-    //     e.preventDefault();
-    //     const apiUrl = 'http://localhost:1337/file/upload';
+    uploadImage = async (e) =>{
+        console.log('inside uploadImage front end')
+        e.preventDefault();
+        const apiUrl = 'http://localhost:1337/file/upload';
 
-    //     axios.post(apiUrl, this.state.imageData)
-    //         .then(response =>{console.log("result", response)})
-    //         .catch(err=>{console.log("image upload error", err)})
-    // }
+        axios.post(apiUrl, this.state.imageData)
+            .then(response =>{console.log("result", response)})
+            .catch(err=>{console.log("image upload error", err)})
+    }
 
-    // imageChange = (e) => {
-    //     let files = e.target.files;
+    imageChange = (e) => {
+        let files = e.target.files;
 
-    //     //read the file 
-    //     let reader = new FileReader();
-    //     reader.readAsDataURL(files[0]);
+        //read the file 
+        let reader = new FileReader();
+        reader.readAsDataURL(files[0]);
 
-    //     //check if file loaded or not
-    //     reader.onload = (e) =>{
-    //         // const imageData = {file: e.target.result}
-    //         this.setState({
-    //             imageData: e.target.result
-    //         });
-    //     }
-    // }
+        //check if file loaded or not
+        reader.onload = (e) =>{
+            const base64 = e.target.result.split(',');
+            this.setState({
+                imageData: base64[1]
+            });
+        }
+    }
 
     render() {
         const { restaurantName, address, phone, tagline, openingTime, closingTime } = this.state;
@@ -311,10 +311,10 @@ class AddRestaurant extends React.Component {
                     >
                         <div className='row'>
                             <div className='col-6'>
-                                <Input type='file' name='file' />
+                                <Input type='file' name='file' onChange={(e) => this.imageChange(e)}/>
                             </div>
                             <div className='col-6'>
-                                <span className='gx-link'>Upload</span>
+                                <span className='gx-link' onClick={this.uploadImage}>Upload</span>
                             </div>
                         </div>
 

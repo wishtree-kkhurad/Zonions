@@ -71,6 +71,7 @@ class SignIn extends React.Component {
       }
     }
     else {
+      const {email, password} = this.state
       console.log('Received values in Sign in: ', this.state);
 
       axios.post('http://localhost:1337/api/user/login', this.state)
@@ -88,6 +89,9 @@ class SignIn extends React.Component {
             // NotificationManager.success('Login Failed!', 'Fail!', 3000);
             alert('Login Failed!')
           }
+          // localStorage.setItem('user', JSON.stringify({'email':this.state.email}));
+          // this.props.history.push({ pathname: '/restaurant/manage', from: 'SignIn' });
+
         })
         .catch((err) => {
           console.log('User sign in error', err);

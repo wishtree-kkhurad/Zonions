@@ -16,7 +16,8 @@ module.exports = {
     Logger.debug('AuthController.login');
 
     passport.authenticate('local', function (err, user, info) {
-      Logger.debug(`AuthController.login at passport.authenticate ${user}`);
+      Logger.debug(`AuthController.login at passport.authenticate`);
+      Logger.info(user)
 
       if (err) {
         Logger.error(`AuthController.login at passport.authenticarte ${err}`);
@@ -51,6 +52,7 @@ module.exports = {
 
         // provide the token to the client in case they want to store it locally to use in the header (eg mobile/desktop apps)
         return res.send({
+          status:200,
           message: `${user.email} has been logged in`,
           data: user
         })

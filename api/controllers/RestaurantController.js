@@ -9,16 +9,17 @@ const RestaurantService = require('../services/RestaurantService');
 
 module.exports = {
 
-  // uploadFile: function (req, res) {
-  //   req.file('file').upload({
-  //     adapter: require('skipper-gridfs'),
-  //     uri: 'mongodb://localhost:27017/zonions'
-  //   }, function (err, filesUploaded) {
-  //     if (err) 
-  //       return res.serverError(err);
-  //     return res.json({"status":200, "file": filesUploaded});
-  //   });
-  // },
+  uploadFile: function (req, res) {
+    Logger.debug('RestaurantController.uploadFile')
+    req.file('file').upload({
+      adapter: require('skipper-gridfs'),
+      uri: 'mongodb://localhost:27017/zonions'
+    }, function (err, filesUploaded) {
+      if (err) 
+        return res.serverError(err);
+      return res.json({"status":200, "file": filesUploaded});
+    });
+  },
 
   createRestaurants: function (req, res, next) {
     Logger.verbose('RestaurantController.createRestaurant');

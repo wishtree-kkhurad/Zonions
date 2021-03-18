@@ -121,7 +121,6 @@ const tailLayout = {
 class LandingPage extends React.Component {
     constructor(props) {
         super(props)
-
     }
 
     onSubmit = (e, values) => {
@@ -142,7 +141,10 @@ class LandingPage extends React.Component {
             <ul className="gx-sub-popover">
                 {languageData.map(language =>
                     <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
-                        this.props.switchLanguage(language)
+                        {
+                            this.props.switchLanguage(language)
+                            localStorage.setItem('languagePreference', JSON.stringify(language))
+                        }
                     }>
                         <span className="gx-language-text">{language.name}</span>
                     </li>
@@ -150,8 +152,10 @@ class LandingPage extends React.Component {
             </ul>
         // </CustomScrollbars>
     );
-   
 
+    onLanguageClick = (e) =>{
+        console.log('after lang click', e)
+    }
     render() {
         
         return (
@@ -193,8 +197,11 @@ class LandingPage extends React.Component {
                                     </li>
                                     
                                     <li>
-                                        <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight"
-                                            content={this.languageMenu()} trigger="hover">
+                                        <Popover overlayClassName="gx-popover-horizantal"
+                                            placement="bottomRight"
+                                            content={this.languageMenu()}
+                                            trigger="hover"
+                                            >
                                             <span style={{ color: 'white'}}>
                                                 {/* <IntlMessages id='Languages' /> */}
                                                 <FormattedMessage id="Languages"

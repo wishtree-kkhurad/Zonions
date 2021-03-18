@@ -26,7 +26,9 @@ module.exports = {
 	beforeCreate: function (user, cb) {
 		if (user.password) {
 		  bcrypt.genSalt(10, function (err, salt) {
-			bcrypt.hash(user.password, salt, function (err, hash) {
+			  if(err)
+			  console.log('in beforeCreate at bcrypt.genSalt', err)
+			bcrypt.hash(user.password, salt, null, function (err, hash) {
 			  if (err) {
 				console.log(err);
 				cb(err);
@@ -78,6 +80,7 @@ module.exports = {
 	},
 
 	async getSingleUser(email, callback) {
+		Logger.debug(`User.getSingleUser ${email}`)
 		try {
 			const data = await User.find({ email: email });
 			console.log('inside user model data found', data.length)
