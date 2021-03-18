@@ -40,7 +40,7 @@ const RestrictedRoute = ({ path, name, component: Component, ...rest }) => {
           ? <Component {...props} />
           : <Redirect
             to={{
-              pathname: '/signin',
+              pathname: '/landingpage',
               state: { from: props.location }
             }}
           />}
@@ -71,18 +71,21 @@ class App extends Component {
 
   render() {
     const { match, location, layoutType, navStyle,locale, initURL } = this.props;
-    let authUser = localStorage.getItem('user')
-    
+    let authUser = JSON.parse(localStorage.getItem('user'))
+   
     if (location.pathname === '/') {
+      console.log('inside auth user checking', location.pathname);
 
       if (authUser === null) {
+        console.log('auth user null', authUser)
         return (<Redirect to={'/landingpage'} />);
-      } else if ((initURL === '' || initURL === '/' || initURL === '/signin')) {
+      } 
+      else if (( initURL==='' || initURL==='/' || initURL === '/admin/signin') && (authUser.role==='admin')) {
+        console.log('initURL in admin if', initURL)
         return ( <Redirect to={'/restaurant/manage'} /> );
       }
-      else {
-        // return (<Redirect to={initURL} />);
-        return ( <Redirect to={'/restaurant/manage'} /> );
+      else if (( initURL==='' || initURL==='/' || initURL === '/user/signin')&& (authUser.role==='user')) {
+        return ( <Redirect to={'/restaurant/bookings'} /> );
       }
     }
     
@@ -107,20 +110,15 @@ class App extends Component {
               <Route exact path='/restaurants/:location' component={LocationWiseRestaurants} />
               <Route exact path='/restaurant/details/:id' component={RestaurantsDetails}/>
               <Route exact path='/restaurant/details/name/:name' component={RestaurantsDetails}/>
-              {/* {
-                localStorage.getItem('user')=== null ? 
-                <Route exact path='/signin' component={SignIn} />
-                :  <Redirect to={'/restaurant/manage'} />
-                
-                // <Route path={`${match.url}restaurant/manage`} component={ManageRestaurants}/>
-              } */}
-              
-              <Route exact path='/signin' component={SignIn} />
-              {/* <Route exact path='/signin' component={UserLoginForm} /> */}
-              <Route exact path='/signup' component={SignUp} />
             
+              <Route exact path='/admin/signin' component={SignIn} />
+              <Route exact path='/user/signin' component={UserLoginForm} />
+              <Route exact path='/signup' component={SignUp} />
               <RestrictedRoute authUser={authUser}
                 component={MainApp} />
+
+              <Route component={Page404} />
+
           </Switch>
         </IntlProvider>
       </LocaleProvider>

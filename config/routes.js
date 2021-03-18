@@ -48,6 +48,7 @@ module.exports.routes = {
  'PUT /restaurants/:id': 'RestaurantController.updateRestaurant',
  'DELETE /restaurants/:id': 'RestaurantController.deleteRestaurant',
 
+ 'GET /restaurants/getCount': 'RestaurantController.getAllRestaurantsCount',
  'GET /restaurants': 'RestaurantController.getAllRestaurants',
  'GET /restaurants/:id': 'RestaurantController.getRestaurantById',
  'GET /restaurants/byname/:name': 'RestaurantController.getRestaurantByName',

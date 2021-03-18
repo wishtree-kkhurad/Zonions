@@ -1,8 +1,9 @@
 import React from "react";
 import axios from 'axios';
-import { Button, Checkbox, Form, Icon, Input } from "antd";
+import { Button, Checkbox, Form, Icon, Input , Select} from "antd";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+const { Option } = Select;
 import {
   hideMessage,
   showAuthLoader,
@@ -38,6 +39,7 @@ class SignUp extends React.Component {
       userName: '',
       email: '',
       password: '',
+      role:'',
       userNameError:'',
       emailError:'',
       passwordError:''
@@ -101,17 +103,12 @@ class SignUp extends React.Component {
     });
   }
 
-  // componentDidUpdate() {
-  //   if (this.props.showMessage) {
-  //     setTimeout(() => {
-  //       this.props.hideMessage();
-  //     }, 100);
-  //   }
-  //   if (this.props.authUser !== null) {
-  //     this.props.history.push('/');
-  //   }
-  // }
-
+  handleSelectChange = (value)=>{
+    console.log(`selected ${value}`);
+    this.setState({
+      role: value
+    })
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const { showMessage, loader, alertMessage } = this.props;
@@ -174,6 +171,12 @@ class SignUp extends React.Component {
                     :null
                   }
                 </FormItem>
+
+                <Select placeholder="Sign up as" onChange={this.handleSelectChange}>
+                  <Option value="admin">Admin</Option>
+                  <Option value="user">User</Option>
+                </Select>
+
                 <FormItem>
                   {getFieldDecorator('remember', {
                     valuePropName: 'checked',

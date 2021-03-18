@@ -7,6 +7,7 @@ const { Column, ColumnGroup } = Table;
 import { NotificationManager } from 'react-notifications';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
+import { auth } from "../../../../firebase/firebase";
 // import Pagination from '../../../../components/Pagination/index'
 
 const rowSelection = {
@@ -24,17 +25,21 @@ class Selection extends React.Component {
     super(props);
     this.state = {
       restaurants: [], 
+      allRestaurantsCount: [],
       searchText: "",
       // Intial values to get first page
-      limit: 2,
+      limit: 3,
       page: 1,
     }
   }
  
   async componentDidMount() {
-    const data = await axios.get(`http://localhost:1337/restaurants?limit=${this.state.limit}&page=${this.state.page}`);
     
+    const allData = await axios.get('http://localhost:1337/restaurants/getCount');
+    console.log('in selection table', allData.data.response)
+    const data = await axios.get(`http://localhost:1337/restaurants?limit=${this.state.limit}&page=${this.state.page}`);
     this.setState({
+      allRestaurantsCount:allData,
       restaurants: data.data.response
     })
   }
@@ -102,9 +107,7 @@ class Selection extends React.Component {
     this.setState({ searchText: "" });
   };
 
-  showTotal = (total) => {
-    return `Total ${total} items`;
-  }
+  
   onPageChange = async (page, pageSize) =>{
     // console.log('inside page change' + page + 'size=' + pageSize)
     const data = await axios.get(`http://localhost:1337/restaurants?limit=${pageSize}&page=${page}`);
@@ -221,46 +224,54 @@ class Selection extends React.Component {
       }
     ];
 
-    // const onNameClick = async (text) => {
-    //   alert(`Clicked on ${text}`)
-    //   const restaurantByName = await axios.get(`http://localhost:1337/restaurants/byname/${text}`)
-    //   console.log('restaurant fetched by name', restaurantByName);
-    //   // this.props.history.push({pathname:`/restaurant/details/name/${text}`, data:restaurantByName})
-    // }
-
-
     const onDelete = (text) => {
-      confirmAlert({
-        title: 'Confirm Action',
-        message: 'Are you sure to delete this restaurant?',
-        buttons: [
-          {
-            label: 'Cancel'
-          },
-          {
-            label: 'Yes, Delete it!',
-            onClick: () => {
-              axios.delete(`http://localhost:1337/restaurants/${text.id}`)
-                .then((res) => {
-                  NotificationManager.success('You have deleted a restaurant!', 'Successful!', 3000);
-
-                  axios.get(`http://localhost:1337/restaurants`)
-                    .then((res) => {
-                      this.setState({
-                        restaurants: res.data.response
+      let authUser = localStorage.getItem('user');
+      console.log('authUser in selection', authUser)
+      if(authUser !== null)
+      {
+        confirmAlert({
+          title: 'Confirm Action',
+          message: 'Are you sure to delete this restaurant?',
+          buttons: [
+            {
+              label: 'Cancel'
+            },
+            {
+              label: 'Yes, Delete it!',
+              onClick: () => { 
+                
+                axios.delete(`http://localhost:1337/restaurants/${text.id}`)
+                  .then((res) => {
+                    NotificationManager.success('You have deleted a restaurant!', 'Successful!', 3000);
+  
+                    axios.get(`http://localhost:1337/restaurants`)
+                      .then((res) => {
+                        this.setState({
+                          restaurants: res.data.response
+                        })
                       })
-                    })
-                    .catch((err) => { console.log('error while fetching new list of restaurants: ', err) })
-                })
-                .catch((err) => { console.log('error while deleting restaurant: ', err) })
+                      .catch((err) => { console.log('error while fetching new list of restaurants: ', err) })
+                  })
+                  .catch((err) => { console.log('error while deleting restaurant: ', err) })
+              }
             }
-          }
-        ]
-      })
+          ]
+        })
+      }
+      else{
+        this.props.history.push({ pathname: `/admin/signin`, data: text, from: 'Selection' });
+      }
     }
 
     const onEdit = (text) => {
-      this.props.history.push({ pathname: `/restaurant/edit/${text.id}`, data: text, from: 'Selection' })
+      let authUser = localStorage.getItem('user');
+      if(authUser !== null)
+      {
+        this.props.history.push({ pathname: `/restaurant/edit/${text.id}`, data: text, from: 'Selection' })
+      }
+      this.props.history.push({ pathname: `/admin/signin`, data: text, from: 'Selection' })
+
+
     }
 
     const addHandler = () => {
@@ -287,9 +298,8 @@ class Selection extends React.Component {
         />
         <div style={{paddingTop:'5px', float:'right'}}>
           <Pagination defaultCurrent={1} 
-          total={25}
+          total={10}
           pageSize={this.state.limit}
-          // showTotal={this.showTotal}
           onChange={this.onPageChange}
         />
         </div>

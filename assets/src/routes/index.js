@@ -10,11 +10,12 @@ import { NotificationContainer } from 'react-notifications';
 
 const RouteApp = ({match}) => (
   <div className="gx-main-content-wrapper">
+    {console.log('match.url', match.url)}
     <Switch>
-      <Route path={`${match.url}restaurant/add`} component={AddRestaurant}/>
-      <Route path={`${match.url}restaurant/manage`} component={ManageRestaurants}/>
-      <Route path={`${match.url}restaurant/edit/:id`} component={EditRestaurant}/>
-      <Route path={`${match.url}restaurant/bookings`} component={UserAfterLogin}/>
+      <Route exact path={`${match.url}restaurant/add`} component={AddRestaurant}/>
+      <Route exact path={`${match.url}restaurant/manage`} component={ManageRestaurants}/>
+      <Route exact path={`${match.url}restaurant/edit/:id`} component={EditRestaurant}/>
+      <Route exact path={`${match.url}restaurant/bookings`} component={UserAfterLogin}/>
     </Switch>
     <NotificationContainer />
   </div>

@@ -50,6 +50,20 @@ module.exports = {
 
     },
 
+    getAllRestaurantsCount(callback) {
+        Logger.debug('RestaurantService.getAllRestaurantsCount');
+        Restaurant.getAllRestaurantsCount((err, restaurantData) => {
+            if (err) {
+                Logger.error(`RestaurantService.getAllRestaurantsCount at Restaurant.getAllRestaurantsCount ${err}`);
+                callback(err);
+            } else {
+                Logger.info('Restaurants List fetched successfully.');
+                callback(null, restaurantData);
+            }
+        });
+
+    },
+
     /**
      * `RestaurantService.findOne()`
      */

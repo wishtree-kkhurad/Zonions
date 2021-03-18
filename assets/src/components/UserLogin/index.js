@@ -110,13 +110,13 @@ function UserLoginForm(props) {
 
       axios.post('http://localhost:1337/api/user/login', data)
         .then((res) => {
-          let authToken = res.data.token;
-  
-          localStorage.setItem('user', JSON.stringify({'email':email, 'authToken': authToken}))
-          // Adds the token to the header
-          axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
-          // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
-          props.history.push({ pathname: 'restaurant/bookings', from: 'SignIn' });
+          
+          console.log('user sign in response', res)
+          if(res.data.status === 200 && (res.data.data.role==="user")){
+            localStorage.setItem('user', JSON.stringify({'email':email,'role':res.data.data.role}))
+            // NotificationManager.success('Logged in successfully.', 'Success!', 30000);
+            props.history.push({ pathname: '/restaurant/bookings', from: 'UserLogin' });
+          }
         })
         .catch((err) => {
           console.log('User sign in error', err);
@@ -130,9 +130,9 @@ function UserLoginForm(props) {
   const responseFacebook = (response) => {
     console.log('In facebook sign in',response);
     
-    localStorage.setItem('user', JSON.stringify({'email':response.email, 'authToken': response.accessToken}))
+    localStorage.setItem('user', JSON.stringify({'email':response.email, 'authToken': response.accessToken, 'role':'user'}))
 
-    props.history.push({ pathname: '/restaurant/bookings', from: 'SignIn' });
+    props.history.push({ pathname: '/restaurant/bookings', from: 'UserLogin' });
   }
 
 function checkLoginState() {
@@ -143,9 +143,9 @@ function checkLoginState() {
 
   const responseGoogle = (response) => {
     console.log('in google login',response);
-    localStorage.setItem('user', JSON.stringify({'email':response.Hs.nt, 'authToken': response.accessToken}))
+    localStorage.setItem('user', JSON.stringify({'email':response.Qs.zt, 'authToken': response.accessToken, 'role':'user'}))
 
-    props.history.push({ pathname: '/restaurant/bookings', from: 'SignIn' });
+    props.history.push({ pathname: '/restaurant/bookings', from: 'UserLogin' });
   }
 
   return (

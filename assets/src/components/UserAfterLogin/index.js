@@ -1,4 +1,6 @@
 import React from 'react';
+import StarRatingComponent from "react-star-rating-component";
+import {Avatar,Col} from "antd";
 
 class UserAfterLogin extends React.Component{
     render(){
@@ -8,7 +10,6 @@ class UserAfterLogin extends React.Component{
                 <h2>You can book restaurants, add meals to cart and check out with payment</h2>
                 <h4>These Features Coming Soon...</h4>
             </div>
-            
         )
     }
 }

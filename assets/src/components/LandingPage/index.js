@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Classic from '../../routes/customViews/extras/testimonials/Classic/index';
-import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown, Popover, AutoComplete} from "antd";
+import { Layout, Row, Divider, Form, Input, Button, Menu, Dropdown, Popover, Popconfirm, message } from "antd";
 import { DownOutlined } from '@ant-design/icons';
 
 /**For multiple language */
@@ -10,7 +10,7 @@ import languageData from "../../containers/Topbar/languageData";
 import { switchLanguage, toggleCollapsedSideNav } from "../../appRedux/actions/Setting";
 import { connect } from "react-redux";
 import IntlMessages from "../../util/IntlMessages";
-import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 /*Auto suggestions */
 import Complete from '../Complete';
 
@@ -101,7 +101,7 @@ const menu = (
                 return (
                     <Menu.Item key={item.cuisineId}>
                         <a target="_blank" rel="noopener noreferrer" onClick={() => alert(`clicked on ${item.cuisineName}`)}>
-                            <IntlMessages id={item.cuisineName}/>
+                            <IntlMessages id={item.cuisineName} />
                         </a>
                     </Menu.Item>
                 )
@@ -121,6 +121,9 @@ const tailLayout = {
 class LandingPage extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            visible: false
+        }
     }
 
     onSubmit = (e, values) => {
@@ -138,26 +141,43 @@ class LandingPage extends React.Component {
 
     languageMenu = () => (
         // <CustomScrollbars className="gx-popover-lang-scroll">
-            <ul className="gx-sub-popover">
-                {languageData.map(language =>
-                    <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
-                        {
-                            this.props.switchLanguage(language)
-                            localStorage.setItem('languagePreference', JSON.stringify(language))
-                        }
-                    }>
-                        <span className="gx-language-text">{language.name}</span>
-                    </li>
-                )}
-            </ul>
+        <ul className="gx-sub-popover">
+            {languageData.map(language =>
+                <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) => {
+                    this.props.switchLanguage(language)
+                    localStorage.setItem('languagePreference', JSON.stringify(language))
+                }
+                }>
+                    <span className="gx-language-text">{language.name}</span>
+                </li>
+            )}
+        </ul>
         // </CustomScrollbars>
     );
 
-    onLanguageClick = (e) =>{
+    onLanguageClick = (e) => {
         console.log('after lang click', e)
     }
+    confirm = (e) => {
+        console.log(e);
+        message.success('Click on Yes');
+        this.props.history.push({ pathname: '/admin/signin' });
+    }
+
+    cancel = (e) => {
+        console.log(e);
+        message.error('Click on No');
+        this.props.history.push({ pathname: '/user/signin' });
+
+    }
+    showPopconfirm = () => {
+        this.setState({
+            visible: true
+        })
+    };
+
     render() {
-        
+
         return (
             <Layout className="gx-app-layout">
                 <Content className={`gx-layout-content`}>
@@ -165,20 +185,31 @@ class LandingPage extends React.Component {
                         <div className='customHeader-container'>
                             <div className='header-left'>
                                 <ul className='headerList'>
-                                    <li>
-                                        <Button ghost style={{ border: '0' }} onClick={() => this.goToLogin()} >
+                                    <Popconfirm
+                                        title="Do you want to sign in as admin?"
+                                        onConfirm={this.confirm}
+                                        onCancel={this.cancel}
+                                        okText="Yes"
+                                        cancelText="No"
+                                        style={{width:200}}
+                                    >
+                                        <Button ghost style={{ border: '0' }}
+                                            // onClick={() => this.goToLogin()}
+                                            onClick={this.showPopconfirm} >
                                             {/* <IntlMessages id='Sign in' /> */}
                                             <FormattedMessage id="Sign in"
                                                 defaultMessage="Sign in"
-                                                description="Sign in"/>
+                                                description="Sign in" />
                                         </Button>
-                                    </li>
+                                    </Popconfirm>
+
+
                                     <li>
                                         <Button ghost style={{ border: '0' }} onClick={() => this.goToSignup()}>
                                             {/* <IntlMessages id='Sign up' /> */}
                                             <FormattedMessage id="Sign up"
                                                 defaultMessage="Sign up"
-                                                description="Sign up"/>
+                                                description="Sign up" />
                                         </Button>
                                     </li>
                                     <li>
@@ -189,24 +220,24 @@ class LandingPage extends React.Component {
                                                     {/* <IntlMessages id='Cuisines' /> */}
                                                     <FormattedMessage id="Cuisines"
                                                         defaultMessage="Cuisines"
-                                                        description="Cuisines"/>
+                                                        description="Cuisines" />
                                                     <span><DownOutlined /></span>
                                                 </a>
                                             </Dropdown>
                                         </Button>
                                     </li>
-                                    
+
                                     <li>
                                         <Popover overlayClassName="gx-popover-horizantal"
                                             placement="bottomRight"
                                             content={this.languageMenu()}
                                             trigger="hover"
-                                            >
-                                            <span style={{ color: 'white'}}>
+                                        >
+                                            <span style={{ color: 'white' }}>
                                                 {/* <IntlMessages id='Languages' /> */}
                                                 <FormattedMessage id="Languages"
-                                                        defaultMessage="Languages"
-                                                        description="Languages"/>
+                                                    defaultMessage="Languages"
+                                                    description="Languages" />
                                             </span>
                                         </Popover>
                                     </li>
@@ -219,14 +250,14 @@ class LandingPage extends React.Component {
                                 {/* <IntlMessages id='Zonions' /> */}
                                 <FormattedMessage id="Zonions"
                                     defaultMessage="Zonions"
-                                    description="Zonions"/>
+                                    description="Zonions" />
                             </h1>
 
                             <h3 id='landingPage.beforeSearchText' style={{ color: 'white', fontSize: '1.8rem', marginBottom: '45px' }}>
                                 {/* <IntlMessages id='See who delivers in your neighbourhood' /> */}
                                 <FormattedMessage id="See who delivers in your neighbourhood"
                                     defaultMessage="See who delivers in your neighbourhood"
-                                    description="See who delivers in your neighbourhood"/>
+                                    description="See who delivers in your neighbourhood" />
                             </h3>
                             <Complete />
                         </div>
@@ -239,7 +270,7 @@ class LandingPage extends React.Component {
                                     {/* <IntlMessages id="Cuisines" /> */}
                                     <FormattedMessage id="Cuisines"
                                         defaultMessage="Cuisines"
-                                        description="Cuisines"/>
+                                        description="Cuisines" />
                                 </Divider>
                                 {
                                     cuisines.map((item) => {
@@ -253,7 +284,7 @@ class LandingPage extends React.Component {
                                                         {/* <IntlMessages id={item.cuisineName} />  */}
                                                         <FormattedMessage id={item.cuisineName}
                                                             defaultMessage={item.cuisineName}
-                                                            description={item.cuisineName}/>
+                                                            description={item.cuisineName} />
                                                     </div>
                                                 </a>
                                             </div>
@@ -269,8 +300,8 @@ class LandingPage extends React.Component {
                             <Divider style={{ fontSize: '20px', marginBottom: '3%' }} orientation="center">
                                 {/* <IntlMessages id='Why order with Zonions' /> */}
                                 <FormattedMessage id="Why order with Zonions"
-                                        defaultMessage="Why order with Zonions"
-                                        description="Why order with Zonions"/>
+                                    defaultMessage="Why order with Zonions"
+                                    description="Why order with Zonions" />
                             </Divider>
                             <div style={{ paddingBottom: '50px' }} >
                                 <Row>
@@ -285,13 +316,13 @@ class LandingPage extends React.Component {
                             {/* <IntlMessages id='Become an Insider' /> */}
                             <FormattedMessage id="Become an Insider"
                                 defaultMessage="Become an Insider"
-                                description="Become an Insider"/>
+                                description="Become an Insider" />
                         </h2>
                         <p>
                             {/* <IntlMessages id='Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime).' /> */}
                             <FormattedMessage id="Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime)."
                                 defaultMessage="Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime)."
-                                description="Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime)."/>
+                                description="Gain access to exclusive offers, best-of lists and more(you can unsubscribe anytime)." />
                         </p>
 
                         <Form name="horizontal_login" layout="inline" onSubmit={(e) => { this.onSubmit(e) }}>
@@ -315,7 +346,7 @@ class LandingPage extends React.Component {
                                     {/* <IntlMessages id='Sign up' /> */}
                                     <FormattedMessage id="Sign up"
                                         defaultMessage="Sign up"
-                                        description="Sign up"/>
+                                        description="Sign up" />
                                 </Button>
                             </Form.Item>
                         </Form>

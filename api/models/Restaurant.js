@@ -88,6 +88,16 @@ module.exports = {
     }
   },
 
+  async getAllRestaurantsCount(callback) {
+    try {
+      const restaurants = await Restaurant.find({})
+      Logger.info(`restaurants length ${restaurants.length}`)
+      return callback(null, restaurants.length);
+    } catch (error) {
+      return callback(error);
+    }
+  },
+
   async getRestaurantByName(name, callback) {
     Logger.debug('Restaurant.getRestaurantByName');
     try {

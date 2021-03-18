@@ -15,6 +15,9 @@ module.exports = {
 		password: {
 			type: 'string',
 			required: true
+		},
+		role: {
+			type: 'string'
 		}
 	},
 

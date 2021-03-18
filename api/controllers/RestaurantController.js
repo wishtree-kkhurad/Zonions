@@ -43,10 +43,6 @@ module.exports = {
 
   getAllRestaurants: function (req, res, next) {
     Logger.verbose('RestaurantController.getAllRestaurants');
-
-    // const limit = parseInt(req.query.limit); // Make sure to parse the limit to number
-    // const skip = parseInt(req.query.skip);// Make sure to parse the skip to number
-
     const {page=1, limit=3} = req.query;
     console.log('server side params = ', req.query)
     // console.log('req.qyery.sortBy',req.query.sortBy)
@@ -58,6 +54,17 @@ module.exports = {
     // }
 
     RestaurantService.getAllRestaurants(limit, page, (err, restaurantData) => {
+      if (err) {
+        res.send({ status: 300, message: 'serverError' });
+      } else {
+        res.send({ status: 200, response: restaurantData });
+      }
+    });
+  },
+
+  getAllRestaurantsCount: function(req, res, next) {
+    Logger.verbose('RestaurantController.getAllRestaurantsCount');
+    RestaurantService.getAllRestaurantsCount((err, restaurantData) => {
       if (err) {
         res.send({ status: 300, message: 'serverError' });
       } else {
