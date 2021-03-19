@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { AutoComplete, Button, Card, Form, Input, Select, TimePicker, Alert } from "antd";
+import { AutoComplete, Button, Card, Form, Input, Select, TimePicker, Upload, message } from "antd";
 import { NotificationManager } from 'react-notifications';
-
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import validate from 'react-joi-validation';
 import Joi from 'joi' // or whatever Joi library you are using
 
@@ -22,6 +22,38 @@ const schema = Joi.object().keys({
     closingTime: Joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required()
 });
 
+function getBase64(img, callback) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+        console.log('inside getBase64', reader.result);
+        callback(reader.result)
+    });
+    reader.readAsDataURL(img);
+}
+function beforeUpload(file) {
+    console.log('inside before upload', file)
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+}
+function base64MimeType(encoded) {
+    var result = null;
+    if (typeof encoded !== 'string') {
+      return result;
+    }
+    var mime = encoded.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+    if (mime && mime.length) {
+      result = mime[1];
+    }
+    return result;
+}
 
 class AddRestaurant extends React.Component {
     constructor(props) {
@@ -29,7 +61,7 @@ class AddRestaurant extends React.Component {
 
         this.state = {
             confirmDirty: false,
-            // imageData: ''
+            imageData: '',
             restaurantName: '',
             address: '',
             phone: '',
@@ -43,9 +75,12 @@ class AddRestaurant extends React.Component {
             phoneError: '',
             taglineError: '',
             openingTimeError: '',
-            closingTimeError: ''
+            closingTimeError: '',
+
+            loading: false,
         }
     }
+
     validate = () => {
         const result = Joi.validate(
             {
@@ -68,6 +103,7 @@ class AddRestaurant extends React.Component {
             [e.target.name]: this.state
           });
     }
+
     onPhoneChange = (e) =>{
         let telephone = e.target.value;
 
@@ -93,6 +129,7 @@ class AddRestaurant extends React.Component {
             openingTime: this.state
         });
     }
+
     onClosingTimeChange = (val) => {
         this.setState({
             ...this.state,
@@ -151,35 +188,61 @@ class AddRestaurant extends React.Component {
         }
     }
     
-    uploadImage = async (e) =>{
-        console.log('inside uploadImage front end')
-        e.preventDefault();
-        const apiUrl = 'http://localhost:1337/file/upload';
+    // uploadImage = async (e) =>{
+    //     console.log('inside uploadImage front end')
+    //     e.preventDefault();
+    //     const apiUrl = 'http://localhost:1337/file/upload';
 
-        axios.post(apiUrl, this.state.imageData)
-            .then(response =>{console.log("result", response)})
-            .catch(err=>{console.log("image upload error", err)})
-    }
+    //     axios.post(apiUrl, this.state.imageData)
+    //         .then(response =>{console.log("result", response)})
+    //         .catch(err=>{console.log("image upload error", err)})
+    // }
 
-    imageChange = (e) => {
-        let files = e.target.files;
+    // imageChange = (e) => {
+    //     let files = e.target.files;
 
-        //read the file 
-        let reader = new FileReader();
-        reader.readAsDataURL(files[0]);
+    //     //read the file 
+    //     let reader = new FileReader();
+    //     reader.readAsDataURL(files[0]);
 
-        //check if file loaded or not
-        reader.onload = (e) =>{
-            const base64 = e.target.result.split(',');
-            this.setState({
-                imageData: base64[1]
-            });
+    //     //check if file loaded or not
+    //     reader.onload = (e) =>{
+    //         const base64 = e.target.result.split(',');
+    //         this.setState({
+    //             imageData: base64[1]
+    //         });
+    //     }
+    // }
+
+    handleChange = info => {
+        if (info.file.status === 'uploading') {
+          this.setState({ loading: true });
+          return;
         }
-    }
+        if (info.file.status === 'done') {
+          // Get this url from response in real world.
+          getBase64(info.file.originFileObj, imageUrl =>{
+              console.log('in handle change', imageUrl)
+            this.setState({
+                imageData:imageUrl,
+                loading: false,
+              })
+          }
+            
+          );
+        }
+    };
 
     render() {
-        const { restaurantName, address, phone, tagline, openingTime, closingTime } = this.state;
+        const { restaurantName, address, phone, tagline, openingTime, closingTime, loading, imgUrl} = this.state;
 
+        const uploadButton = (
+        <div>
+            {loading ? <LoadingOutlined /> : <PlusOutlined />}
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+        );
+        
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -305,7 +368,7 @@ class AddRestaurant extends React.Component {
                         }
 
                     </FormItem>
-                    <FormItem
+                    {/* <FormItem
                         {...formItemLayout}
                         label="Image"
                     >
@@ -316,9 +379,21 @@ class AddRestaurant extends React.Component {
                             <div className='col-6'>
                                 <span className='gx-link' onClick={this.uploadImage}>Upload</span>
                             </div>
-                        </div>
+                        </div> */}
 
-                    </FormItem>
+                        <Upload
+                                name="avatar"
+                                listType="picture-card"
+                                className="avatar-uploader"
+                                showUploadList={false}
+                                action="http://localhost:1337/file/upload"
+                                beforeUpload={beforeUpload}
+                                onChange={this.handleChange}
+                            >
+                                {this.state.imageData ? <img src={this.state.imageData} alt="default image" style={{ width: '100%' }} /> : uploadButton}
+                        </Upload>
+
+                    {/* </FormItem> */}
 
                     <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Add</Button>

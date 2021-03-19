@@ -110,7 +110,7 @@ class RestaurantDetails extends Component {
                         <div className='col-md-6'>
                             <img alt={this.props.location.data.imageName}
                                 // src='../../../images/default_img.jpg' 
-                                src={`data:image/png;base64, ${this.props.location.data.imageData}`}
+                                src={this.props.location.data.imageData}
                             />
                         </div>
                         <div className='col-md-6' >

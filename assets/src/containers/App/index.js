@@ -89,7 +89,6 @@ class App extends Component {
       }
     }
     
-    console.log('locale from props', locale)
     const currentAppLocale = AppLocale[locale.locale];
   
     console.log('currentAppLocale',currentAppLocale)
@@ -97,7 +96,10 @@ class App extends Component {
     console.log('browser language', navigator.language)
     console.log('currentAppLocale.antd', currentAppLocale.antd)
 
-    
+    console.log('preff', localStorage.getItem('languagePreference'))
+    switchLanguage((localStorage.getItem('languagePreference'))); //hi
+    console.log("after passing navigator.lang",this.props.locale);
+
     return (
       <LocaleProvider >
         <IntlProvider
@@ -118,7 +120,6 @@ class App extends Component {
                 component={MainApp} />
 
               <Route component={Page404} />
-
           </Switch>
         </IntlProvider>
       </LocaleProvider>
@@ -128,6 +129,7 @@ class App extends Component {
 
 const mapStateToProps = ({ settings, auth }) => {
   const { locale, navStyle, layoutType } = settings;
+  // console.log('in index.js mapStateToProps locale = ',locale )
   const { authUser, initURL } = auth;
   return { locale, navStyle, layoutType, authUser, initURL }
 };

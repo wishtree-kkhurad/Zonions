@@ -185,7 +185,7 @@ class LocationWiseRestaurants extends React.Component {
                                                 <div key={restaurant.id} className='cuisine-card'>
                                                     <a onClick={() => this.getDetails(restaurant)}>
                                                         <div className='card_img'>
-                                                            <img src={`data:image/png;base64, ${restaurant.imageData}`} alt={restaurant.imageName} />
+                                                            <img src={restaurant.imageData} alt={restaurant.imageName} />
                                                         </div>
                                                         <div className='card_text'
                                                             style={{
