@@ -22,17 +22,9 @@ const schema = Joi.object().keys({
     closingTime: Joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required()
 });
 
-function getBase64(img, callback) {
-    const reader = new FileReader();
 
-    reader.addEventListener('load', () => {
-        console.log('inside getBase64', reader.result);
-        callback(reader.result)
-    });
-    reader.readAsDataURL(img);
-}
 function beforeUpload(file) {
-    console.log('inside before upload', file)
+    console.log('before upload')
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
       message.error('You can only upload JPG/PNG file!');
@@ -45,13 +37,22 @@ function beforeUpload(file) {
 }
 function base64MimeType(encoded) {
     var result = null;
-    if (typeof encoded !== 'string') {
+    let encode = encoded.split(',')
+    if (typeof encode [1] !== 'string') {
       return result;
     }
-    var mime = encoded.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
-    if (mime && mime.length) {
-      result = mime[1];
+    if(encode[1].charAt(0)=='/'){
+        result= "image/jpeg";
+    }else if(encode[1].charAt(0)=='i'){
+        result = "image/png";
+    }else{
+        return result;
     }
+    // var mime = encoded.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+    // console.log('inside base64MimeType', mime)
+    // if (mime && mime.length) {
+    //   result = mime[1];
+    // }
     return result;
 }
 
@@ -79,6 +80,26 @@ class AddRestaurant extends React.Component {
 
             loading: false,
         }
+    }
+    getBase64 = (img, callback) =>{
+        console.log('getBase64')
+    
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            console.log('inside getBase64', reader.result);
+            const mimeResult  = base64MimeType(reader.result);
+            console.log('mimeResult', mimeResult)
+            if(mimeResult === null)
+            {
+                this.setState({
+                    loading:false
+                })
+                message.error('You can only upload JPG/PNG file!');
+            }
+            else
+                callback(reader.result)
+        });
+        reader.readAsDataURL(img);
     }
 
     validate = () => {
@@ -221,7 +242,8 @@ class AddRestaurant extends React.Component {
         }
         if (info.file.status === 'done') {
           // Get this url from response in real world.
-          getBase64(info.file.originFileObj, imageUrl =>{
+          console.log('on image change', info.file.originFileObj)
+          this.getBase64(info.file.originFileObj, imageUrl =>{
               console.log('in handle change', imageUrl)
             this.setState({
                 imageData:imageUrl,

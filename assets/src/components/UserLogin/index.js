@@ -143,7 +143,7 @@ function checkLoginState() {
 
   const responseGoogle = (response) => {
     console.log('in google login',response);
-    localStorage.setItem('user', JSON.stringify({'email':response.Qs.zt, 'authToken': response.accessToken, 'role':'user'}))
+    localStorage.setItem('user', JSON.stringify({'email':response.Hs.nt, 'authToken': response.accessToken, 'role':'user'}))
 
     props.history.push({ pathname: '/restaurant/bookings', from: 'UserLogin' });
   }

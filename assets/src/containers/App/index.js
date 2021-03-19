@@ -88,17 +88,14 @@ class App extends Component {
         return ( <Redirect to={'/restaurant/bookings'} /> );
       }
     }
-    
-    const currentAppLocale = AppLocale[locale.locale];
   
-    console.log('currentAppLocale',currentAppLocale)
-    console.log('current locale', currentAppLocale.locale)
-    console.log('browser language', navigator.language)
-    console.log('currentAppLocale.antd', currentAppLocale.antd)
+    let localeFromLocalStorage = JSON.parse(localStorage.getItem('languagePreference'));
 
-    console.log('preff', localStorage.getItem('languagePreference'))
-    switchLanguage((localStorage.getItem('languagePreference'))); //hi
-    console.log("after passing navigator.lang",this.props.locale);
+    let currentAppLocale=null;
+    localeFromLocalStorage===null?
+    
+    currentAppLocale = AppLocale[locale.locale]
+    :currentAppLocale = AppLocale[localeFromLocalStorage.locale];
 
     return (
       <LocaleProvider >
