@@ -25,11 +25,11 @@ module.exports.policies = {
  
   // '*': true,
 
-  '*': true, // Everything is unresctricted here
-  'user':{
-    register: true,
-    login: true
-  },
+  // '*': true, // Everything is unresctricted here
+  // 'user':{
+  //   register: true,
+  //   login: true
+  // },
 
   'UserController': {
     createUser: true
@@ -43,5 +43,15 @@ module.exports.policies = {
     createRestaurants:true,
     updateRestaurant: true,
     deleteRestaurant: true
-  }
+  },
+  auth: {
+    // '*': ['rateLimit'],
+    '*': true,
+  },
+  user: {
+    /*  '*': ['rateLimit', 'isAuthenticated'],
+    registration: ['rateLimit'], */
+    '*': ['isAuthenticated'],
+    registration: true,
+  },
 };

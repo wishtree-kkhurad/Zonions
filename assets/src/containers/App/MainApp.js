@@ -99,9 +99,23 @@ export class MainApp extends Component {
         return null;
     }
   };
+  constructor(props) {
+    super(props)
   
+    this.state = {
+       authUser:{}
+    }
+  }
+  
+  componentDidMount(){
+    const authUser = JSON.parse(localStorage.getItem('user'));
+    this.setState({
+      authUser
+    })
+  }
   render() {
     const { match, width, navStyle } = this.props;
+    console.log('props in main app', this.props)
 
     const goToHome = () => {
       this.props.history.push({ pathname: '/landingPage' });
@@ -110,7 +124,8 @@ export class MainApp extends Component {
       localStorage.removeItem('user');
       this.props.history.push({ pathname: '/landingpage' });
     }
-  
+    
+    
     return (
       <Layout className="gx-app-layout">
         {/* {this.getSidebar(navStyle, width)} */}
@@ -128,7 +143,7 @@ export class MainApp extends Component {
           </Header>
 
           <Content className={`gx-layout-content `}>
-            <RouteApp match={match} />
+            <RouteApp match={match} authUser={this.state.authUser}/>
             <Footer style={{ backgroundColor: 'rgba(6, 12, 53, 0.829)', color: 'white' }}>
               <div className="gx-layout-footer-content">
                 {footerText}

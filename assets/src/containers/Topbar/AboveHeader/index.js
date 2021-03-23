@@ -44,7 +44,7 @@ class AboveHeader extends Component {
     <CustomScrollbars className="gx-popover-lang-scroll">
       <ul className="gx-sub-popover">
         {languageData.map(language =>
-          <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
+          <li className="gx-media gx-pointer" key={(language)} onClick={(e) =>
             this.props.switchLanguage(language)
           }>
             <i className={`flag flag-24 gx-mr-2 flag-${language.icon}`}/>

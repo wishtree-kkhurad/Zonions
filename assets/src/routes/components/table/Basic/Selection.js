@@ -5,10 +5,8 @@ import { withRouter } from 'react-router-dom'
 import { Card, Col, Row, Form, Tooltip, Input, Button, Icon, Table, Tag, Pagination} from "antd";
 const { Column, ColumnGroup } = Table;
 import { NotificationManager } from 'react-notifications';
-import { confirmAlert } from 'react-confirm-alert'; // Import
+import { confirmAlert } from 'react-confirm-alert';
 import '../../../../../../node_modules/react-confirm-alert/src/react-confirm-alert.css' // Import css
-import { auth } from "../../../../firebase/firebase";
-// import Pagination from '../../../../components/Pagination/index'
 
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
@@ -37,6 +35,7 @@ class Selection extends React.Component {
     
     const allData = await axios.get('http://localhost:1337/restaurants/getCount');
     console.log('in selection table', allData.data.response)
+
     const data = await axios.get(`http://localhost:1337/restaurants?limit=${this.state.limit}&page=${this.state.page}`);
     this.setState({
       allRestaurantsCount:allData,
@@ -139,7 +138,7 @@ class Selection extends React.Component {
         ...this.getColumnSearchProps("restaurantName"),
 
         /**For sorting by restaurant name */
-        sorter: (a, b) => a.restaurantName.localeCompare(b.restaurantName),
+        // sorter: (a, b) => a.restaurantName.localeCompare(b.restaurantName),
         // sorter: async (a, b) => {
         //   let sortedData = await axios.get('http://localhost:1337/restaurants?sortBy=restaurantName:acs')
 
@@ -210,7 +209,6 @@ class Selection extends React.Component {
         key: 'action',
 
         render: (text) => (
-
           <Row className="glyphs css-mapping">
             <Col className="gx-icon-views" xl={4} lg={6} md={6} sm={8} xs={12}>
               <i className="icon icon-edit" style={{ color: 'green' }} onClick={() => onEdit(text)} />
@@ -218,7 +216,6 @@ class Selection extends React.Component {
             <Col className="gx-icon-views" xl={4} lg={6} md={6} sm={8} xs={12}>
               <i className="icon icon-trash" style={{ color: 'red' }} onClick={() => onDelete(text)} />
             </Col>
-
           </Row>
         ),
       }
@@ -264,14 +261,15 @@ class Selection extends React.Component {
     }
 
     const onEdit = (text) => {
+      console.log('onedit text', text)
       let authUser = localStorage.getItem('user');
+      console.log('authUser', authUser)
       if(authUser !== null)
       {
         this.props.history.push({ pathname: `/restaurant/edit/${text.id}`, data: text, from: 'Selection' })
       }
-      this.props.history.push({ pathname: `/admin/signin`, data: text, from: 'Selection' })
-
-
+      else
+        this.props.history.push({ pathname: `/admin/signin`, data: text, from: 'Selection' })
     }
 
     const addHandler = () => {

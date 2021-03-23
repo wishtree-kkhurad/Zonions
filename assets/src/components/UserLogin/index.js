@@ -13,8 +13,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-// import Divider from '@material-ui/core/Divider';
 import { Divider} from "antd";
+import { NotificationManager } from 'react-notifications';
 
 /**Social media login options */
 import FacebookLogin from 'react-facebook-login';
@@ -129,10 +129,16 @@ function UserLoginForm(props) {
   
   const responseFacebook = (response) => {
     console.log('In facebook sign in',response);
-    
-    localStorage.setItem('user', JSON.stringify({'email':response.email, 'authToken': response.accessToken, 'role':'user'}))
+    if(response.status !== 'unknown')
+    {
+      localStorage.setItem('user', JSON.stringify({'email':response.email, 'authToken': response.accessToken, 'role':'user'}))
 
-    props.history.push({ pathname: '/restaurant/bookings', from: 'UserLogin' });
+      props.history.push({ pathname: '/restaurant/bookings', from: 'UserLogin' });
+    }
+    else
+    {
+      NotificationManager.error('There was problem while login with facebook', 'Fail!', 30000);
+    }
   }
 
 function checkLoginState() {
@@ -143,9 +149,13 @@ function checkLoginState() {
 
   const responseGoogle = (response) => {
     console.log('in google login',response);
-    localStorage.setItem('user', JSON.stringify({'email':response.Hs.nt, 'authToken': response.accessToken, 'role':'user'}))
+    localStorage.setItem('user', JSON.stringify({'email':response.profileObj.email, 'authToken': response.accessToken, 'role':'user'}))
 
     props.history.push({ pathname: '/restaurant/bookings', from: 'UserLogin' });
+  }
+  const responseFailGoogle = () =>{
+    console.log('google login failed')
+     NotificationManager.error('There was problem while login with google', 'Fail!', 30000);
   }
 
   return (
@@ -231,12 +241,15 @@ function checkLoginState() {
                 fields="name,email,picture"
                 buttonText="FACEBOOK"
                 callback={responseFacebook}
+                size='small'
+                // onFailure={}
               />
+             
               <GoogleLogin
                 clientId="291680999068-5n6h9ptfbt45soa9ivlubrenni7mrb2v.apps.googleusercontent.com"
                 buttonText="LOGIN WITH GOOGLE"
                 onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                onFailure={responseFailGoogle}
               />
             </div>
             

@@ -44,7 +44,7 @@ module.exports = {
   getAllRestaurants: function (req, res, next) {
     Logger.verbose('RestaurantController.getAllRestaurants');
     const {page=1, limit=3} = req.query;
-    console.log('server side params = ', req.query)
+    
     // console.log('req.qyery.sortBy',req.query.sortBy)
     // const sort = [];
     // if(req.query.sortBy){
@@ -136,10 +136,10 @@ module.exports = {
       attribute.openingTime = param.openingTime;
     if (param.closingTime)
       attribute.closingTime = param.closingTime;
-    if (param.imgUrl)
-      attribute.imgUrl = param.imgUrl;
-    if (param.imgAlt)
-      attribute.imgAlt = param.imgAlt;
+    if (param.imageData)
+      attribute.imageData = param.imageData;
+    if (param.imageName)
+      attribute.imageName = param.imageName;
     if (param.tagline)
       attribute.tagline = param.tagline;
     if (param.isActive) {
@@ -148,8 +148,6 @@ module.exports = {
     else {
       attribute.isActive = param.isActive;
     }
-
-    console.log('attribute for update from controller', attribute)
 
     RestaurantService.updateRestaurant(id, attribute, (err, restaurantData) => {
       if (err) {

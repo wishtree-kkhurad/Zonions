@@ -58,7 +58,7 @@ module.exports = {
 			cb(err, null)
 		  }
 		  else {
-			Logger.verbose(`newOrExistingRecord = ${JSON.stringify(newOrExistingRecord)}`);
+			Logger.verbose(`newOrExistingRecord = ${(newOrExistingRecord)}`);
 
 			if(newOrExistingRecord && wasCreated===false){
 				Logger.debug('User.findOrCreate at .exec: User already exists');
@@ -66,7 +66,7 @@ module.exports = {
 			}
 			else if(newOrExistingRecord && wasCreated===true){
 				Logger.info('New user registered successfully')
-				cb(null, JSON.stringify(newOrExistingRecord))
+				cb(null, newOrExistingRecord)
 			}
 		  } 
 		});

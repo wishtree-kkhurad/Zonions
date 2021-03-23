@@ -215,8 +215,6 @@ module.exports = {
         }
       }
     }
-    // if (i === args.length) {
-    // Logger.verbose(JSON.stringify(validationErrMsg));
     return callback(null, validationErrMsg);
     // }
   },

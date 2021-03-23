@@ -45,7 +45,7 @@ module.exports.routes = {
 
  /* Restaurant APIs */
  'POST /restaurants': 'RestaurantController.createRestaurants',
- 'PUT /restaurants/:id': 'RestaurantController.updateRestaurant',
+ 'put /restaurants/:id': 'RestaurantController.updateRestaurant',
  'DELETE /restaurants/:id': 'RestaurantController.deleteRestaurant',
 
  'GET /restaurants/getCount': 'RestaurantController.getAllRestaurantsCount',

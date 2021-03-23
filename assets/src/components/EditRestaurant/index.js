@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { AutoComplete, Button, Card, Form, Input, Select, TimePicker } from "antd";
+import { AutoComplete, Button, Card, Form, Input, Select, TimePicker,Upload, message } from "antd";
 import { NotificationManager } from 'react-notifications';
+import { LoadingOutlined, PlusOutlined, UploadOutlined} from '@ant-design/icons';
 
 import validate from 'react-joi-validation';
 import Joi from 'joi' // or whatever Joi library you are using
@@ -20,6 +21,28 @@ const schema = Joi.object().keys({
     openingTime: Joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required(),
     closingTime: Joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required()
 });
+
+
+
+function base64MimeType(encoded) {
+    var result = null;
+    let encode = encoded.split(',')
+    if (typeof encode[1] !== 'string') {
+        return result;
+    }
+    if (encode[1].charAt(0) == '/') {
+        result = "image/jpeg";
+    } else if (encode[1].charAt(0) == 'i') {
+        result = "image/png";
+    } else {
+        return result;
+    }
+    // var mime = encoded.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+    // if (mime && mime.length) {
+    //   result = mime[1];
+    // }
+    return result;
+}
 
 class EditRestaurant extends React.Component {
     constructor(props) {
@@ -44,10 +67,81 @@ class EditRestaurant extends React.Component {
             taglineError: '',
             openingTimeError: '',
             closingTimeError: '',
+
+            loading: false,
+            fileList:[],
+            imgErr:''
         }
     }
-    componentDidMount() {
-        console.log('data', this.props.location.data);
+    getBase64 = (img, callback) => {
+        console.log('getBase64')
+
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            console.log('inside getBase64', reader.result);
+            const mimeResult = base64MimeType(reader.result);
+            console.log('mimeResult', mimeResult)
+            if (mimeResult === null) {
+                this.setState({
+                    loading: false
+                })
+                message.error('You can only upload JPG/PNG file!');
+            }
+            else
+                callback(reader.result)
+        });
+        reader.readAsDataURL(img);
+    }
+
+    beforeUpload = (file) => {
+        console.log('before upload')
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpgOrPng) {
+            message.error('You can only upload JPG/PNG file!');
+            this.setState({
+                imgErr: 'You can only upload JPG/PNG file!'
+            })
+        }
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+            message.error('Image must smaller than 2MB!');
+            this.setState({
+                imgErr: 'Image must smaller than 2MB!'
+            })
+        }
+        else {
+            this.setState({
+                imgErr: ''
+            })
+        }
+        return isJpgOrPng && isLt2M;
+    }
+
+    handleChange = info => {
+        if (info.file.status === 'uploading') {
+            this.setState({ loading: true });
+            return;
+        }
+        if (info.file.status === 'done') {
+            // Get this url from response in real world.
+            console.log('on image change', info.file.originFileObj)
+            this.getBase64(info.file.originFileObj, imageUrl => {
+                console.log('in handle change', imageUrl)
+                this.setState({
+                    imageData: imageUrl,
+                    loading: false,
+                })
+            }
+
+            );
+        }
+    };
+
+
+    async componentDidMount() {
+        console.log('compo did mount in edit form data', this.props.location.data);
+
+        const data = await axios.get('http://localhost:1337/restaurants/getCount');
 
         const { id, restaurantName, tagline, address, phone, imageData, imageName, status, openingTime, closingTime } = this.props.location.data;
 
@@ -61,9 +155,26 @@ class EditRestaurant extends React.Component {
             imageName: imageName,
             status: status,
             openingTime: openingTime,
-            closingTime: closingTime
+            closingTime: closingTime,
         });
+
+        data.data.response.map((restro)=>{
+           
+            if(restro.id === id)
+            {
+                this.setState({
+                    imageData: restro.imageData,
+                    imageName: restro.imageName
+                })
+            }
+        });
+
+        console.log('data in state imageData', this.state.imageData)
+        
+
+        console.log('data after all state set', this.state)
     }
+
     validate = () => {
         const result = Joi.validate(
             {
@@ -84,7 +195,7 @@ class EditRestaurant extends React.Component {
 
         e.preventDefault();
         const result = this.validate();
-
+        
         if (result.error !== null) {
             const errorField = result.error.details[0].context.key;
             console.log('errorFiels', errorField);
@@ -116,16 +227,26 @@ class EditRestaurant extends React.Component {
                 })
             }
         }
+        if(this.state.imgErr!==''){
+            console.log('please check the images upload');
+            this.setState({
+                imgErr:'Please check the image uploaded'
+            })
+
+        }
         else {
-            const editUrl = `http://localhost:1337/restaurants/${this.state.id}`;
             const dataToupload = this.state;
             console.log('data to upload in edit form', dataToupload)
-            axios.put(editUrl, dataToupload)
+
+            axios.put(`http://localhost:1337/restaurants/${this.state.id}`, dataToupload)
                 .then((res) => {
+                    console.log('after PUT response', res)
                     this.props.history.push({ pathname: '/restaurant/manage', from: 'EditRestaurant' });
                     NotificationManager.success('You have updated a restaurant!', 'Successful!', 3000);
                 })
-                .catch((err) => { console.log('error while editing', err) });
+                .catch((err) => {
+                    console.log('error while editing', err) 
+                });
         }
 
     }
@@ -160,7 +281,6 @@ class EditRestaurant extends React.Component {
             closingTime: moment(val._d.getTime()).format('HH:mm')
         })
     }
-
     render() {
         const formItemLayout = {
             labelCol: {
@@ -195,12 +315,18 @@ class EditRestaurant extends React.Component {
                 <Option value="91">+91</Option>
             </Select>
         );
+        const uploadButton = (
+            <div>
+                {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
+                <div>Upload</div>
+            </div>
+        );
         return (
             <Card className="gx-card" title="Edit Restaurant">
                 <Form onSubmit={this.handleSubmit}>
                     <FormItem
                         {...formItemLayout}
-                        label="Restaurant Name"
+                        label="*Restaurant Name"
                     >
                         <Input name='restaurantName' value={this.state.restaurantName} onChange={this.changeHandler} />
                         {
@@ -222,7 +348,7 @@ class EditRestaurant extends React.Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="Location"
+                        label="*Location"
                     >
                         <Input name='address' value={this.state.address} onChange={this.changeHandler} />
                         {
@@ -234,7 +360,7 @@ class EditRestaurant extends React.Component {
 
                     <FormItem
                         {...formItemLayout}
-                        label="Phone Number"
+                        label="*Phone Number"
                     >
                         <Input addonBefore={prefixSelector} name='phone' value={this.state.phone} onChange={this.onPhoneChange} />
                         {
@@ -245,7 +371,7 @@ class EditRestaurant extends React.Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="Opening Time">
+                        label="*Opening Time">
                         <TimePicker
                             format={format}
                             // name='openingTime'
@@ -260,7 +386,7 @@ class EditRestaurant extends React.Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="Closing Time">
+                        label="*Closing Time">
                         <TimePicker
                             format={format}
                             // name='closingTime'
@@ -273,6 +399,31 @@ class EditRestaurant extends React.Component {
                                 : null
                         }
                     </FormItem>
+                    <FormItem
+                    {...formItemLayout}
+                    label="Upload Image"
+                    >
+                    <Upload
+                        action="http://localhost:1337/file/upload"
+                        listType="picture-card"
+                        // defaultFileList={[...this.state.fileList]}
+                        beforeUpload={this.beforeUpload}
+                        onChange={this.handleChange}
+                        showUploadList={true}
+                        >
+                            {
+                           this.state.imageData !== ''
+                           ? <img src={`${this.state.imageData}`} alt={this.state.imageName}/>
+                           : "Upload"
+                            }
+                    </Upload>
+                    {
+                        this.state.imgErr === '' ?
+                        <span>Image must be less than 2mb & only .png, .jpeg, .jgp allowed</span>
+                        :<span style={{ color: 'red' }}>{this.state.imgErr}</span>
+                    }
+                    </FormItem>
+
                     <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Submit</Button>
                     </FormItem>

@@ -18,7 +18,7 @@ import LocationWiseRestaurants from '../../components/LocationWiseRestaurants/in
 import Page404 from '../../components/Page404'
 import Cookie from 'js-cookie';
 import UserLoginForm from '../../components/UserLogin/index'
-
+import UserAfterLogin from '../../components/UserAfterLogin/index'
 import {
   LAYOUT_TYPE_BOXED,
   LAYOUT_TYPE_FRAMED,
@@ -31,14 +31,15 @@ import {
 } from "../../constants/ThemeSetting";
 
 const RestrictedRoute = ({ path, name, component: Component, ...rest }) => {
-  let authUser = localStorage.getItem('user')
+  let authUser = JSON.parse(localStorage.getItem('user'));
+ 
   return (
     <Route
       {...rest}
       render={props =>
-        authUser !== null
+        (authUser !== null)
           ? <Component {...props} />
-          : <Redirect
+          :<Redirect
             to={{
               pathname: '/landingpage',
               state: { from: props.location }
@@ -82,28 +83,38 @@ class App extends Component {
       } 
       else if (( initURL==='' || initURL==='/' || initURL === '/admin/signin') && (authUser.role==='admin')) {
         console.log('initURL in admin if', initURL)
-        return ( <Redirect to={'/restaurant/manage'} /> );
+        return ( <Redirect to={'/restaurant/manage'} authUser={authUser}/> );
       }
       else if (( initURL==='' || initURL==='/' || initURL === '/user/signin')&& (authUser.role==='user')) {
-        return ( <Redirect to={'/restaurant/bookings'} /> );
+        return ( <Redirect to={'/restaurant/bookings'} authUser={authUser}/> );
       }
     }
-  
-    let localeFromLocalStorage = JSON.parse(localStorage.getItem('languagePreference'));
 
     let currentAppLocale=null;
-    localeFromLocalStorage===null?
-    
-    currentAppLocale = AppLocale[locale.locale]
-    :currentAppLocale = AppLocale[localeFromLocalStorage.locale];
+    let localeFromLocalStorage = JSON.parse(localStorage.getItem('languagePreference'));
 
+    if(localeFromLocalStorage!==null)
+    {
+      currentAppLocale = AppLocale[localeFromLocalStorage.locale];
+    }
+    else{
+      if(navigator.language==='hi')
+      {
+        currentAppLocale = AppLocale.hi
+      }
+      else if(navigator.language==='en'||navigator.language==='en-GB')
+      {
+        currentAppLocale = AppLocale.en
+      }
+    }
+    
+    console.log('currentAppLocale',currentAppLocale)
     return (
       <LocaleProvider >
         <IntlProvider
           locale={currentAppLocale.locale}
           messages={currentAppLocale.messages}
         >
-
           <Switch>
               <Route exact path='/landingpage' component={LandingPage} />
               <Route exact path='/restaurants/:location' component={LocationWiseRestaurants} />
@@ -113,9 +124,10 @@ class App extends Component {
               <Route exact path='/admin/signin' component={SignIn} />
               <Route exact path='/user/signin' component={UserLoginForm} />
               <Route exact path='/signup' component={SignUp} />
+
               <RestrictedRoute authUser={authUser}
                 component={MainApp} />
-
+    
               <Route component={Page404} />
           </Switch>
         </IntlProvider>

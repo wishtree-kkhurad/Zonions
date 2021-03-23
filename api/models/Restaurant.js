@@ -92,7 +92,7 @@ module.exports = {
     try {
       const restaurants = await Restaurant.find({})
       Logger.info(`restaurants length ${restaurants.length}`)
-      return callback(null, restaurants.length);
+      return callback(null, restaurants);
     } catch (error) {
       return callback(error);
     }
@@ -103,7 +103,9 @@ module.exports = {
     try {
       const data = await Restaurant.find({ restaurantName: name});
 
-      let retrievedRestro = JSON.stringify(data[0])
+      // let retrievedRestro = JSON.stringify(data[0])
+      let retrievedRestro = data[0];
+
       Logger.verbose(`Restaurant.getRestaurantByName at try: ${retrievedRestro}`)
 
       if(retrievedRestro === undefined)
@@ -121,8 +123,6 @@ module.exports = {
     try {
       const data = await Restaurant.find({
         where:{address: {contains : address}},
-        // skip:0,
-        // limit:10,
         sort: [{ restaurantName: 'ASC' }]
       }).meta({makeLikeModifierCaseInsensitive: true});
       Logger.verbose(`Restaurant.getRestaurantByLocation at try: ${data}`)
@@ -151,7 +151,6 @@ module.exports = {
 
   async updateRestaurant(id, restaurantData, callback) {
     try {
-    
       var updatedRecord = await Restaurant.update({ id:id }).set(restaurantData).fetch();
       console.log('updated record', updatedRecord)
       return callback(null, updatedRecord);

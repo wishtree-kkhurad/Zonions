@@ -10,7 +10,7 @@ const cities = [
     'Nashik',
     'Hyderabad',
     'Yavatmal',
-    'Amaravati',
+    'Amravati',
     'Mumbai',
     'Chandrapur',
     'Bangalore',

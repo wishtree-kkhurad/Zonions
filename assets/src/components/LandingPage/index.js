@@ -144,6 +144,8 @@ class LandingPage extends React.Component {
         <ul className="gx-sub-popover">
             {languageData.map(language =>
                 <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) => {
+                    console.log('lang menu', this.props)
+                    console.log('language', language)
                     this.props.switchLanguage(language)
                     localStorage.setItem('languagePreference', JSON.stringify(language))
                 }
@@ -160,13 +162,11 @@ class LandingPage extends React.Component {
     }
     confirm = (e) => {
         console.log(e);
-        message.success('Click on Yes');
         this.props.history.push({ pathname: '/admin/signin' });
     }
 
     cancel = (e) => {
         console.log(e);
-        message.error('Click on No');
         this.props.history.push({ pathname: '/user/signin' });
 
     }
@@ -276,7 +276,7 @@ class LandingPage extends React.Component {
                                     cuisines.map((item) => {
                                         return (
                                             <div key={item.cuisineId} className='cuisine-card'>
-                                                <a href='#' >
+                                                <a href='/landingpage' >
                                                     <div className='card_img'>
                                                         <img src={item.backGroundImg} alt='Cuisine Image' />
                                                     </div>
@@ -341,7 +341,9 @@ class LandingPage extends React.Component {
                             <Form.Item >
                                 <Button
                                     type="primary"
+                                    ghost
                                     htmlType="submit"
+                                    onClick={this.goToSignup}
                                 >
                                     {/* <IntlMessages id='Sign up' /> */}
                                     <FormattedMessage id="Sign up"

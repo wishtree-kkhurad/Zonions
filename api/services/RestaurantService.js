@@ -143,7 +143,7 @@ module.exports = {
             }
             else {
                 Logger.info('Restaurant updated successfully.');
-                Logger.log(`after update: ${JSON.stringify(restaurantData)}`);
+                
                 callback(null, restaurantData);
             }
         });
