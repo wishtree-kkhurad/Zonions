@@ -8,6 +8,7 @@ import UserAfterLogin from '../components/UserAfterLogin/index';
 import Page404 from '../components/Page404';
 import '../../../node_modules/react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
+import Unauthorised from "../components/Unauthorised";
 
 const RouteApp = ({match, authUser}) => (
 
@@ -21,6 +22,7 @@ const RouteApp = ({match, authUser}) => (
       }
       <Route exact path={`${match.url}restaurant/add`} component={AddRestaurant}/>
       <Route exact path={`${match.url}restaurant/edit/:id`} component={EditRestaurant}/>
+      <Route exact path='/unauthorized' component={Unauthorised} />
 
       <Route component={Page404} />
     </Switch>

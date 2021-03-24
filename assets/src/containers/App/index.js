@@ -18,7 +18,9 @@ import LocationWiseRestaurants from '../../components/LocationWiseRestaurants/in
 import Page404 from '../../components/Page404'
 import Cookie from 'js-cookie';
 import UserLoginForm from '../../components/UserLogin/index'
-import UserAfterLogin from '../../components/UserAfterLogin/index'
+import UserAfterLogin from '../../components/UserAfterLogin/index';
+import Unauthorised from "../../components/Unauthorised";
+
 import {
   LAYOUT_TYPE_BOXED,
   LAYOUT_TYPE_FRAMED,
@@ -32,6 +34,7 @@ import {
 
 const RestrictedRoute = ({ path, name, component: Component, ...rest }) => {
   let authUser = JSON.parse(localStorage.getItem('user'));
+  // let authUser = localStorage.getItem('user');
  
   return (
     <Route
@@ -72,7 +75,9 @@ class App extends Component {
 
   render() {
     const { match, location, layoutType, navStyle,locale, initURL } = this.props;
-    let authUser = JSON.parse(localStorage.getItem('user'))
+    let authUser = JSON.parse(localStorage.getItem('user'));
+    // let authUser = localStorage.getItem('user');
+
    
     if (location.pathname === '/') {
       console.log('inside auth user checking', location.pathname);
@@ -92,6 +97,8 @@ class App extends Component {
 
     let currentAppLocale=null;
     let localeFromLocalStorage = JSON.parse(localStorage.getItem('languagePreference'));
+    // let localeFromLocalStorage = localStorage.getItem('languagePreference');
+
 
     if(localeFromLocalStorage!==null)
     {
@@ -124,10 +131,10 @@ class App extends Component {
               <Route exact path='/admin/signin' component={SignIn} />
               <Route exact path='/user/signin' component={UserLoginForm} />
               <Route exact path='/signup' component={SignUp} />
-
+              <Route exact path='//unauthorized' component={Unauthorised} />
               <RestrictedRoute authUser={authUser}
                 component={MainApp} />
-    
+            
               <Route component={Page404} />
           </Switch>
         </IntlProvider>

@@ -17,7 +17,7 @@ module.exports = {
     }, function (err, filesUploaded) {
       if (err) 
         return res.serverError(err);
-      return res.json({"status":200, "file": filesUploaded});
+      return res.send({status:200, file: filesUploaded});
     });
   },
 

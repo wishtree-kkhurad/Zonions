@@ -222,9 +222,9 @@ class Selection extends React.Component {
     ];
 
     const onDelete = (text) => {
-      let authUser = localStorage.getItem('user');
-      console.log('authUser in selection', authUser)
-      if(authUser !== null)
+      let authUser = JSON.parse(localStorage.getItem('user'));
+      
+      if(authUser !== null && authUser.role==='admin')
       {
         confirmAlert({
           title: 'Confirm Action',
@@ -255,25 +255,40 @@ class Selection extends React.Component {
           ]
         })
       }
+      else if(authUser !== null && authUser.role==='user'){
+        this.props.history.push({ pathname: `/unauthorized`, data: text, from: 'Selection' });
+      }
       else{
         this.props.history.push({ pathname: `/admin/signin`, data: text, from: 'Selection' });
       }
     }
 
     const onEdit = (text) => {
-      console.log('onedit text', text)
-      let authUser = localStorage.getItem('user');
-      console.log('authUser', authUser)
-      if(authUser !== null)
+      let authUser = JSON.parse(localStorage.getItem('user'));
+
+      if(authUser !== null && authUser.role === 'admin')
       {
         this.props.history.push({ pathname: `/restaurant/edit/${text.id}`, data: text, from: 'Selection' })
+      }
+      else if(authUser !== null && authUser.role==='user'){
+        this.props.history.push({ pathname: `/unauthorized`, data: text, from: 'Selection' });
       }
       else
         this.props.history.push({ pathname: `/admin/signin`, data: text, from: 'Selection' })
     }
 
     const addHandler = () => {
-      this.props.history.push({ pathname: '/restaurant/add', from: 'Selection' });
+      let authUser = JSON.parse(localStorage.getItem('user'));
+
+      if(authUser !== null && authUser.role === 'admin')
+      {
+        this.props.history.push({ pathname: '/restaurant/add', from: 'Selection' });
+      }
+      else if(authUser !== null && authUser.role==='user'){
+        this.props.history.push({ pathname: `/unauthorized`, from: 'Selection' });
+      }
+      else
+        this.props.history.push({ pathname: `/admin/signin`, from: 'Selection' })
     }
 
     return (
